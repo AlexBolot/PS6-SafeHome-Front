@@ -1,0 +1,11 @@
+.leftbutton {
+  display: inline;
+  margin-left:20%;
+}
+.rightbutton{
+  display: inline;
+  margin-left:45%;
+}
+.head {
+  background-color: #388dff;
+}
