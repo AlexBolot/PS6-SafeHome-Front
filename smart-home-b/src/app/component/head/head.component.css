@@ -1,6 +1,7 @@
 .leftbutton {
   display: inline;
   margin-left:20%;
+
 }
 .rightbutton{
   display: inline;
@@ -9,3 +10,4 @@
 .head {
   background-color: #388dff;
 }
+

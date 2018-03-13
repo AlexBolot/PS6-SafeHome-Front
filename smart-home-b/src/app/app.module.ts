@@ -8,6 +8,7 @@ import {BodyComponent} from './component/body/body.component';
 import { IssueFormComponent } from './component/issue-form/issue-form.component';
 import {IssueListComponent} from './component/issue-list/issue-list.component';
 import {IssueComponent} from './component/issue/issue.component';
+import { AppRoutingModule } from './/app-routing.module';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {IssueComponent} from './component/issue/issue.component';
     IssueFormComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
