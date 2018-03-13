@@ -7,7 +7,6 @@ import {Issue} from '../../model/issue';
   styleUrls: ['./issue-list.component.css']
 })
 export class IssueListComponent implements OnInit {
-
   bob: Issue[] = [
     new Issue(5),
     new Issue(7),
