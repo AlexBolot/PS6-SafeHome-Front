@@ -1,0 +1,43 @@
+.incident-block {
+  width: 100%;
+  border: solid 1px #272727;
+  border-radius: 4px;
+  margin-bottom: .2em;
+  padding: 10px;
+}
+
+.width-full {
+  width: 100%;
+  display: table;
+}
+
+.margin-left-1em {
+  margin-left: 1em;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.table {
+  display: block;
+  width: 100%;
+}
+
+.large-cell {
+  float: left;
+  width: 40%;
+  word-wrap: break-word;
+}
+
+.medium-cell {
+  float: left;
+  width: 30%;
+  word-wrap: break-word;
+}
+
+.small-cell {
+  float: left;
+  width: 20%;
+  word-wrap: break-word;
+}

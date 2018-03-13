@@ -1,0 +1,11 @@
+<div class="main">
+  <div class="margin-bottom-1em">
+    <button class="large-button">Déclaré</button>
+    <button class="large-button">Assigné</button>
+  </div>
+  <div class="list">
+    <div *ngFor="let i of bob">
+      <app-issue [issue]="i"></app-issue>
+    </div>
+  </div>
+</div>

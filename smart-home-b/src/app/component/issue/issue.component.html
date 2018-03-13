@@ -1,0 +1,19 @@
+<div class="incident-block">
+  <h3 class="margin-left-1em">ID : {{issue.idIssue}}
+    <button class="margin-left-1em" (click)="showMore()">more</button>
+  </h3>
+  <div class="width-full table">
+    <div class="width-full rTableRow">
+      <div class="medium-cell"><p class="no-margin">Date : 13/03/2018</p></div>
+      <div class="large-cell"><p class="no-margin">Catégorie : Courses</p></div>
+      <div class="small-cell"><p class="no-margin">Status : A faire</p></div>
+    </div>
+    <div class="width-full rTableRow" *ngIf="bool">
+      <br>
+      <div class="medium-cell"><img src=""></div>
+      <div class="large-cell">Description : On manque de coca...
+      </div>
+      <div class="small-cell">Destinataire : Maman</div>
+    </div>
+  </div>
+</div>
