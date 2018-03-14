@@ -1,0 +1,78 @@
+<div class="large-cell" class="margintop5">
+  <label class="margin25left">
+    Titre* :
+  </label>
+  <textarea>
+  </textarea>
+</div>
+<div class="margintop5">
+  <label class="margin25left">
+    Description :
+  </label>
+  <textarea>
+  </textarea>
+</div>
+<div class="table" class="margintop5">
+  <div class="large-cell">
+    <label class="margin25left">
+      Destinataire :
+    </label>
+    <select name="destinataire">
+      <option value="Person 1">Person</option>
+      <option value="Person 2">Person</option>
+    </select>
+  </div>
+  <div class="large-cell">
+    <label class="margin10left">
+      Localisation :
+    </label>
+    <select name="localisation">
+      <option value="Localisation 1">Localisation</option>
+      <option value="Localisation 2">Localisation</option>
+      <option value="Localisation 3">Localisation</option>
+      <option value="Localisation 4">Localisation</option>
+    </select>
+  </div>
+</div>
+<div class="table" class="margintop5">
+  <div class=large-cell>
+    <label class="margin25left">
+      Date - Heure :
+    </label>
+    <input type="date">
+  </div>
+  <div class="large-cell">
+    <label class="marginleft4">
+      Type incident* :
+    </label>
+    <select name="type incident">
+      <option value="Type Incident ">type incident</option>
+    </select>
+  </div>
+</div>
+<div class="table" class="margintop5">
+  <div class="large-cell">
+    <label class="margin25left">
+      Importance* :
+    </label>
+    <select name="importance">
+      <option value="Importance">Importance</option>
+    </select>
+  </div>
+  <div class="large-cell">
+    <button class="margin25left">
+      Importer une photo
+    </button>
+  </div>
+</div>
+<div class="table" class="margin">
+  <button class="buttonleft" (click)="goBack()">
+    Retour
+  </button>
+  <button class="buttonright">
+    Valider
+  </button>
+</div>
+<label class="margintop">
+  *champs obligatoires
+</label>
