@@ -10,7 +10,7 @@ import {StatusService} from '../../service/status/status.service';
 })
 export class IssueComponent implements OnInit {
 
-  bool = false;
+  visibleDetails = false;
   categoryLabel: String;
   statusLabel: String;
 
@@ -25,7 +25,7 @@ export class IssueComponent implements OnInit {
   }
 
   showMore() {
-    this.bool = !this.bool;
+    this.visibleDetails = !this.visibleDetails;
   }
 
 }
