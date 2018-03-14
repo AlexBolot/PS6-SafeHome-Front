@@ -28,16 +28,22 @@
   float: left;
   width: 40%;
   word-wrap: break-word;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .medium-cell {
   float: left;
   width: 30%;
   word-wrap: break-word;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .small-cell {
   float: left;
   width: 20%;
   word-wrap: break-word;
+  padding-left: 10px;
+  padding-right: 10px;
 }

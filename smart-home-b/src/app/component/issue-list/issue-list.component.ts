@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Issue} from '../../model/issue';
+import {IssueService} from '../../service/issue/issue.service';
 
 @Component({
   selector: 'app-issue-list',
@@ -8,18 +9,13 @@ import {Issue} from '../../model/issue';
 })
 export class IssueListComponent implements OnInit {
 
-  bob: Issue[] = [
-    new Issue(5),
-    new Issue(7),
-    new Issue(1),
-    new Issue(24),
-    new Issue(51)
-  ];
+  issues: Issue[] = [];
 
-  constructor() {
+  constructor(private issueService: IssueService) {
   }
 
   ngOnInit() {
+    this.issues = this.issueService.getIssues();
   }
 
 }
