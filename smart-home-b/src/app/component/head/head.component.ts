@@ -13,4 +13,5 @@ export class HeadComponent implements OnInit {
   goTo() {
 
   }
+
 }
