@@ -2,25 +2,20 @@
   margin-top: 4%;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 60%;
+}
+
+.button-container {
+  width: 100%;
+  text-align: center;
+  margin-bottom: .2em;
 }
 
 .large-button {
-  width: 49%;
-  margin-left: auto;
-  margin-right: auto;
+  width: 49.5%;
   font-size: 1em;
   height: 2.5em;
   border-radius: 4px;
-  background: lightblue;
-}
-
-.large-button:active {
-  background: #7c9ba5;
-}
-
-.large-button:focus {
-  background: #7c9ba5;
 }
 
 .list {
@@ -29,5 +24,12 @@
 }
 
 .margin-bottom-1em {
-  margin-bottom: 1em;
+}
+
+.selected {
+  background: #5b96ff;
+}
+
+.not-selected {
+  background: #98c2ff;
 }

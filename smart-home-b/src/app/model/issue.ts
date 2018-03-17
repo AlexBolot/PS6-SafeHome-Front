@@ -1,30 +1,30 @@
 export class Issue {
-  idIssue: number;
-  title: string;
-  description: string;
-  dateIncident: Date;
-  dateDeclaration: Date;
-  idUrgency: number;
-  idCat: number;
-  idAuthor: number;
-  idStatus: number;
-  idLocation: number;
-  image: string;
-  idHome: number;
+  id: number;
+  Title: string;
+  Description: string;
+  Date: Date;
+  DeclarationDate: Date;
+  IDUrgency: number;
+  categoryId: number;
+  IDAuthor: number;
+  IDStatus: number;
+  IDLocation: number;
+  Picture: string;
+  homesId: number;
 
   constructor(idIssue: number, title: string, description: string, dateIncident: Date, dateDeclaration: Date, idUrgency: number,
               idCat: number, idAuthor: number, idStatus: number, idLocation: number, image: string, idHome: number = -1) {
-    this.idIssue = idIssue;
-    this.title = title;
-    this.description = description;
-    this.dateIncident = dateIncident;
-    this.dateDeclaration = dateDeclaration;
-    this.idUrgency = idUrgency;
-    this.idCat = idCat;
-    this.idAuthor = idAuthor;
-    this.idStatus = idStatus;
-    this.idLocation = idLocation;
-    this.image = image;
-    this.idHome = idHome;
+    this.id = idIssue;
+    this.Title = title;
+    this.Description = description;
+    this.Date = dateIncident;
+    this.DeclarationDate = dateDeclaration;
+    this.IDUrgency = idUrgency;
+    this.categoryId = idCat;
+    this.IDAuthor = idAuthor;
+    this.IDStatus = idStatus;
+    this.IDLocation = idLocation;
+    this.Picture = image;
+    this.homesId = idHome;
   }
 }

@@ -10,12 +10,23 @@ import {IssueService} from '../../service/issue/issue.service';
 export class IssueListComponent implements OnInit {
 
   issues: Issue[] = [];
+  declaredButtonColor = 'not-selected';
+  assignedButtonColor = 'not-selected';
 
   constructor(private issueService: IssueService) {
   }
 
   ngOnInit() {
-    this.issues = this.issueService.getIssues();
+    this.issueService.getAll().subscribe(value => this.issues = value);
   }
 
+  declaredButton_OnClick() {
+    this.declaredButtonColor = 'selected';
+    this.assignedButtonColor = 'not-selected';
+  }
+
+  assignedButton_OnClick() {
+    this.assignedButtonColor = 'selected';
+    this.declaredButtonColor = 'not-selected';
+  }
 }

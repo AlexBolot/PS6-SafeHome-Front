@@ -1,13 +1,13 @@
-.leftbutton {
+.left-button {
   display: inline;
   margin-left:20%;
 
 }
-.rightbutton{
+.right-button{
   display: inline;
   margin-left:45%;
 }
 .head {
-  background-color: #388dff;
+  background-color: #37beff;
 }
 

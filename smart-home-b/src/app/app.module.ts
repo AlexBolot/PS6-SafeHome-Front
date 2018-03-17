@@ -2,14 +2,14 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {MatDialogModule, MatFormFieldModule} from '@angular/material';
-import { MatInputModule } from '@angular/material';
+import {MatInputModule} from '@angular/material';
 import {AppComponent} from './app.component';
 import {HeadComponent} from './component/head/head.component';
 import {BodyComponent} from './component/body/body.component';
-import { IssueFormComponent } from './component/issue-form/issue-form.component';
+import {IssueFormComponent} from './component/issue-form/issue-form.component';
 import {IssueListComponent} from './component/issue-list/issue-list.component';
 import {IssueComponent} from './component/issue/issue.component';
-import { AppRoutingModule } from './/app-routing.module';
+import {AppRoutingModule} from './app-routing.module';
 import {PopupissueComponent} from './popupissue/popupissue.component';
 import {IssueService} from './service/issue/issue.service';
 import {CategoryService} from './service/category/category.service';

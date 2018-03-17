@@ -1,7 +1,7 @@
 <div class="main">
-  <div class="margin-bottom-1em">
-    <button class="large-button">Déclaré</button>
-    <button class="large-button">Assigné</button>
+  <div class="button-container">
+    <button [ngClass]="declaredButtonColor" class="large-button" (click)="declaredButton_OnClick()">Déclaré</button>
+    <button [ngClass]="assignedButtonColor" class="large-button" (click)="assignedButton_OnClick()">Assigné</button>
   </div>
   <div class="list">
     <div *ngFor="let i of issues">

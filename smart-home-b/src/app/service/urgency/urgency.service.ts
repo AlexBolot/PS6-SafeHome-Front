@@ -1,20 +1,25 @@
 import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class UrgencyService {
 
-  map = new Map([
-    [1, 'Mineur'],
-    [2, 'Faible'],
-    [3, 'Moyenne'],
-    [4, 'Grande'],
-    [5, 'Majeur']
-  ]);
+  API_url = 'http://galles.io:5491/api/Urgencies';
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
   }
 
-  getLabel(id: number): String {
-    return this.map.get(id);
+  getAll(): Observable<String[]> {
+    return this.httpClient.get<JSON[]>(this.API_url).map(json => {
+      const res: String[] = [];
+      json.forEach(field => res.push(field['Name']));
+      return res;
+    });
+  }
+
+  getByID(id: number): Observable<String> {
+    return this.httpClient.get<JSON>(this.API_url + '/' + id)
+      .map(res => res['Name']);
   }
 }

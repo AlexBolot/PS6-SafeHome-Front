@@ -1,9 +1,10 @@
 .incident-block {
-  width: 100%;
+  width: auto;
   border: solid 1px #272727;
   border-radius: 4px;
   margin-bottom: .2em;
   padding: 10px;
+  background-color: #ebebeb;
 }
 
 .width-full {

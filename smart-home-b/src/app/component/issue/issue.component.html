@@ -1,19 +1,19 @@
 <div class="incident-block">
-  <h3 class="margin-left-1em">Titre : {{issue.title}}
+  <h3 class="margin-left-1em">Titre : {{issue.Title}}
     <button class="margin-left-1em" (click)="showMore()">more</button>
   </h3>
   <div class="width-full table">
     <div class="width-full">
-      <div class="medium-cell"><p class="no-margin">Date : {{issue.dateDeclaration | date}}</p></div>
+      <div class="medium-cell"><p class="no-margin">Date : {{issue.DeclarationDate | date}}</p></div>
       <div class="large-cell"><p class="no-margin">Catégorie : {{categoryLabel}}</p></div>
       <div class="small-cell"><p class="no-margin">Status : {{statusLabel}}</p></div>
     </div>
     <div class="width-full" *ngIf="visibleDetails">
       <br>
-      <div class="medium-cell"><img src="{{issue.image}}"></div>
-      <div class="large-cell">Description : {{issue.description}}
+      <div class="medium-cell"><img src="{{issue.Picture}}"></div>
+      <div class="large-cell">Description : {{issue.Description}}
       </div>
-      <div class="small-cell">Destinataire : Maman</div>
+      <div class="small-cell">Destinataire : undefined</div>
     </div>
   </div>
 </div>
