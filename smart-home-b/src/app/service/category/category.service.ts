@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class CategoryService {
 
-  API_url = 'http://galles.io:5491/api/categories';
+  API_url = 'https://galles.io/pns/shb/api/categories';
 
   constructor(private httpClient: HttpClient) {
   }

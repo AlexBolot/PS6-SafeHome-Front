@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 @Injectable()
 export class IssueService {
 
-  API_url = 'http://galles.io:5491/api/Issues';
+  API_url = 'https://galles.io/pns/shb/api/Issues';
 
   constructor(private httpClient: HttpClient) {
   }
