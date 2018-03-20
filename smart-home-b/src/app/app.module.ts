@@ -19,6 +19,8 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConnexionComponent } from './component/connexion/connexion.component';
 import { PopupreturnComponent } from './component/popupreturn/popupreturn.component';
+import {FormsModule} from '@angular/forms';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 
 @NgModule({
@@ -37,8 +39,10 @@ import { PopupreturnComponent } from './component/popupreturn/popupreturn.compon
     BrowserModule, HttpClientModule, AppRoutingModule,
     MatFormFieldModule,
     MatInputModule,
+    FormsModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    InputTextareaModule
   ],
   entryComponents: [
     PopupissueComponent,

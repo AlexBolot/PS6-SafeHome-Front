@@ -3,6 +3,7 @@ import {Issue} from '../../model/issue';
 import {CategoryService} from '../../service/category/category.service';
 import {StatusService} from '../../service/status/status.service';
 import {UrgencyService} from '../../service/urgency/urgency.service';
+import {TaskService} from '../../service/task/task.service';
 
 @Component({
   selector: 'app-issue',
@@ -18,12 +19,18 @@ export class IssueComponent implements OnInit {
 
   @Input() issue: Issue;
 
-  constructor(private categoryService: CategoryService, private statusService: StatusService, private urgencyService: UrgencyService) {
+  constructor(private categoryService: CategoryService,
+              private statusService: StatusService,
+              private urgencyService: UrgencyService,
+              private taskService: TaskService) {
   }
 
   ngOnInit() {
     this.categoryService.getByID(this.issue.categoryId).subscribe(value => this.categoryLabel = value);
     this.urgencyService.getByID(this.issue.IDUrgency).subscribe(value => this.urgencyLabel = value);
+
+    this.taskService.getAll().subscribe(value => console.log(value));
+
     this.statusService.getByID(this.issue.IDStatus).subscribe(value => this.statusLabel = value);
   }
 

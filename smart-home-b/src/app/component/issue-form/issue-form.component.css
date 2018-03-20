@@ -14,6 +14,7 @@
   display:inline;
 }
 
+
 .small-cell {
   float: left;
   width: 20%;
@@ -39,6 +40,8 @@
  .marginleft4{
   margin-left:4.4%;
 }
-
+.div{
+  vertical-align:top;
+}
 
 
