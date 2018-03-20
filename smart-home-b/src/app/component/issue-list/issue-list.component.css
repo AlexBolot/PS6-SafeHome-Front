@@ -16,6 +16,7 @@
   font-size: 1em;
   height: 2.5em;
   border-radius: 4px;
+  outline: 0;
 }
 
 .list {
