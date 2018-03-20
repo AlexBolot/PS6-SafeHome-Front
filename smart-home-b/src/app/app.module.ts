@@ -17,8 +17,10 @@ import {UrgencyService} from './service/urgency/urgency.service';
 import {StatusService} from './service/status/status.service';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpInterceptor} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ConnexionComponent} from './component/connexion/connexion.component';
-import {PopupreturnComponent} from './component/popupreturn/popupreturn.component';
+import {ConnexionComponent } from './component/connexion/connexion.component';
+import { PopupreturnComponent } from './component/popupreturn/popupreturn.component';
+import {FormsModule} from '@angular/forms';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 import {AuthenticationService} from "./service/authentication/authentication.service";
 import {AuthInterceptor} from "./service/authentication/auth-interceptor";
 
@@ -39,8 +41,10 @@ import {AuthInterceptor} from "./service/authentication/auth-interceptor";
     BrowserModule, HttpClientModule, AppRoutingModule,
     MatFormFieldModule,
     MatInputModule,
+    FormsModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    InputTextareaModule
   ],
   entryComponents: [
     PopupissueComponent,

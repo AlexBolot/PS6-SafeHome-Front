@@ -1,38 +1,29 @@
 <div class="large-cell" class="margintop5">
-  <label class="margin25left">
+  <label class="margin25left div">
     Titre* :
   </label>
-  <textarea>
+  <textarea rows ="2" cols="84"pInputTextarea autoResize="autoResize" [(ngModel)]="title">
   </textarea>
 </div>
 <div class="margintop5">
-  <label class="margin25left">
+  <label class="margin25left div">
     Description :
   </label>
-  <textarea>
+  <textarea rows ="2" cols="79"pInputTextarea autoResize="autoResize" [(ngModel)]="description">
   </textarea>
 </div>
-<div class="table" class="margintop5">
+<div class="table margintop5">
   <div class="large-cell">
     <label class="margin25left">
-      Destinataire :
-    </label>
-    <select name="destinataire">
-      <option value="Person 1">Person</option>
-      <option value="Person 2">Person</option>
-    </select>
-  </div>
-  <div class="large-cell">
-    <label class="margin10left">
       Localisation :
     </label>
-    <select name="localisation">
+    <select name="localisation" [(ngModel)]="idLocation">
       <option value="Localisation 1">Localisation</option>
       <option value="Localisation 2">Localisation</option>
       <option value="Localisation 3">Localisation</option>
       <option value="Localisation 4">Localisation</option>
     </select>
-  </div>
+</div>
 </div>
 <div class="table" class="margintop5">
   <div class=large-cell>
@@ -45,9 +36,10 @@
     <label class="marginleft4">
       Type incident* :
     </label>
-    <select name="type incident">
-      <option value="Type Incident ">type incident</option>
-    </select>
+   <!-- <select name="type incident">
+      <option *ngFor="let key of mapCategoryKeys()" [value]="key" [(ngModel)]="idCat">
+        {{ mapCategory.get(key)}} </option>
+    </select>-->
   </div>
 </div>
 <div class="table" class="margintop5">
@@ -56,7 +48,8 @@
       Importance* :
     </label>
     <select name="importance">
-      <option value="Importance">Importance</option>
+      <option *ngFor="let key of mapUrgencyKeys" [value]="key" >
+        {{ mapUrgency.get(key) }}</option>
     </select>
   </div>
   <div class="large-cell">
