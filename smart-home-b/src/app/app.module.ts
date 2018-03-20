@@ -15,10 +15,12 @@ import {IssueService} from './service/issue/issue.service';
 import {CategoryService} from './service/category/category.service';
 import {UrgencyService} from './service/urgency/urgency.service';
 import {StatusService} from './service/status/status.service';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpInterceptor} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ConnexionComponent } from './component/connexion/connexion.component';
-import { PopupreturnComponent } from './component/popupreturn/popupreturn.component';
+import {ConnexionComponent} from './component/connexion/connexion.component';
+import {PopupreturnComponent} from './component/popupreturn/popupreturn.component';
+import {AuthenticationService} from "./service/authentication/authentication.service";
+import {AuthInterceptor} from "./service/authentication/auth-interceptor";
 
 
 @NgModule({
@@ -44,7 +46,8 @@ import { PopupreturnComponent } from './component/popupreturn/popupreturn.compon
     PopupissueComponent,
     PopupreturnComponent
   ],
-  providers: [IssueService, CategoryService, UrgencyService, StatusService, HttpClient],
+  providers: [IssueService, CategoryService, UrgencyService, StatusService, HttpClient, AuthenticationService
+    ,{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule {
