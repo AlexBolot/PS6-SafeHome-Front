@@ -20,6 +20,6 @@ import {Router} from '@angular/router';
   }
   onOkClick(): void {
     this.dialogRef.close();
-    this.router.navigate(['/issueForm']);
+    window.location.reload();
   }
 }
