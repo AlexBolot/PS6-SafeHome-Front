@@ -17,6 +17,7 @@ import {UrgencyService} from './service/urgency/urgency.service';
 import {StatusService} from './service/status/status.service';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ConnexionComponent } from './component/connexion/connexion.component';
 import { PopupreturnComponent } from './component/popupreturn/popupreturn.component';
 
 
@@ -30,6 +31,7 @@ import { PopupreturnComponent } from './component/popupreturn/popupreturn.compon
     IssueFormComponent,
     PopupissueComponent,
     PopupreturnComponent,
+    ConnexionComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, AppRoutingModule,
