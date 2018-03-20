@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
-import {AppSettings} from "../../model/app-settings";
+import {AppSettings} from '../../model/app-settings';
 
 @Injectable()
 export class UrgencyService {
 
-  API_url = AppSettings.API_ROOT+'/Urgencies';
+  API_url = AppSettings.API_ROOT + '/Urgencies';
 
   constructor(private httpClient: HttpClient) {
   }
