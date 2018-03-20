@@ -17,6 +17,7 @@ import {UrgencyService} from './service/urgency/urgency.service';
 import {StatusService} from './service/status/status.service';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ConnexionComponent } from './component/connexion/connexion.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     IssueComponent,
     IssueFormComponent,
     PopupissueComponent,
+    ConnexionComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, AppRoutingModule,
