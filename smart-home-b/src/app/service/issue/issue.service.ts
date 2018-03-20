@@ -7,7 +7,7 @@ import {AppSettings} from "../../model/app-settings";
 @Injectable()
 export class IssueService {
 
-  API_url = AppSettings.API_ROOT+'/api/Issues';
+  API_url = AppSettings.API_ROOT+'/Issues';
 
   constructor(private httpClient: HttpClient) {
   }
