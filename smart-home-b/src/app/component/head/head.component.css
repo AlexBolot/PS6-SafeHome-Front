@@ -1,16 +1,19 @@
-.left-button {
-  display: inline;
+.contenantBtn {
+  width: auto;
   margin-left:20%;
-
+  margin-bottom:0%;
+  outline: 0;
 }
-.right-button{
-  display: inline;
-  margin-left:45%;
+.contenantBtn .selected {
+  outline: 0;
+  background: white;
+}
+.contenantBtn .not-selected {
+  background: #37beff;
 }
 .head {
   background-color: #37beff;
 }
-
 .logo {
   margin: .5%;
 }
