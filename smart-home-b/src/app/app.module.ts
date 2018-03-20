@@ -10,13 +10,14 @@ import {IssueFormComponent} from './component/issue-form/issue-form.component';
 import {IssueListComponent} from './component/issue-list/issue-list.component';
 import {IssueComponent} from './component/issue/issue.component';
 import {AppRoutingModule} from './app-routing.module';
-import {PopupissueComponent} from './popupissue/popupissue.component';
+import {PopupissueComponent} from './component/popupissue/popupissue.component';
 import {IssueService} from './service/issue/issue.service';
 import {CategoryService} from './service/category/category.service';
 import {UrgencyService} from './service/urgency/urgency.service';
 import {StatusService} from './service/status/status.service';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { PopupreturnComponent } from './component/popupreturn/popupreturn.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     IssueComponent,
     IssueFormComponent,
     PopupissueComponent,
+    PopupreturnComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, AppRoutingModule,
@@ -37,7 +39,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserAnimationsModule
   ],
   entryComponents: [
-    PopupissueComponent
+    PopupissueComponent,
+    PopupreturnComponent
   ],
   providers: [IssueService, CategoryService, UrgencyService, StatusService, HttpClient],
   bootstrap: [AppComponent]
