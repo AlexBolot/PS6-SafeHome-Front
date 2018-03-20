@@ -9,10 +9,7 @@
     </button>
   </div>
   <div class = "right-button">
-    <button>
-      Se connecter
-    </button>
-   <button>
+   <button *ngIf="coverBtnDeconnexion()">
      <a routerLink="/connexion"> Déconnexion </a>
     </button>
   </div>
