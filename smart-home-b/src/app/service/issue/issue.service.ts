@@ -19,5 +19,7 @@ export class IssueService {
   getByID(id: number): Observable<Issue> {
     return this.httpClient.get<Issue>(this.API_url + '/' + id);
   }
-
+  add(issue: Issue){
+    console.log(JSON.stringify(issue))
+  }
 }
