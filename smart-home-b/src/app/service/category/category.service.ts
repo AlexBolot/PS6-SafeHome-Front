@@ -2,11 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import {AppSettings} from "../../model/app-settings";
 
 @Injectable()
 export class CategoryService {
 
-  API_url = 'https://galles.io/pns/shb/api/categories';
+  API_url = AppSettings.API_ROOT+'/categories';
 
   constructor(private httpClient: HttpClient) {
   }
