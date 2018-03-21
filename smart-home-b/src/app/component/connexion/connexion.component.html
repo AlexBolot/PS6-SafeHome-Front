@@ -4,10 +4,16 @@
     <div class="modal-dialog">
       <div class="loginmodal-container">
         <h1>Login to Your Account</h1><br>
-        <form>
-          <input type="email" id="email" placeholder="Username" value="theos.leBG-dugroupe@bugbuster.fr" required>
-          <input type="password" id="pass" placeholder="Password" value="whala" required>
-          <input routerLink="/issueView" type="submit" name="login" class="login loginmodal-submit" value="Login">
+
+        <form #connectionForm="ngForm">
+          <input type="email" name="email" placeholder="Username"  required [(ngModel)]="user.email" #email="ngModel" >
+          <div class="erreur" *ngIf="email.invalid && email.touched"> email </div>
+
+          <input type="password" name="password" placeholder="Password" required [(ngModel)]="user.password" #password="ngModel" >
+          <div class="erreur" *ngIf="password.invalid && password.touched "> password </div>
+
+          <input (click)="login()" type="submit" name="login" class="login loginmodal-submit" value="Login">
+          <div class="erreur" [ngClass]="erreurLogin"> User n'existe pas </div>
         </form>
 
         <div class="login-help">

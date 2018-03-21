@@ -25,7 +25,7 @@ export class AuthenticationService {
     let request =  this.httpclient.post<JSON>(AuthenticationService.personURL+AuthenticationService.loginURL,user);
     request.subscribe(response=>this.aknowledgeLogin(response));
 
-    return request
+    return request;
   }
   getProfile(user:User=null) {
     if(user==null)user  = this.user;
