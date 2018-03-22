@@ -28,7 +28,7 @@
       <td class="col1">  Importance* : </td>
       <td class="col2">
         <select name="Importance" [(ngModel)]="idUrgency">
-          <option *ngFor="let key of mapUrgencyKeys" [value]="key" >{{ mapUrgency.get(key) }}</option>
+          <option *ngFor="let key of mapUrgency.keys()" [value]="key" >{{ mapUrgency.get(key) }}</option>
         </select>
       </td>
       <td class="col3">type incident : </td>
@@ -43,79 +43,10 @@
       <td> Importer Photo :</td>
       <td> <input type="file"> </td>
     </tr>
+
   </table>
 </div>
-<div class="table" class="margin">
-  <button class="buttonleft" (click)="openDialogReturn()">
-    Retour
-  </button>
-  <button class="buttonright" (click)="openDialogValidate()">
-    Valider
-  </button>
-</div>
-<label class="margintop">
-  *champs obligatoires
-</label>
-<!--
-<div class="large-cell" class="margintop5">
-  <label class="margin25left div">
-    Titre* :
-  </label>
-  <textarea rows ="2" cols="84"pInputTextarea autoResize="autoResize" [(ngModel)]="title">
-  </textarea>
-</div>
-<div class="margintop5">
-  <label class="margin25left div">
-    Description :
-  </label>
-  <textarea rows ="2" cols="79"pInputTextarea autoResize="autoResize" [(ngModel)]="description">
-  </textarea>
-</div>
-<div class="table margintop5">
-  <div class="large-cell">
-    <label class="margin25left">
-      Localisation :
-    </label>
-    <select name="localisation" [(ngModel)]="idLocation">
-      <option value="Localisation 1">Localisation</option>
-      <option value="Localisation 2">Localisation</option>
-      <option value="Localisation 3">Localisation</option>
-      <option value="Localisation 4">Localisation</option>
-    </select>
-  </div>
-</div>
-<div class="table" class="margintop5">
-  <div class=large-cell>
-    <label class="margin25left">
-      Date - Heure :
-    </label>
-    <input type="date" [(ngModel)]="dateIncident">
-  </div>
-  <div class="large-cell">
-    <label class="marginleft4">
-      Type incident* :
-    </label>
-    <select name="type incident" [(ngModel)]="idCat">
-       <option *ngFor="let key of mapCategory.keys()" [value]="key"> {{ mapCategory.get(key) }} </option>
-     </select>
-  </div>
-</div>
-<div class="table" class="margintop5">
-  <div class="large-cell">
-    <label class="margin25left">
-      Importance* :
-    </label>
-    <select name="importance" [(ngModel)]="idUrgency">
-      <option *ngFor="let key of mapUrgency.keys()" [value]="key">
-        {{ mapUrgency.get(key) }} </option>
-    </select>
-  </div>
-  <div class="large-cell">
-    <button class="margin25left">
-      Importer une photo
-    </button>
-  </div>
-</div>
+<div class="erreur margin25left " [ngClass]="errorValidate"> Veuillez remplir les champs marqués d'une * ( Ils sont obligatoires ) </div>
 <div class="table" class="margin">
   <button class="buttonleft" (click)="openDialogReturn()">
     Retour

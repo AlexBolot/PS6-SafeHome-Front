@@ -9,7 +9,7 @@ import {User} from '../../model/user';
   styleUrls: ['./connexion.component.css']
 })
 export class ConnexionComponent implements OnInit {
-  private user: User;
+  public user: User;
   erreurLogin = 'cover';
   constructor(private router : Router,
               private authentication : AuthenticationService) { }
@@ -23,8 +23,8 @@ export class ConnexionComponent implements OnInit {
     this.authentication.login(this.user);
     if(this.user.email && this.user.password){
       this.router.navigate(["/issueView"]);
-    }else{
-      this.erreurLogin = "display";
+    } else{
+      this.erreurLogin = 'display';
     }
   }
 }

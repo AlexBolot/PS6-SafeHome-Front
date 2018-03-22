@@ -35,13 +35,17 @@ export class IssueFormComponent implements OnInit {
   public idLocation: number;
   public picture: string;
   public issue: Issue;
+  errorValidate = 'cover';
+
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private location: Location,
               public dialog: MatDialog,
               private urgencyService: UrgencyService,
               private categoryService: CategoryService,
               private issueService: IssueService) {
   }
+
   ngOnInit(): void {
     setTimeout(() => {
       this.initializeAllMap();
@@ -63,20 +67,44 @@ export class IssueFormComponent implements OnInit {
   }
 
   openDialogReturn(): void {
+    if (!this.idCat && !this.idUrgency && !this.description && !this.title && !this.idLocation ) {
+      this.router.navigate(['/issueView']);
+    } else {
+      const dialogRef = this.dialog.open(PopupreturnComponent, {
+      });
     const dialogRef = this.dialog.open(PopupreturnComponent, {
       width: '250px'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+      });
+    }
   }
+
   initializeAllMap(): void {
     this.urgencyService.getAll().subscribe(map => {
       this.mapUrgency = map;
     });
-   this.categoryService.getAll().subscribe(map => {
+    this.categoryService.getAll().subscribe(map => {
       this.mapCategory = map;
     });
   }
+
+  openDialogValidate(): void {
+    if (this.title && this.idCat && this.idUrgency) {
+      this.dateDeclaration = new Date();
+      console.log(this.issue = new Issue(8, this.title, this.description, this.dateIncident,
+        this.dateDeclaration, this.idUrgency, this.idCat, this.idAuthor, this.idStatus, this.idLocation, this.picture));
+      // this.issueService.add(this.issue);
+      const dialogRef = this.dialog.open(PopupissueComponent, {
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+      });
+    } else {
+      this.errorValidate = 'display';
+    }
+  }
+
 }
