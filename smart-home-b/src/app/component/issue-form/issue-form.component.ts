@@ -65,7 +65,7 @@ export class IssueFormComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-
+/*
   openDialogReturn(): void {
     if (!this.idCat && !this.idUrgency && !this.description && !this.title && !this.idLocation ) {
       this.router.navigate(['/issueView']);
@@ -81,7 +81,7 @@ export class IssueFormComponent implements OnInit {
       });
     }
   }
-
+*/
   initializeAllMap(): void {
     this.urgencyService.getAll().subscribe(map => {
       this.mapUrgency = map;
@@ -90,7 +90,7 @@ export class IssueFormComponent implements OnInit {
       this.mapCategory = map;
     });
   }
-
+/*
   openDialogValidate(): void {
     if (this.title && this.idCat && this.idUrgency) {
       this.dateDeclaration = new Date();
@@ -105,6 +105,6 @@ export class IssueFormComponent implements OnInit {
     } else {
       this.errorValidate = 'display';
     }
-  }
+  }*/
 
 }
