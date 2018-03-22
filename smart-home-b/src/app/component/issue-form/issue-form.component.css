@@ -1,27 +1,56 @@
 .divForm{
-  width:80%;
+  width:90%;
   background-color: #98c2ff;
-  alignment: center;
-  margin: 10% auto 6%;
+  margin: 5% auto 5%;
+  border-radius: 10px;
 }
+.divForm table{
+  width:80%;
+  padding: 5% 5%;
+  max-width: 100%;
+}
+.divForm .tr{
+  margin:10px 0px;
+}
+.divForm input{
+  height: 25px;
+  font-size: 16px;
+}
+.divForm select{
+  height: 30px;
+  font-size: 16px;
+}
+.divForm textarea{
+  resize: none;
+}
+#inputTitre{
+  width:300px;
+}
+.col1{
+  width: 20%;
+  min-width: 150px;
+  text-align: right;
+  padding-right: 20px;
+}
+.col2{
+  width: 20%;
+  min-width: 150px;
+}
+.col3{
+  width: 20%;
+  min-width: 150px;
+  text-align: right;
+  padding-right: 20px;
+}
+.col4{
+  width: 20%;
+  min-width: 150px;
+}
+
 .buttonleft{
   margin-left:30%;
 }
 .buttonright{
   margin-left:30%;
 }
-.margin10left{
-  margin-left:10%;
-}.margin25left{
-  margin-left:25%;
-}.margintop5{
-  margin-top:3%;
-  }
- .marginleft4{
-  margin-left:4.4%;
-}
-.div{
-  vertical-align:top;
-}
-
 

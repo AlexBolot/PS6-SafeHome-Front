@@ -1,20 +1,20 @@
 <div class="divForm">
   <table>
-    <tr>
-      <td>Titre* : </td>
-      <td> <input type="text" name="titre" [(ngModel)]="title"> </td>
-      <td></td>
+    <tr class="tr">
+      <td class="col1" >Titre* :  </td>
+      <td class="col2" colspan="2"> <input class="form-control" type="text" name="titre" id="inputTitre" [(ngModel)]="title"> </td>
+      <td class="col4"></td>
     </tr>
     <tr>
-      <td>Description :</td>
-      <td colspan="3"> <textarea rows ="2" cols="79" pInputTextarea autoResize="autoResize" [(ngModel)]="description"> </textarea> </td>
+      <td class="col1" >  Description : </td>
+      <td class="col2" colspan="3"> <textarea rows="3" cols="79"  autoResize="autoResize" [(ngModel)]="description"> </textarea> </td>
     </tr>
     <tr>
-      <td>Date - Heure :</td>
-      <td>
+      <td class="col1"> Date - Heure : </td>
+      <td class="col2">
         <input id="dateDeclaration" type="date">
       </td>
-      <td> Localisation :</td>
+      <td class="col3"> Localisation :</td>
       <td>
         <select name="localisation" [(ngModel)]="idLocation">
           <option value="Localisation 1">Localisation</option>
@@ -25,20 +25,23 @@
       </td>
     </tr>
     <tr>
-      <td>Importance* :</td>
-      <td>
+      <td class="col1">  Importance* : </td>
+      <td class="col2">
         <select name="Importance" [(ngModel)]="idUrgency">
           <option *ngFor="let key of mapUrgencyKeys" [value]="key" >{{ mapUrgency.get(key) }}</option>
         </select>
       </td>
-      <td> type incident : </td>
-      <td>
+      <td class="col3">type incident : </td>
+      <td class="col4">
         <select name="type incident">
           <option *ngFor="let key of mapCategoryKeys()" [value]="key" [(ngModel)]="idCat">
             {{ mapCategory.get(key)}} </option>
         </select>
       </td>
-
+    </tr>
+    <tr>
+      <td> Importer Photo :</td>
+      <td> <input type="file"> </td>
     </tr>
   </table>
 </div>
