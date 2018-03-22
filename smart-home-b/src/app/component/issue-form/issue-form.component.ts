@@ -19,10 +19,10 @@ import {IssueService} from '../../service/issue/issue.service';
   templateUrl: './issue-form.component.html',
   styleUrls: ['./issue-form.component.css']
 })
-export class IssueFormComponent implements OnInit{
+export class IssueFormComponent implements OnInit {
   public mapUrgency: Map<Number, String> = new Map<Number, String>();
-  public mapCategory: Map<Number,String> = new Map<Number,String>();
-  public mapLocation: Map<Number,String> = new Map<Number,String>();
+  public mapCategory: Map<Number, String> = new Map<Number, String>();
+  public mapLocation: Map<Number, String> = new Map<Number, String>();
   public mapUrgencyKeys;
   public description: string;
   public title: string;
@@ -34,7 +34,7 @@ export class IssueFormComponent implements OnInit{
   public idStatus: number;
   public idLocation: number;
   public picture: string;
-  public issue : Issue;
+  public issue: Issue;
   constructor(private route: ActivatedRoute,
               private location: Location,
               public dialog: MatDialog,
@@ -42,7 +42,7 @@ export class IssueFormComponent implements OnInit{
               private categoryService: CategoryService,
               private issueService: IssueService) {
   }
-  ngOnInit():void{
+  ngOnInit(): void {
     setTimeout(() => {
       this.initializeAllMap();
     });
@@ -50,9 +50,9 @@ export class IssueFormComponent implements OnInit{
 
   openDialogValidate(): void {
     this.dateDeclaration = new Date();
-    this.issue = new Issue(8,this.title,this.description,this.dateIncident,
-      this.dateDeclaration,this.idUrgency,this.idCat,this.idAuthor,this.idStatus,this.idLocation,this.picture);
-    this.issueService.add(this.issue);
+    console.log(this.issue = new Issue(8, this.title, this.description, this.dateIncident,
+      this.dateDeclaration, this.idUrgency, this.idCat, this.idAuthor, this.idStatus, this.idLocation, this.picture));
+   // this.issueService.add(this.issue);
     const dialogRef = this.dialog.open(PopupissueComponent, {
       width: '250px',
     });
@@ -71,14 +71,12 @@ export class IssueFormComponent implements OnInit{
       console.log('The dialog was closed');
     });
   }
-  initializeAllMap():void{
+  initializeAllMap(): void {
     this.urgencyService.getAll().subscribe(map => {
       this.mapUrgency = map;
-      this.mapUrgencyKeys = map.keys();
     });
-   /* this.categoryService.getAll().subscribe(map => {
+   this.categoryService.getAll().subscribe(map => {
       this.mapCategory = map;
-
-    })*/
+    });
   }
 }

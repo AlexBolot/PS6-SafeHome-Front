@@ -5,7 +5,7 @@ export class User {
   admin: boolean;
   email: string;
 
-  constructor(User:any={}) {
+  constructor(User: any = {}) {
     this.idUser = User.idUser;
     this.username = User.username;
     this.password = User.password;
@@ -14,5 +14,5 @@ export class User {
     this.token = User.token;
   }
 
-  token:string;
+  token: string;
 }

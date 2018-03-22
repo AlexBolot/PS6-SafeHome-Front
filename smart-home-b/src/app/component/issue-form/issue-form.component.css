@@ -1,47 +1,57 @@
 .table {
   width: 100%;
-  display:table;
+  display: table;
 }
+
 .large-cell {
   float: bottom;
   width: 100%;
-  display:inline;
+  display: inline;
 }
 
 .medium-cell {
   float: left;
   width: 30%;
-  display:inline;
+  display: inline;
 }
-
 
 .small-cell {
   float: left;
   width: 20%;
-  display:inline;
+  display: inline;
 }
-.margin{
-  width:100%;
+
+.margin {
+  width: 100%;
   margin: 10% auto 6%;
 }
-.buttonleft{
-  margin-left:30%;
+
+.buttonleft {
+  margin-left: 30%;
 }
-.buttonright{
-  margin-left:30%;
+
+.buttonright {
+  margin-left: 30%;
 }
-.margin10left{
-  margin-left:10%;
-}.margin25left{
-  margin-left:25%;
-}.margintop5{
-  margin-top:3%;
-  }
- .marginleft4{
-  margin-left:4.4%;
+
+.margin10left {
+  margin-left: 10%;
 }
-.div{
-  vertical-align:top;
+
+.margin25left {
+  margin-left: 25%;
+}
+
+.margintop5 {
+  margin-top: 3%;
+}
+
+.marginleft4 {
+  margin-left: 4.4%;
+}
+
+.div {
+  vertical-align: top;
 }
 
 

@@ -2,14 +2,14 @@
   <label class="margin25left div">
     Titre* :
   </label>
-  <textarea rows ="2" cols="84"pInputTextarea autoResize="autoResize" [(ngModel)]="title">
+  <textarea rows="2" cols="84" pInputTextarea autoResize="autoResize" [(ngModel)]="title">
   </textarea>
 </div>
 <div class="margintop5">
   <label class="margin25left div">
     Description :
   </label>
-  <textarea rows ="2" cols="79"pInputTextarea autoResize="autoResize" [(ngModel)]="description">
+  <textarea rows="2" cols="79" pInputTextarea autoResize="autoResize" [(ngModel)]="description">
   </textarea>
 </div>
 <div class="table margintop5">
@@ -18,28 +18,27 @@
       Localisation :
     </label>
     <select name="localisation" [(ngModel)]="idLocation">
-      <option value="Localisation 1">Localisation</option>
-      <option value="Localisation 2">Localisation</option>
-      <option value="Localisation 3">Localisation</option>
-      <option value="Localisation 4">Localisation</option>
+      <option value="Localisation 1">Localisation 1</option>
+      <option value="Localisation 2">Localisation 2</option>
+      <option value="Localisation 3">Localisation 3</option>
+      <option value="Localisation 4">Localisation 4</option>
     </select>
-</div>
+  </div>
 </div>
 <div class="table" class="margintop5">
   <div class=large-cell>
     <label class="margin25left">
       Date - Heure :
     </label>
-    <input type="date">
+    <input type="date" [(ngModel)]="dateIncident">
   </div>
   <div class="large-cell">
     <label class="marginleft4">
       Type incident* :
     </label>
-   <!-- <select name="type incident">
-      <option *ngFor="let key of mapCategoryKeys()" [value]="key" [(ngModel)]="idCat">
-        {{ mapCategory.get(key)}} </option>
-    </select>-->
+    <select name="type incident" [(ngModel)]="idCat">
+       <option *ngFor="let key of mapCategory.keys()" [value]="key"> {{ mapCategory.get(key) }} </option>
+     </select>
   </div>
 </div>
 <div class="table" class="margintop5">
@@ -47,9 +46,9 @@
     <label class="margin25left">
       Importance* :
     </label>
-    <select name="importance">
-      <option *ngFor="let key of mapUrgencyKeys" [value]="key" >
-        {{ mapUrgency.get(key) }}</option>
+    <select name="importance" [(ngModel)]="idUrgency">
+      <option *ngFor="let key of mapUrgency.keys()" [value]="key">
+        {{ mapUrgency.get(key) }} </option>
     </select>
   </div>
   <div class="large-cell">
