@@ -57,7 +57,6 @@ export class IssueFormComponent implements OnInit {
       this.router.navigate(['/issueView']);
     } else {
       const dialogRef = this.dialog.open(PopupreturnComponent, {
-        width: '250px',
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -82,7 +81,6 @@ export class IssueFormComponent implements OnInit {
         this.dateDeclaration, this.idUrgency, this.idCat, this.idAuthor, this.idStatus, this.idLocation, this.picture));
       // this.issueService.add(this.issue);
       const dialogRef = this.dialog.open(PopupissueComponent, {
-        width: '250px',
       });
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
