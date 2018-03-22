@@ -32,7 +32,7 @@
           <option *ngFor="let key of mapUrgency.keys()" [value]="key" >{{ mapUrgency.get(key) }}</option>
         </select>
       </td>
-      <td> type incident : </td>
+      <td>Type incident* : </td>
       <td>
         <select name="Type incident"  [(ngModel)]="idCat">
           <option *ngFor="let key of mapCategory.keys()"  [value]="key" [(ngModel)]="idCat">
