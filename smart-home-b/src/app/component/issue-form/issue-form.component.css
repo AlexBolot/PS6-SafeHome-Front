@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
 .divForm{
   width:80%;
   background-color: #98c2ff;
@@ -13,7 +14,8 @@
 .margin10left{
   margin-left:10%;
 }.margin25left{
-  margin-left:25%;
+  margin-left:35%;
+   margin-bottom: 3%;
 }.margintop5{
   margin-top:3%;
   }
@@ -24,4 +26,10 @@
   vertical-align:top;
 }
 
+.erreur{
+  color:red;
+}
 
+.cover{
+  display: none;
+}
