@@ -75,3 +75,6 @@
 .cover{
   display: none;
 }
+.redToBlank:focus{
+  background-color: #ffffff !important;
+}

@@ -2,7 +2,11 @@
   <table>
     <tr class="tr">
       <td class="col1" >Titre* :  </td>
-      <td class="col2" colspan="2"> <input class="form-control" type="text" name="titre" id="inputTitre" [(ngModel)]="title"> </td>
+      <td class="col2" colspan="2"> <input class="form-control" type="text" name="titre" id="inputTitre" [(ngModel)]="title"
+                                           [@formFalseValidationTitle]='formFalseValidationTitle'
+                                           [ngStyle]="{'background-color': animationRedTitle? '#b83030' : '#ffffff'}"
+                                           (@formFalseValidationTitle.done)="setBackToUnchecked()">
+      </td>
       <td class="col4"></td>
     </tr>
     <tr>
@@ -27,15 +31,19 @@
     <tr>
       <td class="col1">  Importance* : </td>
       <td class="col2">
-        <select name="Importance" [(ngModel)]="idUrgency">
+        <select name="Importance" [(ngModel)]="idUrgency"
+                [@formFalseValidationUrgency]='formFalseValidationUrgency'
+                [ngStyle]="{'background-color': animationRedUrgency? '#b83030' : '#ffffff'}"
+                (@formFalseValidationUrgency.done)="setBackToUnchecked()">
           <option *ngFor="let key of mapUrgency.keys()" [value]="key" >{{ mapUrgency.get(key) }}</option>
         </select>
       </td>
       <td class="col3">type incident : </td>
       <td class="col4">
-        <select name="type incident">
-          <option *ngFor="let key of mapCategoryKeys()" [value]="key" [(ngModel)]="idCat">
-            {{ mapCategory.get(key)}} </option>
+        <select name="type incident" [(ngModel)]="idCat"
+                [@formFalseValidationCat]='formFalseValidationCat' (@formFalseValidationCat.done)="setBackToUnchecked()"
+                [ngStyle]="{'background-color': animationRedCat? '#b83030' : '#ffffff'}">
+          <option *ngFor="let key of mapCategory.keys()" [value]="key" >{{ mapCategory.get(key)}} </option>
         </select>
       </td>
     </tr>
