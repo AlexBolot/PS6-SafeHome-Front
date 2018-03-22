@@ -1,3 +1,59 @@
+<div class="divForm">
+  <table>
+    <tr>
+      <td>Titre* : </td>
+      <td> <input type="text" name="titre" [(ngModel)]="title"> </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Description :</td>
+      <td colspan="3"> <textarea rows ="2" cols="79" pInputTextarea autoResize="autoResize" [(ngModel)]="description"> </textarea> </td>
+    </tr>
+    <tr>
+      <td>Date - Heure :</td>
+      <td>
+        <input id="dateDeclaration" type="date">
+      </td>
+      <td> Localisation :</td>
+      <td>
+        <select name="localisation" [(ngModel)]="idLocation">
+          <option value="Localisation 1">Localisation</option>
+          <option value="Localisation 2">Localisation</option>
+          <option value="Localisation 3">Localisation</option>
+          <option value="Localisation 4">Localisation</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Importance* :</td>
+      <td>
+        <select name="Importance" [(ngModel)]="idUrgency">
+          <option *ngFor="let key of mapUrgencyKeys" [value]="key" >{{ mapUrgency.get(key) }}</option>
+        </select>
+      </td>
+      <td> type incident : </td>
+      <td>
+        <select name="type incident">
+          <option *ngFor="let key of mapCategoryKeys()" [value]="key" [(ngModel)]="idCat">
+            {{ mapCategory.get(key)}} </option>
+        </select>
+      </td>
+
+    </tr>
+  </table>
+</div>
+<div class="table" class="margin">
+  <button class="buttonleft" (click)="openDialogReturn()">
+    Retour
+  </button>
+  <button class="buttonright" (click)="openDialogValidate()">
+    Valider
+  </button>
+</div>
+<label class="margintop">
+  *champs obligatoires
+</label>
+<!--
 <div class="large-cell" class="margintop5">
   <label class="margin25left div">
     Titre* :
@@ -9,7 +65,7 @@
   <label class="margin25left div">
     Description :
   </label>
-  <textarea rows ="2" cols="79"pInputTextarea autoResize="autoResize" [(ngModel)]="description">
+  <textarea rows ="2" cols="79" pInputTextarea autoResize="autoResize" [(ngModel)]="description">
   </textarea>
 </div>
 <div class="table margintop5">
@@ -40,9 +96,11 @@
       <option *ngFor="let key of mapCategoryKeys()" [value]="key" [(ngModel)]="idCat">
         {{ mapCategory.get(key)}} </option>
     </select>-->
-  </div>
+<!--  </div>
 </div>
 <div class="table" class="margintop5">
+
+
   <div class="large-cell">
     <label class="margin25left">
       Importance* :
@@ -69,3 +127,4 @@
 <label class="margintop">
   *champs obligatoires
 </label>
+-->

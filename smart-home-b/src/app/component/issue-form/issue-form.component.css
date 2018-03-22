@@ -1,27 +1,7 @@
-.table {
-  width: 100%;
-  display:table;
-}
-.large-cell {
-  float: bottom;
-  width: 100%;
-  display:inline;
-}
-
-.medium-cell {
-  float: left;
-  width: 30%;
-  display:inline;
-}
-
-
-.small-cell {
-  float: left;
-  width: 20%;
-  display:inline;
-}
-.margin{
-  width:100%;
+.divForm{
+  width:80%;
+  background-color: #98c2ff;
+  alignment: center;
   margin: 10% auto 6%;
 }
 .buttonleft{
