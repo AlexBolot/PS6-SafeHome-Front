@@ -38,7 +38,7 @@
           <option *ngFor="let key of mapUrgency.keys()" [value]="key" >{{ mapUrgency.get(key) }}</option>
         </select>
       </td>
-      <td class="col3">type incident : </td>
+      <td class="col3">Type incident : </td>
       <td class="col4">
         <select name="type incident" [(ngModel)]="idCat"
                 [@formFalseValidationCat]='formFalseValidationCat' (@formFalseValidationCat.done)="setBackToUnchecked()"
@@ -48,8 +48,8 @@
       </td>
     </tr>
     <tr>
-      <td> Importer Photo :</td>
-      <td> <input type="file"> </td>
+      <td class="col1"> Importer Photo :</td>
+      <td colspan="2"> <input type="file"> </td>
     </tr>
 
   </table>
@@ -66,4 +66,4 @@
 <label class="margintop">
   *champs obligatoires
 </label>
--->
+
