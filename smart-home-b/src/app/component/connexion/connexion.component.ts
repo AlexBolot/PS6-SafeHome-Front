@@ -18,7 +18,7 @@ import {log} from "util";
         style({transform: 'translateX(-10%'}),
         style({transform: 'translateX(10%'}),
         style({transform: 'translateX(-10%'}),
-        style({transform: 'translateX(-10%'}),
+        style({transform: 'translateX(10%'}),
       ])))
     ]),
     trigger('formFalseValidationPassword', [
@@ -28,7 +28,7 @@ import {log} from "util";
         style({transform: 'translateX(-10%'}),
         style({transform: 'translateX(10%'}),
         style({transform: 'translateX(-10%'}),
-        style({transform: 'translateX(-10%'}),
+        style({transform: 'translateX(10%'}),
       ])))
     ])]
 })
