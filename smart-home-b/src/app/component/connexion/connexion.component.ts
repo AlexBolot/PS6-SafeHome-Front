@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
 import {User} from '../../model/user';
 import {animate, keyframes, state, style, transition, trigger} from '@angular/animations';
+import {logger} from "codelyzer/util/logger";
+import {log} from "util";
 
 @Component({
   selector: 'app-connexion',
@@ -51,9 +53,10 @@ export class ConnexionComponent implements OnInit {
     this.animationRedPassword = false;
   }
   login() {
-    this.authentication.login(this.user);
     if (this.user.email && this.user.password) {
-      this.router.navigate(['/issueView']);
+      this.authentication.login(this.user).pipe().subscribe(
+        value => this.router.navigate(['/issueView']),
+      error => this.erreurLogin = 'display');
     } else {
       if (!this.user.email) {
         this.formFalseValidationId = 'invalid';
@@ -63,7 +66,12 @@ export class ConnexionComponent implements OnInit {
         this.formFalseValidationPassword = 'invalid';
         this.animationRedPassword = true;
       }
-      this.erreurLogin = 'display';
+
+      this.erreurLogin = 'display'
     }
+  }
+
+  private aknowledgeLogin(value: JSON) {
+
   }
 }
