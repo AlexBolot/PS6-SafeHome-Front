@@ -8,13 +8,13 @@
         <form #connectionForm="ngForm">
           <input [@formFalseValidationId]='formFalseValidationId'
                  [ngStyle]="{'background-color': animationRedId? '#b83030' : '#ffffff'}"
-                 (@formFalseValidationId.done)="setBackToUnchecked()" type="email" name="email" placeholder="Username"  required [(ngModel)]="user.email" #email="ngModel" >
+                 (@formFalseValidationId.done)="setBackToUnchecked()" type="email" name="email" placeholder="Username" required [(ngModel)]="user.email" #email="ngModel">
           <div class="erreur" *ngIf="email.invalid && email.touched"> email </div>
 
           <input [@formFalseValidationPassword]='formFalseValidationPassword'
                  [ngStyle]="{'background-color': animationRedPassword? '#b83030' : '#ffffff'}"
                  (@formFalseValidationPassword.done)="setBackToUnchecked()"
-                 type="password" name="password" placeholder="Password" required [(ngModel)]="user.password" #password="ngModel" >
+                 type="password" name="password" placeholder="Password" required [(ngModel)]="user.password" #password="ngModel">
           <div class="erreur" *ngIf="password.invalid && password.touched "> password </div>
 
           <input (click)="login()" type="submit" name="login" class="login loginmodal-submit" value="Login">

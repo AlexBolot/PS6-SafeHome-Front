@@ -53,12 +53,10 @@ export class ConnexionComponent implements OnInit {
     this.animationRedPassword = false;
   }
   login() {
-    this.authentication.createUser(this.user).subscribe(value =>
-      this.authentication.login(this.user).subscribe(value=>console.log(String(this.authentication.isLogged()))));
-    //this.authentication.login(this.user);
-    //console.log(this.authentication.isLogged());
     if (this.user.email && this.user.password) {
-      this.router.navigate(['/issueView']);
+      this.authentication.login(this.user).pipe().subscribe(
+        value => this.router.navigate(['/issueView']),
+      error => this.erreurLogin = 'display');
     } else {
       if (!this.user.email) {
         this.formFalseValidationId = 'invalid';
@@ -68,7 +66,12 @@ export class ConnexionComponent implements OnInit {
         this.formFalseValidationPassword = 'invalid';
         this.animationRedPassword = true;
       }
-      this.erreurLogin = 'display';
+
+      this.erreurLogin = 'display'
     }
+  }
+
+  private aknowledgeLogin(value: JSON) {
+
   }
 }
