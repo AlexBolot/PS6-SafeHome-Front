@@ -22,7 +22,8 @@ export class IssueService {
   }
 
   add(issue: Issue) {
-    console.log(JSON.stringify(issue));
+    console.log(issue);
+    this.httpClient.post<JSON>(this.API_url, issue);
   }
 
   getDeclaredBy(id: number): Observable<Issue[]> {

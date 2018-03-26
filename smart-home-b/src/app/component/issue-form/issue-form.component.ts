@@ -135,8 +135,8 @@ export class IssueFormComponent implements OnInit {
       if (this.authentificationService.isLogged()) {
         this.idAuthor = this.authentificationService.getUser().idUser;
         this.idStatus = 1;
-        console.log(this.issue = new Issue(null, this.title, this.description, this.realDateIncident,
-          this.dateDeclaration, this.idUrgency, this.idCat, this.idAuthor, this.idStatus, this.idLocation, this.picture));
+        this.issue = new Issue(undefined, this.title, this.description, this.realDateIncident,
+          this.dateDeclaration, Number(this.idUrgency), Number(this.idCat), this.idAuthor, this.idStatus, undefined, undefined);
         this.issueService.add(this.issue);
         const dialogRef = this.dialog.open(PopupissueComponent, {});
         dialogRef.afterClosed().subscribe(result => {
