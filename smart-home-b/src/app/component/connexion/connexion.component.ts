@@ -70,8 +70,4 @@ export class ConnexionComponent implements OnInit {
       this.erreurLogin = 'display'
     }
   }
-
-  private aknowledgeLogin(value: JSON) {
-
-  }
 }

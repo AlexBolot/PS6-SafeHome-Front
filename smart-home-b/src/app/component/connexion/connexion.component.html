@@ -18,7 +18,7 @@
           <div class="erreur" *ngIf="password.invalid && password.touched ">  Vous devez remplir le champ mot de passe </div>
 
           <input (click)="login()" type="submit" name="login" class="login loginmodal-submit" value="Login">
-          <div class="erreur" [ngClass]="erreurLogin"> User n'existe pas </div>
+          <div class="erreur" [ngClass]="erreurCo"> le mot de passe ou le login n'est pas valide </div>
         </form>
 
         <div class="login-help">
