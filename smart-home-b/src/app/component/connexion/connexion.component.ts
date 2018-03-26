@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
 import {User} from '../../model/user';
 import {animate, keyframes, state, style, transition, trigger} from '@angular/animations';
+import {logger} from "codelyzer/util/logger";
+import {log} from "util";
 
 @Component({
   selector: 'app-connexion',
@@ -51,7 +53,10 @@ export class ConnexionComponent implements OnInit {
     this.animationRedPassword = false;
   }
   login() {
-    this.authentication.login(this.user);
+    this.authentication.createUser(this.user).subscribe(value =>
+      this.authentication.login(this.user).subscribe(value=>console.log(String(this.authentication.isLogged()))));
+    //this.authentication.login(this.user);
+    //console.log(this.authentication.isLogged());
     if (this.user.email && this.user.password) {
       this.router.navigate(['/issueView']);
     } else {
