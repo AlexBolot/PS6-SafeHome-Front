@@ -14,6 +14,8 @@ import {StatusService} from '../../service/status/status.service';
 import {CategoryService} from '../../service/category/category.service';
 import {IssueService} from '../../service/issue/issue.service';
 import {animate, keyframes, state, style, transition, trigger} from '@angular/animations';
+import {AuthenticationService} from '../../service/authentication/authentication.service';
+import {DATE} from 'ngx-bootstrap/chronos/units/constants';
 
 @Component({
   selector: 'app-issue-form',
@@ -63,6 +65,7 @@ export class IssueFormComponent implements OnInit {
   public title: string;
   public dateIncident: Date;
   public dateDeclaration: Date;
+  public realDateIncident: Date;
   public idUrgency: number;
   public idCat: number;
   public idAuthor: number;
@@ -84,6 +87,7 @@ export class IssueFormComponent implements OnInit {
               public dialog: MatDialog,
               private urgencyService: UrgencyService,
               private categoryService: CategoryService,
+              private authentificationService: AuthenticationService,
               private issueService: IssueService) {
   }
 
@@ -91,6 +95,7 @@ export class IssueFormComponent implements OnInit {
     setTimeout(() => {
       this.initializeAllMap();
     });
+    this.dateIncident = new Date();
   }
 
   setBackToUnchecked() {
@@ -124,17 +129,20 @@ export class IssueFormComponent implements OnInit {
   }
 
   openDialogValidate(): void {
-    console.log(this.title);
-    console.log(this.idCat);
-    console.log(this.idUrgency);
     if (this.title && this.idCat && this.idUrgency) {
-    //  console.log(this.issue = new Issue(8, this.title, this.description, this.dateIncident,
-      //  this.dateDeclaration, this.idUrgency, this.idCat, this.idAuthor, this.idStatus, this.idLocation, this.picture));
-      // this.issueService.add(this.issue);
-      const dialogRef = this.dialog.open(PopupissueComponent, {});
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-      });
+      this.dateDeclaration = new Date();
+      this.realDateIncident = new Date(this.dateIncident);
+      if (this.authentificationService.isLogged()) {
+        this.idAuthor = this.authentificationService.getUser().idUser;
+        this.idStatus = 1;
+        console.log(this.issue = new Issue(null, this.title, this.description, this.realDateIncident,
+          this.dateDeclaration, this.idUrgency, this.idCat, this.idAuthor, this.idStatus, this.idLocation, this.picture));
+        this.issueService.add(this.issue);
+        const dialogRef = this.dialog.open(PopupissueComponent, {});
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+        });
+      }
     } else {
       if (!this.title) {
         this.animationRedTitle = true;

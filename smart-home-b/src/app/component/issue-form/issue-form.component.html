@@ -16,11 +16,11 @@
     <tr>
       <td class="col1"> Date - Heure : </td>
       <td class="col2">
-        <input id="dateDeclaration" type="date">
+        <input type="date" [ngModel] ="dateIncident | date:'yyyy-MM-dd'" (ngModelChange)="dateIncident= $event" [value]="dateIncident | date:'yyyy-MM-dd'">
       </td>
       <td class="col3"> Localisation :</td>
       <td>
-        <select name="localisation" [(ngModel)]="idLocation">
+        <select name="Localisation" [(ngModel)]="idLocation">
           <option value="Localisation 1">Localisation</option>
           <option value="Localisation 2">Localisation</option>
           <option value="Localisation 3">Localisation</option>
@@ -40,7 +40,7 @@
       </td>
       <td class="col3">Type incident : </td>
       <td class="col4">
-        <select name="type incident" [(ngModel)]="idCat"
+        <select name="Type incident*" [(ngModel)]="idCat"
                 [@formFalseValidationCat]='formFalseValidationCat' (@formFalseValidationCat.done)="setBackToUnchecked()"
                 [ngStyle]="{'background-color': animationRedCat? '#b83030' : '#ffffff'}">
           <option *ngFor="let key of mapCategory.keys()" [value]="key" >{{ mapCategory.get(key)}} </option>
@@ -49,7 +49,7 @@
     </tr>
     <tr>
       <td class="col1"> Importer Photo :</td>
-      <td colspan="2"> <input type="file"> </td>
+      <td colspan="2"> <input type="file" [(ngModel)]="picture"> </td>
     </tr>
 
   </table>
