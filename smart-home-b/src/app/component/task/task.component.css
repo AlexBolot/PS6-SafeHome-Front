@@ -25,7 +25,7 @@
   width: 100%;
 }
 
-.large-cell {
+.left-cell {
   float: left;
   width: 40%;
   word-wrap: break-word;
@@ -33,22 +33,10 @@
   padding-right: 10px;
 }
 
-.medium-cell {
-  float: left;
+.right-cell {
+  float: right;
   width: 30%;
   word-wrap: break-word;
   padding-left: 10px;
   padding-right: 10px;
-}
-
-.small-cell {
-  float: left;
-  width: 20%;
-  word-wrap: break-word;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.tasks-list {
-  padding-left: 3em !important;
 }

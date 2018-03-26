@@ -20,4 +20,7 @@ export class TaskService {
     return this.httpClient.get<Task>(this.API_url + '/' + id);
   }
 
+  getAllByIssueID(id: number): Observable<Task[]> {
+    return this.httpClient.get<Task[]>(this.API_url).map(tasks => tasks.filter(task => task.IDIssue === id));
+  }
 }

@@ -15,14 +15,16 @@ import {IssueService} from './service/issue/issue.service';
 import {CategoryService} from './service/category/category.service';
 import {UrgencyService} from './service/urgency/urgency.service';
 import {StatusService} from './service/status/status.service';
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpInterceptor} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ConnexionComponent } from './component/connexion/connexion.component';
-import { PopupreturnComponent } from './component/popupreturn/popupreturn.component';
+import {ConnexionComponent} from './component/connexion/connexion.component';
+import {PopupreturnComponent} from './component/popupreturn/popupreturn.component';
 import {FormsModule} from '@angular/forms';
 import {InputTextareaModule} from 'primeng/inputtextarea';
-import {AuthenticationService} from "./service/authentication/authentication.service";
-import {AuthInterceptor} from "./service/authentication/auth-interceptor";
+import {TaskComponent} from './component/task/task.component';
+import {TaskService} from './service/task/task.service';
+import {AuthenticationService} from './service/authentication/authentication.service';
+import {AuthInterceptor} from './service/authentication/auth-interceptor';
 
 
 @NgModule({
@@ -36,6 +38,7 @@ import {AuthInterceptor} from "./service/authentication/auth-interceptor";
     PopupissueComponent,
     PopupreturnComponent,
     ConnexionComponent,
+    TaskComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, AppRoutingModule,
@@ -50,8 +53,16 @@ import {AuthInterceptor} from "./service/authentication/auth-interceptor";
     PopupissueComponent,
     PopupreturnComponent
   ],
-  providers: [IssueService, CategoryService, UrgencyService, StatusService, HttpClient, AuthenticationService
-    ,{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}],
+  providers: [
+    IssueService,
+    CategoryService,
+    UrgencyService,
+    StatusService,
+    HttpClient,
+    TaskService,
+    AuthenticationService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

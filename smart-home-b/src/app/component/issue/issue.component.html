@@ -1,6 +1,7 @@
 <div class="incident-block">
   <h3 class="margin-left-1em">Titre : {{issue.Title}}
-    <button class="margin-left-1em" (click)="showMore()">more</button>
+    <button class="margin-left-1em" (click)="showMore()">plus de détails</button>
+    <button class="margin-left-1em" (click)="showTasks()">afficher les tâches</button>
   </h3>
   <div class="width-full table">
     <div class="width-full">
@@ -15,5 +16,10 @@
       </div>
       <div class="small-cell">Destinataire : undefined</div>
     </div>
+  </div>
+</div>
+<div class="tasks-list" *ngIf="visibleTasks">
+  <div *ngFor="let task of tasks">
+    <app-task [task]="task"></app-task>
   </div>
 </div>

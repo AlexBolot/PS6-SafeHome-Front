@@ -4,6 +4,7 @@ import {CategoryService} from '../../service/category/category.service';
 import {StatusService} from '../../service/status/status.service';
 import {UrgencyService} from '../../service/urgency/urgency.service';
 import {TaskService} from '../../service/task/task.service';
+import {Task} from '../../model/task';
 
 @Component({
   selector: 'app-issue',
@@ -12,6 +13,13 @@ import {TaskService} from '../../service/task/task.service';
 })
 export class IssueComponent implements OnInit {
 
+  tasks: Task[] = [
+    new Task('Ceci est une tâche', 1, 1, 1, 2),
+    new Task('Et ça une autre tâche', 1, 1, 2, 3),
+    new Task('Et en voilà une petite troisième pour la route !', 1, 1, 2, 1),
+  ];
+
+  visibleTasks = false;
   visibleDetails = false;
   categoryLabel: String;
   statusLabel: String;
@@ -20,22 +28,23 @@ export class IssueComponent implements OnInit {
   @Input() issue: Issue;
 
   constructor(private categoryService: CategoryService,
-              private statusService: StatusService,
               private urgencyService: UrgencyService,
+              private statusService: StatusService,
               private taskService: TaskService) {
   }
 
   ngOnInit() {
     this.categoryService.getByID(this.issue.categoryId).subscribe(value => this.categoryLabel = value);
     this.urgencyService.getByID(this.issue.IDUrgency).subscribe(value => this.urgencyLabel = value);
-
-    this.taskService.getAll().subscribe(value => console.log(value));
-
     this.statusService.getByID(this.issue.IDStatus).subscribe(value => this.statusLabel = value);
+    //this.taskService.getAllByIssueID(this.issue.id).subscribe(value => this.tasks = value);
   }
 
   showMore() {
     this.visibleDetails = !this.visibleDetails;
   }
 
+  showTasks() {
+    this.visibleTasks = !this.visibleTasks;
+  }
 }

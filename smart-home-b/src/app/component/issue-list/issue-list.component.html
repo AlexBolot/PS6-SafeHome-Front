@@ -4,8 +4,8 @@
     <button [ngClass]="assignedButtonColor" class="large-button" (click)="assignedButton_OnClick()">Assigné</button>
   </div>
   <div class="list">
-    <div *ngFor="let i of issues">
-      <app-issue [issue]="i"></app-issue>
+    <div *ngFor="let issue of issues">
+      <app-issue [issue]="issue"></app-issue>
     </div>
   </div>
 </div>
