@@ -23,7 +23,7 @@ export class IssueService {
 
   add(issue: Issue) {
     console.log(issue);
-    this.httpClient.post<JSON>(this.API_url, issue);
+    return this.httpClient.post<JSON>(this.API_url, issue);
   }
 
   getDeclaredBy(id: number): Observable<Issue[]> {

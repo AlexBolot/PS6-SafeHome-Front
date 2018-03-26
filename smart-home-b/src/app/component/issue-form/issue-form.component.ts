@@ -16,6 +16,7 @@ import {IssueService} from '../../service/issue/issue.service';
 import {animate, keyframes, state, style, transition, trigger} from '@angular/animations';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
 import {DATE} from 'ngx-bootstrap/chronos/units/constants';
+import {log} from "util";
 
 @Component({
   selector: 'app-issue-form',
@@ -137,7 +138,7 @@ export class IssueFormComponent implements OnInit {
         this.idStatus = 1;
         this.issue = new Issue(undefined, this.title, this.description, this.realDateIncident,
           this.dateDeclaration, Number(this.idUrgency), Number(this.idCat), this.idAuthor, this.idStatus, undefined, undefined);
-        this.issueService.add(this.issue);
+        this.issueService.add(this.issue).subscribe(value => log("added"));
         const dialogRef = this.dialog.open(PopupissueComponent, {});
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
