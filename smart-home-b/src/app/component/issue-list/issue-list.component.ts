@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Issue} from '../../model/issue';
 import {IssueService} from '../../service/issue/issue.service';
+import {AuthenticationService} from '../../service/authentication/authentication.service';
 
 @Component({
   selector: 'app-issue-list',
@@ -13,19 +14,22 @@ export class IssueListComponent implements OnInit {
   declaredButtonColor = 'not-selected';
   assignedButtonColor = 'not-selected';
 
-  constructor(private issueService: IssueService) {
+  constructor(private issueService: IssueService, private authService: AuthenticationService) {
   }
 
   ngOnInit() {
-    this.issueService.getAll().subscribe(value => this.issues = value);
+    this.issueService.getDeclaredBy(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+    this.declaredButtonColor = 'selected';
   }
 
   declaredButton_OnClick() {
+    this.issueService.getDeclaredBy(this.authService.getUser().idUser).subscribe(value => this.issues = value);
     this.declaredButtonColor = 'selected';
     this.assignedButtonColor = 'not-selected';
   }
 
   assignedButton_OnClick() {
+    this.issueService.getAssignedTo(this.authService.getUser().idUser).subscribe(value => this.issues = value);
     this.assignedButtonColor = 'selected';
     this.declaredButtonColor = 'not-selected';
   }

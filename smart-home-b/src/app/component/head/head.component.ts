@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
-import {User} from '../../model/user';
-import {log} from 'util';
 
 @Component({
   selector: 'app-head',
@@ -18,12 +16,7 @@ export class HeadComponent implements OnInit {
   }
 
   ngOnInit() {
-    let user = new User();
-    user.username = 'Numinex';
-    user.email = 'bolotalex06@gmail.com';
-    user.password = '@lexandr1';
-
-//    this.authenticationService.createUser(user).subscribe(value => log("success"));
+    this.updateColorBtn();
   }
 
   coverBtnDeconnexion() {
@@ -38,7 +31,6 @@ export class HeadComponent implements OnInit {
       this.ajouterIncident = 'selected';
     else if (location.pathname === '/issueView')
       this.mesIncidents = 'selected';
-
   }
 
   goTo() {

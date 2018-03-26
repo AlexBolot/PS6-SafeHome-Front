@@ -13,11 +13,13 @@ import {Task} from '../../model/task';
 })
 export class IssueComponent implements OnInit {
 
-  tasks: Task[] = [
+  tasks: Task[] = [];
+
+  /*tasks: Task[] = [
     new Task('Ceci est une tâche', 1, 1, 1, 2),
     new Task('Et ça une autre tâche', 1, 1, 2, 3),
     new Task('Et en voilà une petite troisième pour la route !', 1, 1, 2, 1),
-  ];
+  ];*/
 
   visibleTasks = false;
   visibleDetails = false;
@@ -37,7 +39,7 @@ export class IssueComponent implements OnInit {
     this.categoryService.getByID(this.issue.categoryId).subscribe(value => this.categoryLabel = value);
     this.urgencyService.getByID(this.issue.IDUrgency).subscribe(value => this.urgencyLabel = value);
     this.statusService.getByID(this.issue.IDStatus).subscribe(value => this.statusLabel = value);
-    //this.taskService.getAllByIssueID(this.issue.id).subscribe(value => this.tasks = value);
+    this.taskService.getAllByIssueID(this.issue.id).subscribe(value => this.tasks = value);
   }
 
   showMore() {
