@@ -25,6 +25,11 @@ import {TaskComponent} from './component/task/task.component';
 import {TaskService} from './service/task/task.service';
 import {AuthenticationService} from './service/authentication/authentication.service';
 import {AuthInterceptor} from './service/authentication/auth-interceptor';
+import {ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot} from '@angular/router';
+import {GuardCategoryResolve} from './service/guard/guardCategory.resolve';
+import {GuardUrgencyResolve} from './service/guard/guardUrgency.resolve';
+import {GuardLocationResolve} from './service/guard/guardLocation.resolve';
+import {LocationService} from './service/location/location.service';
 
 
 @NgModule({
@@ -47,7 +52,7 @@ import {AuthInterceptor} from './service/authentication/auth-interceptor';
     FormsModule,
     MatDialogModule,
     BrowserAnimationsModule,
-    InputTextareaModule
+    InputTextareaModule,
   ],
   entryComponents: [
     PopupissueComponent,
@@ -58,9 +63,13 @@ import {AuthInterceptor} from './service/authentication/auth-interceptor';
     CategoryService,
     UrgencyService,
     StatusService,
+    LocationService,
     HttpClient,
     TaskService,
     AuthenticationService,
+    GuardCategoryResolve,
+    GuardUrgencyResolve,
+    GuardLocationResolve,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]

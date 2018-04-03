@@ -1,20 +1,30 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
 
-import { IssueFormComponent } from './component/issue-form/issue-form.component';
-import { ConnexionComponent } from './component/connexion/connexion.component';
+import {IssueFormComponent} from './component/issue-form/issue-form.component';
+import {ConnexionComponent} from './component/connexion/connexion.component';
 import {BodyComponent} from './component/body/body.component';
+import {GuardCategoryResolve} from './service/guard/guardCategory.resolve';
+import {GuardUrgencyResolve} from './service/guard/guardUrgency.resolve';
+import {GuardLocationResolve} from './service/guard/guardLocation.resolve';
 
 const routes: Routes = [
-  { path: 'issueForm', component: IssueFormComponent },
-  { path: 'issueView', component: BodyComponent},
-  { path: 'connexion', component: ConnexionComponent},
-  { path: '', redirectTo: '/connexion', pathMatch: 'full' },
+  {
+    path: 'issueForm', component: IssueFormComponent, resolve: {
+      dataCategory: GuardCategoryResolve,
+      dataUrgency: GuardUrgencyResolve,
+      dataLocation: GuardLocationResolve,
+    }
+  },
+  {path: 'issueView', component: BodyComponent},
+  {path: 'connexion', component: ConnexionComponent},
+  {path: '', redirectTo: '/connexion', pathMatch: 'full'},
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
