@@ -9,14 +9,11 @@ import {MatDialog} from '@angular/material';
 import {PopupreturnComponent} from '../popupreturn/popupreturn.component';
 import {Issue} from '../../model/issue';
 import {UrgencyService} from '../../service/urgency/urgency.service';
-import {getZoneAbbr} from 'ngx-bootstrap/chronos/units/timezone';
-import {StatusService} from '../../service/status/status.service';
 import {CategoryService} from '../../service/category/category.service';
 import {IssueService} from '../../service/issue/issue.service';
 import {animate, keyframes, state, style, transition, trigger} from '@angular/animations';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
-import {DATE} from 'ngx-bootstrap/chronos/units/constants';
-import {log} from "util";
+import {log} from 'util';
 
 @Component({
   selector: 'app-issue-form',
@@ -62,6 +59,8 @@ export class IssueFormComponent implements OnInit {
   public mapCategory: Map<Number, String> = new Map<Number, String>();
   public mapLocation: Map<Number, String> = new Map<Number, String>();
   public mapUrgencyKeys;
+  public mapCategoryKeys;
+  public mapLocationKeys;
   public description: string;
   public title: string;
   public dateIncident: Date;
@@ -81,7 +80,6 @@ export class IssueFormComponent implements OnInit {
   formFalseValidationTitle = 'unchecked';
   formFalseValidationUrgency = 'unchecked';
   formFalseValidationCat = 'unchecked';
-
   constructor(private route: ActivatedRoute,
               private router: Router,
               private location: Location,
@@ -93,10 +91,8 @@ export class IssueFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.initializeAllMap();
-    });
     this.dateIncident = new Date();
+    this.initializeAllMap();
   }
 
   setBackToUnchecked() {
@@ -121,12 +117,12 @@ export class IssueFormComponent implements OnInit {
   }
 
   initializeAllMap(): void {
-    this.urgencyService.getAll().subscribe(map => {
-      this.mapUrgency = map;
-    });
-    this.categoryService.getAll().subscribe(map => {
-      this.mapCategory = map;
-    });
+    this.mapCategory = this.route.snapshot.data['dataCategory'];
+    this.mapCategoryKeys = Array.from(this.mapCategory.keys());
+    this.mapUrgency = this.route.snapshot.data['dataUrgency'];
+    this.mapUrgencyKeys = Array.from(this.mapUrgency.keys());
+    this.mapLocation = this.route.snapshot.data['dataLocation'];
+    this.mapLocationKeys = Array.from(this.mapLocation.keys());
   }
 
   openDialogValidate(): void {
@@ -138,7 +134,7 @@ export class IssueFormComponent implements OnInit {
         this.idStatus = 1;
         this.issue = new Issue(undefined, this.title, this.description, this.realDateIncident,
           this.dateDeclaration, Number(this.idUrgency), Number(this.idCat), this.idAuthor, this.idStatus, undefined, undefined);
-        this.issueService.add(this.issue).subscribe(value => log("added"));
+        this.issueService.add(this.issue).subscribe(value => log('added'));
         const dialogRef = this.dialog.open(PopupissueComponent, {});
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
@@ -160,5 +156,4 @@ export class IssueFormComponent implements OnInit {
       this.errorValidate = 'display';
     }
   }
-
 }
