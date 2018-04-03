@@ -10,13 +10,14 @@ import {AuthenticationService} from '../../service/authentication/authentication
 export class HeadComponent implements OnInit {
 
   ajouterIncident = 'not-selected';
-  mesIncidents = 'not-selected';
+  mesIncidents = 'selected';
 
   constructor(private location: Location, private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
     this.updateColorBtn();
+    this.mesIncidents = 'selected';
   }
 
   coverBtnDeconnexion() {
