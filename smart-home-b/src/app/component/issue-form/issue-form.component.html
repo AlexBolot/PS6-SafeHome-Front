@@ -16,7 +16,7 @@
     <tr>
       <td class="col1"> Date - Heure : </td>
       <td class="col2">
-        <input type="date" [ngModel] ="dateIncident | date:'yyyy-MM-dd'" (ngModelChange)="dateIncident= $event" [value]="dateIncident | date:'yyyy-MM-dd'">
+        <input type="datetime-local" [ngModel] ="dateIncident | date:'yyyy-MM-ddThh:mm'" (ngModelChange)="dateIncident= $event" [value]="dateIncident | date:'yyyy-MM-dd-Thh:mm'">
       </td>
       <td class="col3"> Localisation :</td>
       <td>
@@ -35,9 +35,9 @@
           <option *ngFor="let key of mapUrgencyKeys" [value]="key" >{{ mapUrgency.get(key) }}</option>
         </select>
       </td>
-      <td class="col3">Type incident : </td>
+      <td class="col3">Type incident* : </td>
       <td class="col4">
-        <select name="Type incident*" [(ngModel)]="idCat"
+        <select name="Type incident" [(ngModel)]="idCat"
                 [@formFalseValidationCat]='formFalseValidationCat' (@formFalseValidationCat.done)="setBackToUnchecked()"
                 [ngStyle]="{'background-color': animationRedCat? '#b83030' : '#ffffff'}">
           <option *ngFor="let key of mapCategoryKeys" [value]="key" >{{ mapCategory.get(key)}} </option>
@@ -46,7 +46,7 @@
     </tr>
     <tr>
       <td class="col1"> Importer Photo :</td>
-      <td colspan="2"> <input type="file" [(ngModel)]="picture"> </td>
+      <td colspan="2"> <input type="file" (change)="handleInputChange($event)" accept="image/*" ></td>
     </tr>
 
   </table>
