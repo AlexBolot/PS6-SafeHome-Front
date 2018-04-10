@@ -1,0 +1,72 @@
+{
+  "name": "Issue",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "string"
+    },
+    "Picture": {
+      "type": "string"
+    },
+    "DeclarationDate": {
+      "type": "date",
+      "required": true
+    },
+    "Date": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "homes": {
+      "type": "belongsTo",
+      "model": "Home"
+    },
+    "status": {
+      "type": "belongsTo",
+      "model": "Status",
+      "foreignKey": "IDStatus",
+      "options": {}
+    },
+    "location": {
+      "type": "belongsTo",
+      "model": "Location",
+      "foreignKey": "IDLocation",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "urgency": {
+      "type": "belongsTo",
+      "model": "Urgency",
+      "foreignKey": "IDUrgency",
+      "options": {}
+    },
+    "tasks": {
+      "type": "hasMany",
+      "model": "Task",
+      "foreignKey": "IDIssue"
+    },
+    "author": {
+      "type": "belongsTo",
+      "model": "Person",
+      "foreignKey": "IDAuthor",
+      "options": {}
+    },
+    "category": {
+      "type": "belongsTo",
+      "model": "Category",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

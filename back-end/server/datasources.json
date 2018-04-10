@@ -1,0 +1,16 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "postgreDev": {
+    "host": "galles.io",
+    "port": 5490,
+    "url": "",
+    "database": "ps6",
+    "password": "ps6Dev",
+    "name": "postgreDev",
+    "user": "postgres",
+    "connector": "postgresql"
+  }
+}

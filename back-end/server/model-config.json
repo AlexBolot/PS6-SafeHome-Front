@@ -1,0 +1,74 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "postgreDev"
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "postgreDev",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "postgreDev",
+    "public": false
+  },
+  "Home": {
+    "dataSource": "postgreDev",
+    "public": true
+  },
+  "Category": {
+    "dataSource": "postgreDev",
+    "public": true
+  },
+  "Location": {
+    "dataSource": "postgreDev",
+    "public": true
+  },
+  "Issue": {
+    "dataSource": "postgreDev",
+    "public": true
+  },
+  "Status": {
+    "dataSource": "postgreDev",
+    "public": true
+  },
+  "Task": {
+    "dataSource": "postgreDev",
+    "public": true
+  },
+  "Urgency": {
+    "dataSource": "postgreDev",
+    "public": true
+  },
+  "Person": {
+    "dataSource": "postgreDev",
+    "public": true
+  },
+  "Category2": {
+    "dataSource": "postgreDev",
+    "public": true
+  }
+}

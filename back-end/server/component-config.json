@@ -1,0 +1,6 @@
+{
+  "loopback-component-explorer": {
+    "mountPath": "/pns/shb/explorer",
+    "generateOperationScopedModels": true
+  }
+}
