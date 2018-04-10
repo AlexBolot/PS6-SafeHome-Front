@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {AuthenticationService} from "./authentication.service";
@@ -12,7 +11,7 @@ export class AuthInterceptor implements HttpInterceptor{
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let params = req.params;
-    if (this.authService.isLogged())
+    if (this.authService.hasToken())
     {
       params = params.set("access_token",this.authService.getUser().token);
       req = req.clone({params:params});
