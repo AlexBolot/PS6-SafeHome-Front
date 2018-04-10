@@ -50,9 +50,7 @@ import {log} from 'util';
         style({transform: 'translateX(-10%'}),
       ])))
     ])
-
-
-  ]
+  ],
 })
 export class IssueFormComponent implements OnInit {
   public mapUrgency: Map<Number, String> = new Map<Number, String>();
@@ -71,7 +69,6 @@ export class IssueFormComponent implements OnInit {
   public idAuthor: number;
   public idStatus: number;
   public idLocation: number;
-  public picture: string;
   public issue: Issue;
   public animationRedTitle: boolean;
   public animationRedUrgency: boolean;
@@ -80,6 +77,7 @@ export class IssueFormComponent implements OnInit {
   formFalseValidationTitle = 'unchecked';
   formFalseValidationUrgency = 'unchecked';
   formFalseValidationCat = 'unchecked';
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private location: Location,
@@ -135,7 +133,7 @@ export class IssueFormComponent implements OnInit {
         this.issue = new Issue(undefined, this.title, this.description, this.realDateIncident,
           this.dateDeclaration, Number(this.idUrgency), Number(this.idCat), this.idAuthor, this.idStatus, Number(this.idLocation), undefined);
         console.log(this.issue);
-       // this.issueService.add(this.issue).subscribe(value => log('added'));
+        // this.issueService.add(this.issue).subscribe(value => log('added'));
         const dialogRef = this.dialog.open(PopupissueComponent, {});
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
@@ -157,26 +155,9 @@ export class IssueFormComponent implements OnInit {
       this.errorValidate = 'display';
     }
   }
-  /*handleInputChange (event) {
-    var image = event.target.files[0];
 
-      var pattern = /image-*//*;
-      var reader = new FileReader();
-
-      if (!image.type.match(pattern)) {
-        console.error('File is not an image');
-        //of course you can show an alert message here
-        return;
-      }
-
-      let endPoint = '/upload/profileImage'; //use your own API endpoint
-      let headers = new Headers();
-      headers.set('Content-Type', 'application/octet-stream');
-      headers.set('Upload-Content-Type', image.type)
-
-      this.makeRequest(endPoint, 'POST', image, headers).subscribe(
-        response  => {this.handleSuccess(response); },
-        error =>  {this.handleError(error); }
-      );
-    }*/
+  handleInputChange(event) {
+    const files = event.srcElement.files;
+    console.log(files);
+  }
 }
