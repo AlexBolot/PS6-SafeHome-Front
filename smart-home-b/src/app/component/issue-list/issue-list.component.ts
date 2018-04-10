@@ -6,7 +6,8 @@ import {AuthenticationService} from '../../service/authentication/authentication
 @Component({
   selector: 'app-issue-list',
   templateUrl: './issue-list.component.html',
-  styleUrls: ['./issue-list.component.css']
+  styleUrls: ['./issue-list.component.css'],
+
 })
 export class IssueListComponent implements OnInit {
 
@@ -27,12 +28,14 @@ export class IssueListComponent implements OnInit {
 
 
   declaredButton_OnClick() {
+    this.issues = null;
     this.issueService.getDeclaredBy(this.authService.getUser().idUser).subscribe(value => this.issues = value);
     this.declaredButtonColor = 'selected';
     this.assignedButtonColor = 'not-selected';
   }
 
   assignedButton_OnClick() {
+    this.issues = null;
     this.issueService.getAssignedTo(this.authService.getUser().idUser).subscribe(value => this.issues = value);
     this.assignedButtonColor = 'selected';
     this.declaredButtonColor = 'not-selected';

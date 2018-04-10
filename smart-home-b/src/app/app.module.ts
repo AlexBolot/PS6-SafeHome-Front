@@ -1,8 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-import {MatDialogModule, MatFormFieldModule} from '@angular/material';
-import {MatInputModule} from '@angular/material';
+import {MatDialogModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 import {AppComponent} from './app.component';
 import {HeadComponent} from './component/head/head.component';
 import {BodyComponent} from './component/body/body.component';
@@ -25,11 +24,11 @@ import {TaskComponent} from './component/task/task.component';
 import {TaskService} from './service/task/task.service';
 import {AuthenticationService} from './service/authentication/authentication.service';
 import {AuthInterceptor} from './service/authentication/auth-interceptor';
-import {ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot} from '@angular/router';
 import {GuardCategoryResolve} from './service/guard/guardCategory.resolve';
 import {GuardUrgencyResolve} from './service/guard/guardUrgency.resolve';
 import {GuardLocationResolve} from './service/guard/guardLocation.resolve';
 import {LocationService} from './service/location/location.service';
+import {SpinnerComponent} from './component/spinner/spinner.component';
 
 
 @NgModule({
@@ -44,6 +43,7 @@ import {LocationService} from './service/location/location.service';
     PopupreturnComponent,
     ConnexionComponent,
     TaskComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, AppRoutingModule,

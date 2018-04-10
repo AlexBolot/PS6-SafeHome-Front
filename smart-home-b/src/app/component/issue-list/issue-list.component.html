@@ -4,6 +4,9 @@
     <button [ngClass]="assignedButtonColor" class="large-button" (click)="assignedButton_OnClick()">Assigné</button>
   </div>
   <div class="list">
+    <div *ngIf="issues == null ">
+      <app-spinner></app-spinner>
+    </div>
     <div *ngFor="let issue of issues">
       <app-issue [issue]="issue"></app-issue>
     </div>
