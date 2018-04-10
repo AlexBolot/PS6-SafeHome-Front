@@ -21,10 +21,7 @@
       <td class="col3"> Localisation :</td>
       <td>
         <select name="Localisation" [(ngModel)]="idLocation">
-          <option value="Localisation 1">Localisation</option>
-          <option value="Localisation 2">Localisation</option>
-          <option value="Localisation 3">Localisation</option>
-          <option value="Localisation 4">Localisation</option>
+          <option *ngFor="let key of mapLocationKeys" [value]="key" >{{ mapLocation.get(key)}} </option>
         </select>
       </td>
     </tr>
@@ -35,7 +32,7 @@
                 [@formFalseValidationUrgency]='formFalseValidationUrgency'
                 [ngStyle]="{'background-color': animationRedUrgency? '#b83030' : '#ffffff'}"
                 (@formFalseValidationUrgency.done)="setBackToUnchecked()">
-          <option *ngFor="let key of mapUrgency.keys()" [value]="key" >{{ mapUrgency.get(key) }}</option>
+          <option *ngFor="let key of mapUrgencyKeys" [value]="key" >{{ mapUrgency.get(key) }}</option>
         </select>
       </td>
       <td class="col3">Type incident : </td>
@@ -43,7 +40,7 @@
         <select name="Type incident*" [(ngModel)]="idCat"
                 [@formFalseValidationCat]='formFalseValidationCat' (@formFalseValidationCat.done)="setBackToUnchecked()"
                 [ngStyle]="{'background-color': animationRedCat? '#b83030' : '#ffffff'}">
-          <option *ngFor="let key of mapCategory.keys()" [value]="key" >{{ mapCategory.get(key)}} </option>
+          <option *ngFor="let key of mapCategoryKeys" [value]="key" >{{ mapCategory.get(key)}} </option>
         </select>
       </td>
     </tr>
