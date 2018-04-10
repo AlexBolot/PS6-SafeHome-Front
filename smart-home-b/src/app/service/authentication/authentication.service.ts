@@ -7,6 +7,11 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class AuthenticationService {
+  private static USER_KEY: string = "User";
+  private static personURL: string = AppSettings.API_ROOT + '/People';
+  private static _loginURL = '/login';
+  private static TOKEN_KEY: string = "token";
+
   static get loginURL(): string {
     return this._loginURL;
   }
@@ -15,14 +20,15 @@ export class AuthenticationService {
     this._loginURL = value;
   }
 
-  private static personURL: string = AppSettings.API_ROOT + '/People';
-  private static _loginURL = '/login';
-  private static TOKEN_KEY: string = "token";
+
   private user: User = null;
   private logged: Observable<boolean> = new BehaviorSubject<boolean>(this.hasToken());
 
   constructor(private httpclient: HttpClient) {
     this.httpclient = httpclient;
+    if (localStorage.getItem(AuthenticationService.USER_KEY)) {
+      this.user = JSON.parse(localStorage.getItem(AuthenticationService.USER_KEY));
+    }
   }
 
   createUser(user: User): Observable<JSON> {
@@ -67,18 +73,21 @@ export class AuthenticationService {
   private aknowledgeLogin(response: JSON) {
 
     this.user.idUser = response['userId'];
-    this.setToken(response["token"], response["ttl"]);
+
+    if (response["id"] != undefined)
+      this.setToken(response["id"], response["ttl"]);
+    localStorage.setItem(AuthenticationService.USER_KEY, JSON.stringify(this.user));
   }
 
   private setToken(token: string, ttl: number) {
-    this.user.token = token
+    this.user.token = token;
     localStorage.setItem(AuthenticationService.TOKEN_KEY, token);
     let time: Date = new Date();
     localStorage.setItem("Expire", String(time.getTime() + ttl));
   }
 
   private isTokenValid() {
-    let expire: Date = new Date(localStorage.getItem("Expire"));
+    let expire: Date = new Date(parseInt(localStorage.getItem("Expire")));
     return new Date() <= expire;
   }
 }

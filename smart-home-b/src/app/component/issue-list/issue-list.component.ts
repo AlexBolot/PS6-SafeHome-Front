@@ -18,9 +18,13 @@ export class IssueListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.issueService.getDeclaredBy(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+    this.authService.isLogged().subscribe((logged) => {
+      if (logged) this.issueService.getDeclaredBy(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+    });
+
     this.declaredButtonColor = 'selected';
   }
+
 
   declaredButton_OnClick() {
     this.issueService.getDeclaredBy(this.authService.getUser().idUser).subscribe(value => this.issues = value);
