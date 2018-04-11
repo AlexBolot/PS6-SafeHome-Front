@@ -1,5 +1,8 @@
 <div class="incident-block">
-  <h3 class="margin-left-1em">Titre : {{issue.Title}}
+  <b [style.background-color]="changeBackground()" class="cercle"></b>
+  <h3 class="margin-left-1em">
+    Titre : {{issue.Title}}
+
     <button class="margin-left-1em" (click)="showMore()">plus de détails</button>
     <button class="margin-left-1em" (click)="showTasks()">afficher les tâches</button>
   </h3>

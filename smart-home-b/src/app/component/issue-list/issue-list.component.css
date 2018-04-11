@@ -4,7 +4,29 @@
   margin-right: auto;
   width: 50%;
 }
-
+.cercle {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+.divsmall{
+  width: 100px;
+  height: 300px;
+  position: fixed;
+  margin-left: 10%;
+}
+.red{
+  background-color: red;
+}.grey{
+  background-color: grey;
+}.blue{
+  background-color: blue;
+}.green{
+  background-color: green;
+}.orange{
+  background-color: orange;
+}
 .button-container {
   width: 100%;
   text-align: center;

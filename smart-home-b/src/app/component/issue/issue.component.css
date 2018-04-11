@@ -7,6 +7,17 @@
   background-color: #ebebeb;
 }
 
+
+.cercle {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.redClass {
+  color: red
+}
 .width-full {
   width: 100%;
   display: table;
