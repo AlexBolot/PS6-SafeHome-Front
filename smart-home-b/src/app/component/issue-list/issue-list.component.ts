@@ -14,6 +14,8 @@ export class IssueListComponent implements OnInit {
   baseStyle: String = 'btn btn-block btn-';
   declaredButtonStyle = this.baseStyle + 'primary';
   assignedButtonStyle = this.baseStyle + 'info';
+  declaredButtonIsChecked = false;
+  assignedButtonIsChecked = false;
 
   constructor(private issueService: IssueService, private authService: AuthenticationService) {
   }
@@ -26,15 +28,30 @@ export class IssueListComponent implements OnInit {
     });
   }
 
+  declaredButton_OnClickOneTime() {
+    if (!this.declaredButtonIsChecked) {
+      this.declaredButton_OnClick();
+      this.declaredButtonIsChecked = true;
+    }
+  }
+
   declaredButton_OnClick() {
     this.issueService.getDeclaredBy(this.authService.getUser().idUser).subscribe(value => this.issues = value);
     this.declaredButtonStyle = this.baseStyle + 'primary';
     this.assignedButtonStyle = this.baseStyle + 'info';
+    this.assignedButtonIsChecked = false;
+  }
+  assignedButton_OnClickOneTime() {
+    if (!this.assignedButtonIsChecked ) {
+      this.assignedButton_OnClick();
+      this.assignedButtonIsChecked = true;
+    }
   }
 
   assignedButton_OnClick() {
     this.issueService.getAssignedTo(this.authService.getUser().idUser).subscribe(value => this.issues = value);
     this.assignedButtonStyle = this.baseStyle + 'primary';
     this.declaredButtonStyle = this.baseStyle + 'info';
+    this.declaredButtonIsChecked = false;
   }
 }
