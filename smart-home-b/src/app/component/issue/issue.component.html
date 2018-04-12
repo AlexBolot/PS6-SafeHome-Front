@@ -1,11 +1,10 @@
 <div class="incident-block">
-  <b [style.background-color]="changeBackground()" class="cercle"></b>
-  <h3 class="margin-left-1em">
+  <p [style.background-color]="changeBackground()" class="cercle"></p>
+  <h3 class="issue-title">
     Titre : {{issue.Title}}
-
-    <button class="margin-left-1em" (click)="showMore()">plus de détails</button>
-    <button class="margin-left-1em" (click)="showTasks()">afficher les tâches</button>
   </h3>
+  <button class="margin-left-1em" (click)="showMore()">{{buttonDetailsName}}</button>
+  <button class="margin-left-1em" (click)="showTasks()">{{buttonTasksName}}</button>
   <div class="width-full table">
     <div class="width-full">
       <div class="medium-cell"><p class="no-margin">Date : {{issue.DeclarationDate | date}}</p></div>
