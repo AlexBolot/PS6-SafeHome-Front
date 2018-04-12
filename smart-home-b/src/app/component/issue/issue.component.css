@@ -1,10 +1,5 @@
 .incident-block {
-  width: auto;
-  border: solid 1px #272727;
-  border-radius: 4px;
-  margin-bottom: .2em;
-  padding: 10px;
-  background-color: #ebebeb;
+
 }
 
 .cercle {
@@ -17,6 +12,7 @@
 .redClass {
   color: red
 }
+
 .width-full {
   width: 100%;
   display: table;
@@ -29,6 +25,10 @@
 
 .margin-left-1em {
   margin-left: 1em;
+}
+
+.margin-left-2em {
+  margin-left: 3em;
 }
 
 .no-margin {

@@ -1,22 +1,9 @@
-.main {
-  margin-top: 4%;
-  margin-left: auto;
-  margin-right: auto;
-  width: 55%;
-}
 
 .circle {
-  display: block;
-  width: 25px;
-  height: 25px;
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-}
-
-.divsmall {
-  width: 100px;
-  height: 300px;
-  position: fixed;
-  margin-left: 10%;
 }
 
 .red {
@@ -39,18 +26,16 @@
   background-color: orange;
 }
 
-.button-container {
-  width: 100%;
-  text-align: center;
-  margin-bottom: .2em;
+.no-padding-left {
+  padding-left: 0;
 }
 
-.large-button {
-  width: 49.5%;
-  font-size: 1em;
-  height: 2.5em;
-  border-radius: 4px;
-  outline: 0;
+.buttons-area {
+  margin-bottom: 1em;
+}
+
+.no-padding-right {
+  padding-right: 0;
 }
 
 .list {
@@ -58,13 +43,6 @@
   width: 100%;
 }
 
-.margin-bottom-1em {
-}
-
-.selected {
-  background: #5b96ff;
-}
-
-.not-selected {
-  background: #98c2ff;
+.align-center {
+  vertical-align: baseline;
 }

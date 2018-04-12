@@ -11,34 +11,30 @@ import {AuthenticationService} from '../../service/authentication/authentication
 export class IssueListComponent implements OnInit {
 
   issues: Issue[] = [];
-  declaredButtonColor = 'not-selected';
-  assignedButtonColor = 'not-selected';
+  baseStyle: String = 'btn btn-block btn-';
+  declaredButtonStyle = this.baseStyle + 'primary';
+  assignedButtonStyle = this.baseStyle + 'info';
 
   constructor(private issueService: IssueService, private authService: AuthenticationService) {
   }
 
   ngOnInit() {
     this.authService.isLogged().subscribe((logged) => {
-      if (logged) this.issueService.getDeclaredBy(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+      if (logged) {
+        this.issueService.getDeclaredBy(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+      }
     });
-
-    this.declaredButtonColor = 'selected';
   }
-
 
   declaredButton_OnClick() {
     this.issueService.getDeclaredBy(this.authService.getUser().idUser).subscribe(value => this.issues = value);
-    this.declaredButtonColor = 'selected';
-    this.assignedButtonColor = 'not-selected';
+    this.declaredButtonStyle = this.baseStyle + 'primary';
+    this.assignedButtonStyle = this.baseStyle + 'info';
   }
 
   assignedButton_OnClick() {
-    this.issueService.getAssignedTo(this.authService.getUser().idUser).subscribe(value => {
-      console.log(this.authService.getUser().idUser);
-      console.log(value);
-      this.issues = value;
-    });
-    this.assignedButtonColor = 'selected';
-    this.declaredButtonColor = 'not-selected';
+    this.issueService.getAssignedTo(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+    this.assignedButtonStyle = this.baseStyle + 'primary';
+    this.declaredButtonStyle = this.baseStyle + 'info';
   }
 }

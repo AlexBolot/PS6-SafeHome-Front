@@ -13,8 +13,8 @@ import {Task} from '../../model/task';
 })
 export class IssueComponent implements OnInit {
 
-  buttonDetailsName: String = 'plus de détails';
-  buttonTasksName: String = 'afficher les tâches';
+  buttonDetailsIcon: String = 'glyphicon glyphicon-menu-down';
+  buttonTasksIcon: String = 'glyphicon glyphicon-menu-down';
 
   tasks: Task[] = [];
   visibleTasks = false;
@@ -40,27 +40,33 @@ export class IssueComponent implements OnInit {
 
   showMore() {
     this.visibleDetails = !this.visibleDetails;
-    this.buttonDetailsName = this.visibleDetails ? 'moins de détails' : 'plus de détails';
+    this.buttonDetailsIcon = this.visibleDetails ? 'glyphicon glyphicon-menu-up' : 'glyphicon glyphicon-menu-down';
   }
 
   showTasks() {
     this.visibleTasks = !this.visibleTasks;
-    this.buttonTasksName = this.visibleTasks ? 'masquer les tâches' : 'afficher les tâches';
+    this.buttonTasksIcon = this.visibleTasks ? 'glyphicon glyphicon-menu-up' : 'glyphicon glyphicon-menu-down';
   }
 
-  changeBackground(): string {
-    if (this.urgencyLabel === 'Mineur') {
-      return 'blue';
-    } else {
-      if (this.urgencyLabel === 'Faible') {
+  changeBackground(): String {
+    switch (this.urgencyLabel) {
+      case 'Mineur':
+        return 'blue';
+
+      case 'Faible':
         return 'green';
-      } else if (this.urgencyLabel === 'Moyenne') {
+
+      case 'Moyenne':
         return 'orange';
-      } else if (this.urgencyLabel === 'Forte') {
+
+      case 'Forte':
         return 'red';
-      } else if (this.urgencyLabel === 'Majeure') {
+
+      case 'Majeure':
         return 'grey';
-      }
+
+      default:
+        return 'bg-default';
     }
   }
 }
