@@ -18,33 +18,25 @@
         <textarea class="form-control" rows="3" name="description" [(ngModel)]="description" [ngModelOptions]="{standalone: true}"></textarea>
       </div>
     </div>
+
     <table>
       <tr>
-        <td>
+        <td class="col1">
           <div class="form-group">
             <label >Date</label>
             <div class="col-10">
               <input class="form-control" type="datetime-local"
                      [ngModel]="dateIncident | date:'yyyy-MM-ddThh:mm'"
                      (ngModelChange)="dateIncident = $event"
-                     [value]="dateIncident | date:'yyyy-MM-dd-Thh:mm'" name="date">
+                     [value]="dateIncident | date:'yyyy-MM-ddThh:mm'" name="date">
             </div>
           </div>
+        </td>
+        <td class="col-10">
+
         </td>
 
-        <td>
-          <div class="form-group">
-            <label> Localisation </label>
-            <div class="col-10">
-              <select class="form-control" name="localisation" [(ngModel)]="idLocation">
-                <option *ngFor="let key of mapLocationKeys" [value]="key" >{{ mapLocation.get(key)}} </option>
-              </select>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
+        <td class="col2">
           <div class="form-group">
             <label> Importance* </label>
             <div class="col-10">
@@ -57,7 +49,22 @@
             </div>
           </div>
         </td>
-        <td>
+      </tr>
+      <tr>
+        <td class="col1">
+          <div class="form-group">
+            <label> Localisation </label>
+            <div class="col-10">
+              <select class="form-control" name="localisation" [(ngModel)]="idLocation">
+                <option *ngFor="let key of mapLocationKeys" [value]="key" >{{ mapLocation.get(key)}} </option>
+              </select>
+            </div>
+          </div>
+        </td>
+        <td class="col-5">
+
+        </td>
+        <td class="col2">
           <div class="form-group">
             <label> Type Incident* </label>
             <div class="col-10">
