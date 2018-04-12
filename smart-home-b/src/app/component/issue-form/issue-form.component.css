@@ -5,12 +5,12 @@
   min-width: 500px;
   border-radius: 10px;
 }
-.divForm table{
-  max-width:90%;
-  padding : 5% 0%;
-  margin: 0% 20%;
-  font-size: 16px;
+.divForm form{
+  margin:10% 20%;
 }
+.divForm table{
+  width: 100%;
+}/*
 .divForm .tr{
   margin-bottom: 400px;
 }
@@ -49,7 +49,7 @@
   width:  25%;
   min-width: 110px;
   max-width: 200px;
-}
+}*/
 
 .buttonleft{
   margin-left:30%;
@@ -84,3 +84,4 @@
 .redToBlank:focus{
   background-color: #ffffff !important;
 }
+

@@ -1,5 +1,79 @@
 <div class="divForm">
-  <table>
+
+  <form>
+    <div class="form-group">
+      <label>Titre*</label>
+      <div class="col-10">
+        <input type="text" class="form-control" placeholder="Example Vitre Casée"
+             [(ngModel)]="title" name="titre"
+             [@formFalseValidationTitle]='formFalseValidationTitle'
+             [ngStyle]="{'background-color': animationRedTitle? '#b83030' : '#ffffff'}"
+             (@formFalseValidationTitle.done)="setBackToUnchecked()" >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <div class="col-10">
+        <textarea class="form-control" rows="3" name="description" [(ngModel)]="description" [ngModelOptions]="{standalone: true}"></textarea>
+      </div>
+    </div>
+    <table>
+      <tr>
+        <td>
+          <div class="form-group">
+            <label >Date</label>
+            <div class="col-10">
+              <input class="form-control" type="datetime-local"
+                     [ngModel]="dateIncident | date:'yyyy-MM-ddThh:mm'"
+                     (ngModelChange)="dateIncident = $event"
+                     [value]="dateIncident | date:'yyyy-MM-dd-Thh:mm'" name="date">
+            </div>
+          </div>
+        </td>
+
+        <td>
+          <div class="form-group">
+            <label> Localisation </label>
+            <div class="col-10">
+              <select class="form-control" name="localisation" [(ngModel)]="idLocation">
+                <option *ngFor="let key of mapLocationKeys" [value]="key" >{{ mapLocation.get(key)}} </option>
+              </select>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="form-group">
+            <label> Importance* </label>
+            <div class="col-10">
+              <select class="form-control" name="importance" [(ngModel)]="idUrgency"
+                      [@formFalseValidationUrgency]='formFalseValidationUrgency'
+                      [ngStyle]="{'background-color': animationRedUrgency? '#b83030' : '#ffffff'}"
+                      (@formFalseValidationUrgency.done)="setBackToUnchecked()">
+                <option *ngFor="let key of mapUrgencyKeys" [value]="key" >{{ mapUrgency.get(key) }}</option>
+              </select>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="form-group">
+            <label> Type Incident* </label>
+            <div class="col-10">
+              <select class="form-control" name="typeIncident" [(ngModel)]="idCat"
+                      [@formFalseValidationCat]='formFalseValidationCat' (@formFalseValidationCat.done)="setBackToUnchecked()"
+                      [ngStyle]="{'background-color': animationRedCat? '#b83030' : '#ffffff'}">
+                <option *ngFor="let key of mapCategoryKeys" [value]="key">{{ mapCategory.get(key)}}</option>
+              </select>
+            </div>
+          </div>
+
+        </td>
+      </tr>
+    </table>
+  </form>
+  <!--<table>
     <tr class="tr">
       <td class="col1">Titre* :</td>
       <td class="col2" colspan="2"><input class="form-control" type="text" name="titre" id="inputTitre"
@@ -23,7 +97,7 @@
       </td>
       <td class="col3"> Localisation :</td>
       <td>
-        <select name="Localisation" [(ngModel)]="idLocation">
+        <select class="custom-select" name="Localisation" [(ngModel)]="idLocation">
           <option *ngFor="let key of mapLocationKeys" [value]="key" >{{ mapLocation.get(key)}} </option>
         </select>
       </td>
@@ -53,6 +127,7 @@
     </tr>
 
   </table>
+  -->
 </div>
 <div class="erreur margin25left " [ngClass]="errorValidate"> Veuillez remplir les champs marqués d'une * ( Ils sont
   obligatoires )
