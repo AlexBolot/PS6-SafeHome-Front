@@ -7,9 +7,8 @@
   background-color: #ebebeb;
 }
 
-
 .cercle {
-  display: block;
+  display: inline-flex;
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -21,6 +20,11 @@
 .width-full {
   width: 100%;
   display: table;
+}
+
+.issue-title{
+  margin-left: .5em;
+  display: inline;
 }
 
 .margin-left-1em {

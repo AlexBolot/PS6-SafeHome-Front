@@ -33,7 +33,11 @@ export class IssueListComponent implements OnInit {
   }
 
   assignedButton_OnClick() {
-    this.issueService.getAssignedTo(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+    this.issueService.getAssignedTo(this.authService.getUser().idUser).subscribe(value => {
+      console.log(this.authService.getUser().idUser);
+      console.log(value);
+      this.issues = value;
+    });
     this.assignedButtonColor = 'selected';
     this.declaredButtonColor = 'not-selected';
   }
