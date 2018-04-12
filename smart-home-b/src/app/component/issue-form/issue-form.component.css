@@ -1,16 +1,27 @@
 .divForm{
   width:90%;
   background-color: #3cf;
-  margin: 5% auto 5%;
-  min-width: 500px;
+  margin: 5% 5%;
   border-radius: 10px;
 }
 .divForm form{
-  margin:10% 20%;
+  margin:3% 20%;
+  padding-top: 3%;
+  padding-bottom: 3%;
 }
 .divForm table{
   width: 100%;
-}/*
+}
+.divForm table .col1{
+  width: 20%;
+  min-width: 150px;
+}
+.divForm table .col2{
+  width: 20%;
+  min-width: 150px;
+}
+
+/*
 .divForm .tr{
   margin-bottom: 400px;
 }
