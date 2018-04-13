@@ -17,6 +17,8 @@ export class IssueListComponent implements OnInit {
   assignedButtonStyle = this.baseStyle + 'info';
   declaredButtonIsChecked = false;
   assignedButtonIsChecked = false;
+  sortBy: string;
+  inputSearch: string;
 
   constructor(private issueService: IssueService, private authService: AuthenticationService) {
   }
@@ -24,7 +26,9 @@ export class IssueListComponent implements OnInit {
   ngOnInit() {
     this.authService.isLogged().subscribe((logged) => {
       if (logged) {
-        this.issueService.getDeclaredBy(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+        this.issueService.getDeclaredByDate(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+        this.sortBy = 'date';
+        this.declaredButtonIsChecked = true;
       }
     });
   }
@@ -32,29 +36,69 @@ export class IssueListComponent implements OnInit {
   declaredButton_OnClickOneTime() {
     if (!this.declaredButtonIsChecked) {
       this.declaredButton_OnClick();
+      this.sortBy = 'date';
       this.declaredButtonIsChecked = true;
     }
   }
 
   declaredButton_OnClick() {
     this.issues = null;
-    this.issueService.getDeclaredBy(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+    this.issueService.getDeclaredByDate(this.authService.getUser().idUser).subscribe(value => this.issues = value);
     this.declaredButtonStyle = this.baseStyle + 'primary';
     this.assignedButtonStyle = this.baseStyle + 'info';
     this.assignedButtonIsChecked = false;
   }
+
   assignedButton_OnClickOneTime() {
-    if (!this.assignedButtonIsChecked ) {
+    if (!this.assignedButtonIsChecked) {
       this.assignedButton_OnClick();
+      this.sortBy = 'importance';
       this.assignedButtonIsChecked = true;
     }
   }
 
   assignedButton_OnClick() {
     this.issues = null;
-    this.issueService.getAssignedTo(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+    this.issueService.getAssignedToByImportance(this.authService.getUser().idUser).subscribe(value => this.issues = value);
     this.assignedButtonStyle = this.baseStyle + 'primary';
     this.declaredButtonStyle = this.baseStyle + 'info';
     this.declaredButtonIsChecked = false;
+  }
+
+  callType() {
+    if (this.inputSearch === undefined) {
+      if (this.assignedButtonIsChecked) {
+        if (this.sortBy === 'importance') {
+          this.issueService.getAssignedToByImportance(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+        } else if (this.sortBy === 'date') {
+          this.issueService.getAssignedToByDate(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+        }
+      } else if (this.declaredButtonIsChecked) {
+        if (this.sortBy === 'importance') {
+          this.issueService.getDeclaredByImportance(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+        } else if (this.sortBy === 'date') {
+          this.issueService.getDeclaredByDate(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+        }
+      }
+    } else if (this.inputSearch !== undefined) {
+      console.log(this.inputSearch);
+      if (this.assignedButtonIsChecked) {
+        if (this.sortBy === 'importance') {
+          this.issueService.getAssignedToByImportanceAndString(this.authService.getUser().idUser, this.inputSearch)
+            .subscribe(value => this.issues = value);
+        } else if (this.sortBy === 'date') {
+          this.issueService.getAssignedToByDateAndString(this.authService.getUser().idUser, this.inputSearch)
+            .subscribe(value => this.issues = value);
+        }
+      } else if (this.declaredButtonIsChecked) {
+        if (this.sortBy === 'importance') {
+          this.issueService.getDeclaredFilterStringAndImportance(this.authService.getUser().idUser, this.inputSearch)
+            .subscribe(value => this.issues = value);
+        } else if (this.sortBy === 'date') {
+          this.issueService.getDeclaredFilterStringAndDate(this.authService.getUser().idUser, this.inputSearch)
+            .subscribe(value => this.issues = value);
+        }
+      }
+    }
   }
 }
