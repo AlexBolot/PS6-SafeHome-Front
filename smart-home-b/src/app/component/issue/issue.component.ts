@@ -50,21 +50,14 @@ export class IssueComponent implements OnInit {
 
   changeBackground(): String {
     switch (this.urgencyLabel) {
-      case 'Mineur':
-        return 'blue';
-
       case 'Faible':
-        return 'green';
+        return 'yellow';
 
       case 'Moyenne':
         return 'orange';
 
       case 'Forte':
         return 'red';
-
-      case 'Majeure':
-        return 'grey';
-
       default:
         return 'bg-default';
     }

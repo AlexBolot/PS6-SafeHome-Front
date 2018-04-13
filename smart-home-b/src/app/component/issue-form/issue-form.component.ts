@@ -91,6 +91,7 @@ export class IssueFormComponent implements OnInit {
   ngOnInit(): void {
     this.dateIncident = new Date();
     this.initializeAllMap();
+    this.idUrgency = 3;
   }
 
   setBackToUnchecked() {
@@ -156,8 +157,5 @@ export class IssueFormComponent implements OnInit {
     }
   }
 
-  handleInputChange(event) {
-    const files = event.srcElement.files;
-    console.log(files);
-  }
+
 }
