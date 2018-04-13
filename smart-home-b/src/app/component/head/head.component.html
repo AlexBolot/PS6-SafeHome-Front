@@ -1,22 +1,12 @@
 <div class="head">
   <img class="logo" src="/assets/icons/safe-house-icon.png" width="58" height="63">
-  <div class = "contenantBtn">
-    <table>
-      <tr (click)="updateColorBtn()">
-        <td [ngClass]="ajouterIncident" routerLink="/issueForm" *ngIf="coverBtnDeconnexion()">
-          Ajouter un incident
-        </td>
-        <td [ngClass]="mesIncidents" routerLink="/issueView" *ngIf="coverBtnDeconnexion()">
-          Suivi de mes incidents
-        </td>
-        <td></td>
-        <td>
-          <button *ngIf="coverBtnDeconnexion()">
-            <a routerLink="/connexion"> Déconnexion </a>
-          </button>
-        </td>
-      </tr>
-    </table>
+  <h1 id="titrePage"> Safe Home : Gestion d'incidents </h1>
+  <div class="container">
+    <ul class="nav nav-tabs" *ngIf="coverBtnDeconnexion()">
+      <li [ngClass]="suiviIncident" (click)="updateColorBtn('suiviIncident')" ><a routerLink="/issueView"> Suivi de mes incidents </a></li>
+      <li [ngClass]="ajoutIncident" (click)="updateColorBtn('ajoutIncident')" ><a routerLink="/issueForm"> Ajouter un incident </a></li>
+      <li ><a routerLink="/connexion"> Deconnexion </a></li>
+    </ul>
   </div>
 </div>
 <hr>

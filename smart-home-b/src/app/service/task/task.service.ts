@@ -23,4 +23,8 @@ export class TaskService {
   getAllByIssueID(id: number): Observable<Task[]> {
     return this.httpClient.get<Task[]>(this.API_url).map(tasks => tasks.filter(task => task.IDIssue === id));
   }
+
+  getAllByAssignee(id: number): Observable<Task[]> {
+    return this.httpClient.get<Task[]>(this.API_url + '?filter[where][IDAssignee]=' + id);
+  }
 }

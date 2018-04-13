@@ -9,29 +9,29 @@ import {AuthenticationService} from '../../service/authentication/authentication
 })
 export class HeadComponent implements OnInit {
 
-  ajouterIncident = 'not-selected';
-  mesIncidents = 'selected';
+  suiviIncident = 'active';
+  ajoutIncident = '';
+
 
   constructor(private location: Location, private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
-    this.updateColorBtn();
-    this.mesIncidents = 'selected';
+    this.suiviIncident = 'active';
   }
 
   coverBtnDeconnexion() {
     return location.pathname !== '/connexion';
   }
 
-  updateColorBtn() {
-    this.mesIncidents = 'not-selected';
-    this.ajouterIncident = 'not-selected';
+  updateColorBtn(localisation : String) {
+    this.suiviIncident =' ';
+    this.ajoutIncident =' ';
 
-    if (location.pathname === '/issueForm')
-      this.ajouterIncident = 'selected';
-    else if (location.pathname === '/issueView')
-      this.mesIncidents = 'selected';
+    if (localisation === 'suiviIncident')
+      this.suiviIncident = 'active';
+    else if (localisation === 'ajoutIncident')
+      this.ajoutIncident = 'active';
   }
 
   goTo() {

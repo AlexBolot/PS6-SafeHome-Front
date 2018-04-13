@@ -1,22 +1,41 @@
-.main {
-  margin-top: 4%;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+
+.circle {
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
 }
 
-.button-container {
-  width: 100%;
-  text-align: center;
-  margin-bottom: .2em;
+.red {
+  background-color: red;
 }
 
-.large-button {
-  width: 49.5%;
-  font-size: 1em;
-  height: 2.5em;
-  border-radius: 4px;
-  outline: 0;
+.grey {
+  background-color: grey;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.green {
+  background-color: green;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.no-padding-left {
+  padding-left: 0;
+}
+
+.buttons-area {
+  margin-bottom: 1em;
+}
+
+.no-padding-right {
+  padding-right: 0;
 }
 
 .list {
@@ -24,13 +43,6 @@
   width: 100%;
 }
 
-.margin-bottom-1em {
-}
-
-.selected {
-  background: #5b96ff;
-}
-
-.not-selected {
-  background: #98c2ff;
+.align-center {
+  vertical-align: baseline;
 }

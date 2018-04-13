@@ -1,7 +1,43 @@
-<div class="main">
-  <div class="button-container">
-    <button [ngClass]="declaredButtonColor" class="large-button" (click)="declaredButton_OnClick()">Déclaré</button>
-    <button [ngClass]="assignedButtonColor" class="large-button" (click)="assignedButton_OnClick()">Assigné</button>
+<div class="col-md-2">
+  <ul class="list-group">
+    <li class="list-group-item">
+      <div class="chip">
+        <p class="circle grey"></p> Majeure
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="chip">
+        <p class="circle red"></p> Forte
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="chip">
+        <p class="circle orange"></p> Moyenne
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="chip">
+        <p class="circle green"></p> Faible
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="chip">
+        <p class="circle blue"></p> Mineure
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="col-md-8">
+  <div class="container-fluid buttons-area">
+    <div class="row">
+      <div class="col-md-6 no-padding-left">
+        <button [ngClass]="declaredButtonStyle" (click)="declaredButton_OnClickOneTime()">Déclaré</button>
+      </div>
+      <div class="col-md-6 no-padding-right">
+        <button [ngClass]="assignedButtonStyle" (click)="assignedButton_OnClickOneTime()">Assigné</button>
+      </div>
+    </div>
   </div>
   <div class="list">
     <div *ngIf="issues == null ">

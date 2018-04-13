@@ -12,32 +12,49 @@ import {AuthenticationService} from '../../service/authentication/authentication
 export class IssueListComponent implements OnInit {
 
   issues: Issue[] = [];
-  declaredButtonColor = 'not-selected';
-  assignedButtonColor = 'not-selected';
+  baseStyle: String = 'btn btn-block btn-';
+  declaredButtonStyle = this.baseStyle + 'primary';
+  assignedButtonStyle = this.baseStyle + 'info';
+  declaredButtonIsChecked = false;
+  assignedButtonIsChecked = false;
 
   constructor(private issueService: IssueService, private authService: AuthenticationService) {
   }
 
   ngOnInit() {
     this.authService.isLogged().subscribe((logged) => {
-      if (logged) this.issueService.getDeclaredBy(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+      if (logged) {
+        this.issueService.getDeclaredBy(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+      }
     });
-
-    this.declaredButtonColor = 'selected';
   }
 
+  declaredButton_OnClickOneTime() {
+    if (!this.declaredButtonIsChecked) {
+      this.declaredButton_OnClick();
+      this.declaredButtonIsChecked = true;
+    }
+  }
 
   declaredButton_OnClick() {
     this.issues = null;
     this.issueService.getDeclaredBy(this.authService.getUser().idUser).subscribe(value => this.issues = value);
-    this.declaredButtonColor = 'selected';
-    this.assignedButtonColor = 'not-selected';
+    this.declaredButtonStyle = this.baseStyle + 'primary';
+    this.assignedButtonStyle = this.baseStyle + 'info';
+    this.assignedButtonIsChecked = false;
+  }
+  assignedButton_OnClickOneTime() {
+    if (!this.assignedButtonIsChecked ) {
+      this.assignedButton_OnClick();
+      this.assignedButtonIsChecked = true;
+    }
   }
 
   assignedButton_OnClick() {
     this.issues = null;
     this.issueService.getAssignedTo(this.authService.getUser().idUser).subscribe(value => this.issues = value);
-    this.assignedButtonColor = 'selected';
-    this.declaredButtonColor = 'not-selected';
+    this.assignedButtonStyle = this.baseStyle + 'primary';
+    this.declaredButtonStyle = this.baseStyle + 'info';
+    this.declaredButtonIsChecked = false;
   }
 }

@@ -1,19 +1,13 @@
-.contenantBtn {
-  width: auto;
-  margin-left:20%;
-  margin-bottom:0%;
-  outline: 0;
-}
-.contenantBtn .selected {
-  outline: 0;
-  background: white;
-}
-.contenantBtn .not-selected {
-  background: #37beff;
-}
 .head {
   background-color: #37beff;
+  min-height: 115px;
 }
 .logo {
   margin: .5%;
+}
+#titrePage{
+  display: inline;
+  position: absolute;
+  top:20px; left: 50%;
+  transform: translate(-50%, -50%);
 }

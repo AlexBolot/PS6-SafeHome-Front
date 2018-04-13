@@ -18,8 +18,4 @@ import {Router} from '@angular/router';
     this.dialogRef.close();
     this.router.navigate(['/issueView']);
   }
-  onOkClick(): void {
-    this.dialogRef.close();
-    window.location.reload();
-  }
 }

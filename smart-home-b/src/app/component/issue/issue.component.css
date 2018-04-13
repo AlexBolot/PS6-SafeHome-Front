@@ -1,10 +1,16 @@
 .incident-block {
-  width: auto;
-  border: solid 1px #272727;
-  border-radius: 4px;
-  margin-bottom: .2em;
-  padding: 10px;
-  background-color: #ebebeb;
+
+}
+
+.cercle {
+  display: inline-flex;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.redClass {
+  color: red
 }
 
 .width-full {
@@ -12,8 +18,17 @@
   display: table;
 }
 
+.issue-title{
+  margin-left: .5em;
+  display: inline;
+}
+
 .margin-left-1em {
   margin-left: 1em;
+}
+
+.margin-left-2em {
+  margin-left: 3em;
 }
 
 .no-margin {

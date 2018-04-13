@@ -13,14 +13,10 @@ import {Task} from '../../model/task';
 })
 export class IssueComponent implements OnInit {
 
+  buttonDetailsIcon: String = 'glyphicon glyphicon-menu-down';
+  buttonTasksIcon: String = 'glyphicon glyphicon-menu-down';
+
   tasks: Task[] = [];
-
-  /*tasks: Task[] = [
-    new Task('Ceci est une tâche', 1, 1, 1, 2),
-    new Task('Et ça une autre tâche', 1, 1, 2, 3),
-    new Task('Et en voilà une petite troisième pour la route !', 1, 1, 2, 1),
-  ];*/
-
   visibleTasks = false;
   visibleDetails = false;
   categoryLabel: String;
@@ -44,9 +40,33 @@ export class IssueComponent implements OnInit {
 
   showMore() {
     this.visibleDetails = !this.visibleDetails;
+    this.buttonDetailsIcon = this.visibleDetails ? 'glyphicon glyphicon-menu-up' : 'glyphicon glyphicon-menu-down';
   }
 
   showTasks() {
     this.visibleTasks = !this.visibleTasks;
+    this.buttonTasksIcon = this.visibleTasks ? 'glyphicon glyphicon-menu-up' : 'glyphicon glyphicon-menu-down';
+  }
+
+  changeBackground(): String {
+    switch (this.urgencyLabel) {
+      case 'Mineur':
+        return 'blue';
+
+      case 'Faible':
+        return 'green';
+
+      case 'Moyenne':
+        return 'orange';
+
+      case 'Forte':
+        return 'red';
+
+      case 'Majeure':
+        return 'grey';
+
+      default:
+        return 'bg-default';
+    }
   }
 }

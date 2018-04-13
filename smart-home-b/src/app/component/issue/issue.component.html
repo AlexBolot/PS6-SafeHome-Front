@@ -1,25 +1,35 @@
-<div class="incident-block">
-  <h3 class="margin-left-1em">Titre : {{issue.Title}}
-    <button class="margin-left-1em" (click)="showMore()">plus de détails</button>
-    <button class="margin-left-1em" (click)="showTasks()">afficher les tâches</button>
-  </h3>
-  <div class="width-full table">
-    <div class="width-full">
-      <div class="medium-cell"><p class="no-margin">Date : {{issue.DeclarationDate | date}}</p></div>
-      <div class="large-cell"><p class="no-margin">Catégorie : {{categoryLabel}}</p></div>
-      <div class="small-cell"><p class="no-margin">Status : {{statusLabel}}</p></div>
+<div class="container-fluid panel panel-default">
+  <div class="row panel-heading">
+    <div class="col-md-8">
+      <p [style.background-color]="changeBackground()" class="cercle" data-toggle="tooltip" title="Tooltip on top"></p>
+      <h3 class="issue-title">Titre : {{issue.Title}}</h3>
     </div>
-    <div class="width-full" *ngIf="visibleDetails">
-      <br>
-      <div class="medium-cell"><img src="{{issue.Picture}}"></div>
-      <div class="large-cell">Description : {{issue.Description}}
-      </div>
-      <div class="small-cell">Destinataire : undefined</div>
+    <div class="col-md-2">
+      <button class="margin-left-1em btn btn-default" (click)="showMore()">
+        <span [ngClass]="buttonDetailsIcon" aria-hidden="true"></span>Détails
+      </button>
+    </div>
+    <div class="col-md-2">
+      <button class="margin-left-1em btn btn-default" (click)="showTasks()">
+        <span [ngClass]="buttonTasksIcon" aria-hidden="true"></span>Tâches
+      </button>
     </div>
   </div>
-</div>
-<div class="tasks-list" *ngIf="visibleTasks">
-  <div *ngFor="let task of tasks">
-    <app-task [task]="task"></app-task>
+  <div class="row panel-body">
+    <div class="col-md-3 margin-left-2em">Date : {{issue.DeclarationDate | date}}</div>
+    <div class="col-md-4">Catégorie : {{categoryLabel}}</div>
+    <div class="col-md-4">Status : {{statusLabel}}</div>
+  </div>
+  <div class="row panel-body" *ngIf="visibleDetails">
+    <br>
+    <!--<div class="col-md-3 margin-left-2em"><img src="{{issue.Picture}}"></div>-->
+    <div class="col-md-7 margin-left-2em">Description : {{issue.Description}}</div>
+    <div class="col-md-4">Destinataire : undefined</div>
+  </div>
+
+  <div class="tasks-list" *ngIf="visibleTasks">
+    <div *ngFor="let task of tasks">
+      <app-task [task]="task"></app-task>
+    </div>
   </div>
 </div>

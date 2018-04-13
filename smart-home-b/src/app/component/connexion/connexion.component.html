@@ -1,30 +1,18 @@
-<div>
-
-  <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="loginmodal-container">
-        <h1>Login to Your Account</h1><br>
-
-        <form #connectionForm="ngForm">
-          <input [@formFalseValidationId]='formFalseValidationId'
-                 [ngStyle]="{'background-color': animationRedId? '#b83030' : '#ffffff'}"
-                 (@formFalseValidationId.done)="setBackToUnchecked()" type="email" name="email" placeholder="Login" required [(ngModel)]="user.email" #email="ngModel">
-          <div class="erreur" *ngIf="email.invalid && email.touched"> Vous devez remplir le champ login </div>
-
-          <input [@formFalseValidationPassword]='formFalseValidationPassword'
-                 [ngStyle]="{'background-color': animationRedPassword? '#b83030' : '#ffffff'}"
-                 (@formFalseValidationPassword.done)="setBackToUnchecked()"
-                 type="password" name="password" placeholder="Mot de passe" required [(ngModel)]="user.password" #password="ngModel">
-          <div class="erreur" *ngIf="password.invalid && password.touched ">  Vous devez remplir le champ mot de passe </div>
-
-          <input (click)="login()" type="submit" name="login" class="login loginmodal-submit" value="Login">
-          <div class="erreur" [ngClass]="erreurLogin"> le mot de passe ou le login n'est pas valide </div>
-        </form>
-
-        <div class="login-help">
-         <a href="#">Forgot Password</a>
-        </div>
-      </div>
+<div id="connexion">
+  <form action="/action_page.php" #connectionForm="ngForm">
+    <div class="form-group">
+      <label for="email">Email address:</label>
+      <input type="email" id="email" name="email" required [(ngModel)]="user.email" #email="ngModel"
+             class="form-control">
+      <div class="erreur" *ngIf="email.invalid && email.touched"> Vous devez remplir le champ login</div>
     </div>
-  </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required [(ngModel)]="user.password" #password="ngModel"
+             class="form-control">
+      <div class="erreur" *ngIf="password.invalid && password.touched "> Vous devez remplir le champ mot de passe</div>
+    </div>
+    <button (click)="login()" value="Login" type="Submit" class="btn btn-default">Connexion</button>
+    <div class="erreur" [ngClass]="erreurLogin"> le mot de passe ou le login n'est pas valide</div>
+  </form>
 </div>
