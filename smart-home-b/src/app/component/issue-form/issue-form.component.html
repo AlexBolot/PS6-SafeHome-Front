@@ -4,7 +4,7 @@
     <div class="form-group">
       <label>Titre*</label>
       <div class="col-10">
-        <input type="text" class="form-control" placeholder="Example Vitre Casée"
+        <input type="text" class="form-control" placeholder="Example Vitre Cassée"
              [(ngModel)]="title" name="titre"
              [@formFalseValidationTitle]='formFalseValidationTitle'
              [ngStyle]="{'background-color': animationRedTitle? '#b83030' : '#ffffff'}"
@@ -15,7 +15,7 @@
     <div class="form-group">
       <label>Description</label>
       <div class="col-10">
-        <textarea class="form-control" rows="3" name="description" [(ngModel)]="description" [ngModelOptions]="{standalone: true}"></textarea>
+        <textarea class="form-control" rows="3" name="description" [(ngModel)]="description"></textarea>
       </div>
     </div>
 
@@ -44,7 +44,7 @@
                       [@formFalseValidationUrgency]='formFalseValidationUrgency'
                       [ngStyle]="{'background-color': animationRedUrgency? '#b83030' : '#ffffff'}"
                       (@formFalseValidationUrgency.done)="setBackToUnchecked()">
-                <option *ngFor="let key of mapUrgencyKeys" [value]="key" >{{ mapUrgency.get(key) }}</option>
+                <option *ngFor="let key of mapUrgencyKeys" [ngValue]="idUrgency">{{mapUrgency.get(key)}}</option>
               </select>
             </div>
           </div>
