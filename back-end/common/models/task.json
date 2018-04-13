@@ -9,6 +9,11 @@
     "Text": {
       "type": "string",
       "required": true
+    },
+    "done": {
+      "type": "boolean",
+      "required": true,
+      "default": false
     }
   },
   "validations": [],
