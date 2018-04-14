@@ -1,5 +1,5 @@
 <div class="col-md-2">
-  <ul class="list-group">
+  <ul class="list-group fixed">
     <li class="list-group-item">
       <div class="chip">
         <p class="circle red"></p> Forte
@@ -17,7 +17,20 @@
     </li>
   </ul>
 </div>
+<div class="divRight">
+  <ul class="list-group height">
+    <li class="list-group-item heightli">
+      <p>Trier par : </p>
 
+      <select class="form-control" [(ngModel)]="sortBy" (change)="callType()">
+        <option value="importance">Importance</option>
+        <option value="date">Date</option>
+      </select>
+      <input type="text" placeholder="Rechercher" [(ngModel)]="inputSearch" [value]="inputSearch" (input)="callType()"
+             class="form-control margin">
+    </li>
+  </ul>
+</div>
 <div class="col-md-8">
   <div class="container-fluid buttons-area">
     <div class="row">

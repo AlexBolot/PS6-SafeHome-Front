@@ -9,7 +9,9 @@
 .red {
   background-color: red;
 }
-
+.fixed{
+  position:fixed;
+}
 .grey {
   background-color: grey;
 }
@@ -23,7 +25,9 @@
 .green {
   background-color: green;
 }
-
+.margin{
+  margin-top: 32%;
+}
 .orange {
   background-color: orange;
 }
@@ -44,7 +48,18 @@
   display: block;
   width: 100%;
 }
-
+.divRight{
+  width: 10%;
+  margin-left:84%;
+  height:100%;
+  position:fixed;
+}
+.height{
+  height:23%!important
+}
+.heightli{
+  height:100%!important
+}
 .align-center {
   vertical-align: baseline;
 }

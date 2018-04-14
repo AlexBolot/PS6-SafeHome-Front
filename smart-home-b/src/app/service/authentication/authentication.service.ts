@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AppSettings} from '../../model/app-settings';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {User} from '../../model/user';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
@@ -44,6 +44,13 @@ export class AuthenticationService {
     return request;
   }
 
+  getUserName(id: number) {
+    let parameters = new HttpParams();
+    parameters = parameters.set("id", String(id));
+    const options = {params: parameters};
+    console.log("quering");
+    return this.httpclient.get<JSON>(AuthenticationService.personURL + "/name", options)
+  }
   getProfile(user: User = null) {
     if (user == null) user = this.user;
     if (user == undefined) return null;
@@ -90,6 +97,7 @@ export class AuthenticationService {
     let expire: Date = new Date(parseInt(localStorage.getItem("Expire")));
     return new Date() <= expire;
   }
+
 }
 
 //
