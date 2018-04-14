@@ -5,6 +5,7 @@ import {StatusService} from '../../service/status/status.service';
 import {UrgencyService} from '../../service/urgency/urgency.service';
 import {TaskService} from '../../service/task/task.service';
 import {Task} from '../../model/task';
+import {User} from "../../model/user";
 
 @Component({
   selector: 'app-issue',
@@ -36,6 +37,7 @@ export class IssueComponent implements OnInit {
     this.urgencyService.getByID(this.issue.IDUrgency).subscribe(value => this.urgencyLabel = value);
     this.statusService.getByID(this.issue.IDStatus).subscribe(value => this.statusLabel = value);
     this.taskService.getAllByIssueID(this.issue.id).subscribe(value => this.tasks = value);
+
   }
 
   showMore() {
