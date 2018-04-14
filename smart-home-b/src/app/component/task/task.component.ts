@@ -12,14 +12,15 @@ import {User} from "../../model/user";
 export class TaskComponent implements OnInit {
 
   @Input() task: Task;
-  author: User;
-  asignee: User;
+  author: String;
+  asignee: String;
 
   constructor(private taskService: TaskService, private authService: AuthenticationService) {
   }
 
   ngOnInit() {
-    this.taskService.getAuthorById(this.task.id).subscribe(value => this.author = value);
-    this.taskService.getAsigneeById(this.task.id).subscribe(value => this.asignee = value);
+    this.taskService.getAuthorById(this.task.id).subscribe(value => this.author = value.username);
+    this.taskService.getAsigneeById(this.task.id).subscribe(value => this.asignee = value.username);
+
   }
 }

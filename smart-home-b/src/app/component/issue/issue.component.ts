@@ -21,10 +21,11 @@ export class IssueComponent implements OnInit {
   tasks: Task[] = [];
   visibleTasks = false;
   visibleDetails = false;
-  categoryLabel: String;
+  category: String;
   statusLabel: String;
   urgencyLabel: String;
   authorName: String;
+  countTask: number;
   @Input() issue: Issue;
 
   constructor(private categoryService: CategoryService,
@@ -34,10 +35,10 @@ export class IssueComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.categoryService.getByID(this.issue.categoryId).subscribe(value => this.categoryLabel = value);
     this.urgencyService.getByID(this.issue.IDUrgency).subscribe(value => this.urgencyLabel = value);
     this.statusService.getByID(this.issue.IDStatus).subscribe(value => this.statusLabel = value);
     this.taskService.getAllByIssueID(this.issue.id).subscribe(value => this.tasks = value);
+    this.taskService.getNbByIdIssue(this.issue.id).subscribe(value => this.countTask = value["count"]);
 
   //  this.fetchAuthorName()
 

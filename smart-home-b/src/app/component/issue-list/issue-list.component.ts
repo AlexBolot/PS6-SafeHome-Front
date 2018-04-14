@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Issue} from '../../model/issue';
 import {IssueService} from '../../service/issue/issue.service';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
+import {CategoryService} from "../../service/category/category.service";
+import {Categorie} from "../../model/categorie";
 
 @Component({
   selector: 'app-issue-list',
@@ -20,10 +22,12 @@ export class IssueListComponent implements OnInit {
   sortBy: string;
   inputSearch: string;
 
-  constructor(private issueService: IssueService, private authService: AuthenticationService) {
+  constructor(private issueService: IssueService, private authService: AuthenticationService,
+              private categoryService : CategoryService) {
   }
 
   ngOnInit() {
+
     this.authService.isLogged().subscribe((logged) => {
       if (logged) {
         this.issueService.getDeclaredByDate(this.authService.getUser().idUser).subscribe(value => this.issues = value);
@@ -87,8 +91,8 @@ export class IssueListComponent implements OnInit {
           this.issueService.getAssignedToByImportanceAndString(this.authService.getUser().idUser, this.inputSearch)
             .subscribe(value => this.issues = value);
         } else if (this.sortBy === 'date') {
-          this.issueService.getAssignedToByDateAndString(this.authService.getUser().idUser, this.inputSearch)
-            .subscribe(value => this.issues = value);
+          this.issueService.getAssignedToByDateAndString(this.authService.getUser().idUser, this.inputSearch , )
+            .subscribe(value =>this.issues = value);
         }
       } else if (this.declaredButtonIsChecked) {
         if (this.sortBy === 'importance') {

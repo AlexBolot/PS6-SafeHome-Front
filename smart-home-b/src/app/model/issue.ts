@@ -5,6 +5,7 @@ export class Issue {
   Date: Date;
   DeclarationDate: Date;
   IDUrgency: number;
+  category: String;
   categoryId: number;
   IDAuthor: number;
   IDStatus: number;
@@ -13,13 +14,14 @@ export class Issue {
   homesId: number;
 
   constructor(idIssue: number, title: string, description: string, dateIncident: Date, dateDeclaration: Date, idUrgency: number,
-              idCat: number, idAuthor: number, idStatus: number, idLocation: number, image: string, idHome: number = -1) {
+              idCat: number,categorie: String, idAuthor: number, idStatus: number, idLocation: number, image: string, idHome: number = -1) {
     this.id = idIssue;
     this.Title = title;
     this.Description = description;
     this.Date = dateIncident;
     this.DeclarationDate = dateDeclaration;
     this.IDUrgency = idUrgency;
+    this.category = categorie;
     this.categoryId = idCat;
     this.IDAuthor = idAuthor;
     this.IDStatus = idStatus;
