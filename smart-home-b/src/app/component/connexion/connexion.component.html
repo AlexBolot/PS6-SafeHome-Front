@@ -1,18 +1,22 @@
 <div id="connexion">
   <form action="/action_page.php" #connectionForm="ngForm">
     <div class="form-group">
-      <label for="email">Email address:</label>
-      <input type="email" id="email" name="email" required [(ngModel)]="user.email" #email="ngModel"
-             class="form-control">
-      <div class="erreur" *ngIf="email.invalid && email.touched"> Vous devez remplir le champ login</div>
+      <label>Email address:</label>
+      <input type="email" name="email" required [(ngModel)]="user.email" #email="ngModel"
+             class="form-control" [ngClass]="invalidId"
+             [@formFalseValidationId]='formFalseValidationId'
+             [ngStyle]="{'border': animationRedId? '#ff4242 2px solid' : ''}"
+             (@formFalseValidationId.done)="setBackToUnchecked()">
     </div>
     <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required [(ngModel)]="user.password" #password="ngModel"
-             class="form-control">
-      <div class="erreur" *ngIf="password.invalid && password.touched "> Vous devez remplir le champ mot de passe</div>
+      <label >Password:</label>
+      <input type="password" name="password" required [(ngModel)]="user.password" #password="ngModel"
+             class="form-control" [ngClass]="invalidPassWord"
+             [@formFalseValidationPassword]='formFalseValidationPassword'
+             [ngStyle]="{'border': animationRedPassword? '#ff4242 2px solid' : ''}"
+             (@formFalseValidationPassword.done)="setBackToUnchecked()">
     </div>
-    <button (click)="login()" value="Login" type="Submit" class="btn btn-default">Connexion</button>
     <div class="erreur" [ngClass]="erreurLogin"> le mot de passe ou le login n'est pas valide</div>
+    <button (click)="login()" value="Login" type="Submit" class="btn btn-default ">Connexion</button>
   </form>
 </div>

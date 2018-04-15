@@ -9,3 +9,6 @@
 #connexion{
   margin: 10% 30%;
 }
+.error{
+  border:#ff4242 2px solid;
+}

@@ -151,16 +151,22 @@ export class IssueFormComponent implements OnInit {
         this.animationRedTitle = true;
         this.formFalseValidationTitle = 'invalid';
         this.invalideTitle = 'error';
+      }else{
+        this.invalideTitle = '';
       }
       if (!this.categorie) {
         this.animationRedCat = true;
         this.formFalseValidationCat = 'invalid';
-        this.invalideUrgency = 'error';
+        this.invalideCat = 'error';
+      }else{
+        this.invalideCat = '';
       }
       if (!this.idUrgency) {
         this.animationRedUrgency = true;
         this.formFalseValidationUrgency = 'invalid';
-        this.invalideCat = 'error';
+        this.invalideUrgency = 'error';
+      }else{
+        this.invalideUrgency = '';
       }
       this.errorValidate = 'display';
     }
