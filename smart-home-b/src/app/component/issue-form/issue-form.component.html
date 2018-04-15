@@ -44,7 +44,7 @@
                       [@formFalseValidationUrgency]='formFalseValidationUrgency'
                       [ngStyle]="{'border': animationRedUrgency? '#ff4242 2px solid' : ''}"
                       (@formFalseValidationUrgency.done)="setBackToUnchecked()">
-                <option *ngFor="let key of mapUrgencyKeys" [ngValue]="idUrgency">{{mapUrgency.get(key)}}</option>
+                <option *ngFor="let key of mapUrgencyKeys" [ngValue]="key">{{mapUrgency.get(key)}}</option>
               </select>
             </div>
           </div>

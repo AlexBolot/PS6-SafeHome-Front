@@ -7,6 +7,8 @@ import {TaskService} from '../../service/task/task.service';
 import {Task} from '../../model/task';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
 import {User} from "../../model/user";
+import {LocationService} from "../../service/location/location.service";
+import {IssueService} from "../../service/issue/issue.service";
 
 @Component({
   selector: 'app-issue',
@@ -21,9 +23,10 @@ export class IssueComponent implements OnInit {
   tasks: Task[] = [];
   visibleTasks = false;
   visibleDetails = false;
-  category: String;
+  categoryLabel: String;
   statusLabel: String;
   urgencyLabel: String;
+  locationLabel : String;
   authorName: String;
   countTask: number;
   @Input() issue: Issue;
@@ -31,14 +34,18 @@ export class IssueComponent implements OnInit {
   constructor(private categoryService: CategoryService,
               private urgencyService: UrgencyService,
               private statusService: StatusService,
-              private taskService: TaskService) {
+              private locationService : LocationService,
+              private taskService: TaskService,
+              private issueService : IssueService) {
   }
 
   ngOnInit() {
     this.urgencyService.getByID(this.issue.IDUrgency).subscribe(value => this.urgencyLabel = value);
     this.statusService.getByID(this.issue.IDStatus).subscribe(value => this.statusLabel = value);
     this.taskService.getAllByIssueID(this.issue.id).subscribe(value => this.tasks = value);
+    this.categoryService.getByID(this.issue.categoryId).subscribe(value => this.categoryLabel = value);
     this.taskService.getNbByIdIssue(this.issue.id).subscribe(value => this.countTask = value["count"]);
+    this.locationService.getByID(this.issue.IDLocation).subscribe(value => this.locationLabel = value);
 
   //  this.fetchAuthorName()
 
@@ -74,4 +81,12 @@ export class IssueComponent implements OnInit {
         return 'bg-default';
     }
   }
+  updateStatus(status:boolean){
+    console.log('jesuispasséparlà');
+    if(status){
+      this.issueService.getByID(this.issue.id).subscribe(value => this.issue =value );
+    }
+  }
+
+
 }

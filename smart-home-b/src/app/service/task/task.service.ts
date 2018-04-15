@@ -36,8 +36,8 @@ export class TaskService {
   getByIdIssue(id: number): Observable<Task[]> {
     return this.httpClient.get<Task[]>(this.API_url + '?filter[where][IDIssue]=' + id);
   }
-  getNbByIdIssue(id: number): Observable<{}> {
-    return this.httpClient.get<{}>(this.API_url + '/count?[where][IDIssue]=' + id);
+  getNbByIdIssue(id: number): Observable<number> {
+    return this.httpClient.get<number>(this.API_url + '/count?[where][IDIssue]=' + id);
   }
 
   setTaskToDone(task:Task){

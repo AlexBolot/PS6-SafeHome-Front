@@ -4,10 +4,11 @@
       <p [style.background-color]="changeBackground()" class="circle" data-toggle="tooltip" title="Tooltip on top"></p>
       <h3 class="issue-title">{{issue.Title}}</h3>
     </div>
-    <div class="col-md-2">
-      <button class="margin-left-1em btn btn-default" (click)="showMore()">
-        <span [ngClass]="buttonDetailsIcon" aria-hidden="true"></span> Détails
+      <div class="col-md-2">
+        <div *ngIf="issue.Description"><button class="margin-left-1em btn btn-default" (click)="showMore()">
+        <span [ngClass]="buttonDetailsIcon" aria-hidden="true"></span>Détails
       </button>
+    </div>
     </div>
     <div class="col-md-2">
       <button class="margin-left-1em btn btn-default" (click)="showTasks()">
@@ -16,9 +17,10 @@
     </div>
   </div>
   <div class="row panel-body">
-    <div class="col-md-3 margin-left-2em">Date : {{issue.Date | date}}</div>
-    <div class="col-md-4">Catégorie : {{issue.category}}</div>
-    <div class="col-md-4">Status : {{statusLabel}}</div>
+    <div class="col-md-3">Date : {{issue.DeclarationDate | date}}</div>
+    <div class="col-md-3">Catégorie : {{categoryLabel}}</div>
+    <div class="col-md-3">Lieu : {{locationLabel}}</div>
+    <div class="col-md-3">Status : {{statusLabel}}</div>
   </div>
   <div class="row panel-body" *ngIf="visibleDetails">
     <br>
@@ -27,7 +29,7 @@
 
   <div class="row" *ngIf="visibleTasks">
     <div class="col-md-6" *ngFor="let task of tasks">
-      <app-task [task]="task"></app-task>
+      <app-task [task]="task" (onVoted)="updateStatus($event)"></app-task>
     </div>
   </div>
 </div>
