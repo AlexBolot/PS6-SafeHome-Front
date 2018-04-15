@@ -44,6 +44,16 @@ export class AuthenticationService {
     return request;
   }
 
+  logout(): Observable<JSON> {
+    let request = this.httpclient.post<JSON>(AuthenticationService.personURL + "/logout", "");
+    request.subscribe(this.acknowledgeLogout, this.acknowledgeLogout);
+    return request;
+  }
+
+  acknowledgeLogout() {
+    localStorage.removeItem(AuthenticationService.TOKEN_KEY);
+    localStorage.removeItem("Expire");
+  }
   getUserName(id: number) {
     let parameters = new HttpParams();
     parameters = parameters.set("id", String(id));
@@ -100,30 +110,3 @@ export class AuthenticationService {
 
 }
 
-//
-// getUser(id: number): Observable<JSON> {
-//     const url = `${this.API_url}/${id}`;
-//     let parameters = new HttpParams().set("access_token","XnmhHLo2hW0xfRWyFd34RH4SusI5DJtVExYFZgGcS2vyWfhKbxQwLXcUPQTOvOzM");
-//     let httpHeaders = new HttpHeaders()
-//       .set('Content-Type', 'application/json');
-//     return this.httpClient.get<JSON>("http://galles.io:5491/api/People/1",{params:parameters})
-//   }
-
-/**
- * Handle Http operation that failed.
- * Let the app continue.
- * @param operation - username of the operation that failed
- * @param result - optional value to return as the observable result
- */
-// private handleError<T>(operation = 'operation', result?: T) {
-//   return (error: any): Observable<T> => {
-//     log("Fetching Error");
-//     // TODO: send the error to remote logging infrastructure
-//     log(error); // log to console instead
-//
-//     // TODO: better job of transforming error for user consumption
-//
-//
-//     return of(result as T);
-//   };
-// }
