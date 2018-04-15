@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {AppSettings} from '../../model/app-settings';
 import {TaskService} from '../task/task.service';
-import {CategoryService} from "../category/category.service";
+import {CategoryService} from '../category/category.service';
 
 @Injectable()
 export class IssueService {
@@ -33,7 +33,7 @@ export class IssueService {
       issues.forEach(field => new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
         map.push(new Issue(field.id, field.Title, field.Description,
           new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-          field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture))))
+          field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture))));
       issues.filter(issue => issue.IDAuthor === id)
         .sort((issue1, issue2): number => {
           if (issue1.DeclarationDate < issue2.DeclarationDate) {
@@ -43,7 +43,7 @@ export class IssueService {
             return -1;
           }
           return 0;
-        })
+        });
       return map;
     });
   }
@@ -54,7 +54,7 @@ export class IssueService {
       issues.forEach(field => new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
         map.push(new Issue(field.id, field.Title, field.Description,
           new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-          field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture))))
+          field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture))));
       issues.filter(issue => issue.IDAuthor === id)
         .sort((issue1, issue2): number => {
           if (issue1.IDUrgency < issue2.IDUrgency) {
@@ -64,7 +64,7 @@ export class IssueService {
             return -1;
           }
           return 0;
-        })
+        });
       return map;
     });
   }
@@ -75,7 +75,7 @@ export class IssueService {
       issues.forEach(field => new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
         map.push(new Issue(field.id, field.Title, field.Description,
           new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-          field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture))))
+          field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture))));
 
 
       issues.filter(issue => issue.IDAuthor === id && issue.Title.toLowerCase().includes(input.toLowerCase())
@@ -88,7 +88,7 @@ export class IssueService {
             return -1;
           }
           return 0;
-        })
+        });
       return map;
     });
   }
@@ -99,7 +99,7 @@ export class IssueService {
       issues.forEach(field => new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
         map.push(new Issue(field.id, field.Title, field.Description,
           new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-          field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture))))
+          field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture))));
       issues.filter(issue => issue.IDAuthor === id && issue.Title.toLowerCase().includes(input.toLowerCase())
         || issue.Description != null && issue.Description.toLowerCase().includes(input.toLowerCase()))
         .sort((issue1, issue2): number => {
@@ -110,7 +110,7 @@ export class IssueService {
             return -1;
           }
           return 0;
-        })
+        });
       return map;
     });
   }
@@ -118,17 +118,17 @@ export class IssueService {
   getAssignedToByImportance(id: number): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
       const map: Issue[] = [];
-      issues.forEach(field=> new TaskService(this.httpClient).getNbByIdIssue(field.id)
+      issues.forEach(field => new TaskService(this.httpClient).getNbByIdIssue(field.id)
         .subscribe(nb => {
           console.log(nb);
-          if(nb["count"] > 0){
+          if (nb['count'] > 0) {
             new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
-              map.push(new Issue(field.id,field.Title,field.Description,
-                new Date(field.Date),new Date(field.DeclarationDate),field.IDUrgency,field.categoryId,value,
-                field.IDAuthor, field.IDStatus,field.IDLocation,field.Picture)))
+              map.push(new Issue(field.id, field.Title, field.Description,
+                new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
+                field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture)));
           }
 
-        }))
+        }));
       issues.filter(issue => new TaskService(this.httpClient).getByID(issue.id)
         .map(tasks => tasks.IDAssignee === id)).sort((issue1, issue2): number => {
         if (issue1.IDUrgency < issue2.IDUrgency) {
@@ -138,7 +138,7 @@ export class IssueService {
           return -1;
         }
         return 0;
-      })
+      });
       return map;
     });
   }
@@ -149,13 +149,13 @@ export class IssueService {
       issues.forEach(field => new TaskService(this.httpClient).getNbByIdIssue(field.id)
         .subscribe(nb => {
           console.log(nb);
-          if(nb["count"] > 0) {
+          if (nb['count'] > 0) {
             new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
               map.push(new Issue(field.id, field.Title, field.Description,
                 new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-                field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture)))
+                field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture)));
           }
-        }))
+        }));
 
       issues.filter(issue => new TaskService(this.httpClient).getByID(issue.id)
         .map(tasks => tasks.IDAssignee === id)).sort((issue1, issue2): number => {
@@ -173,18 +173,18 @@ export class IssueService {
 
   getAssignedToByDateAndString(id: number, input: string): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
-      const map :Issue[] = [];
-      issues.forEach(field=>
+      const map: Issue[] = [];
+      issues.forEach(field =>
         new TaskService(this.httpClient).getNbByIdIssue(field.id)
           .subscribe(nb => {
             console.log(nb);
-            if(nb["count"] > 0){
+            if (nb['count'] > 0) {
               new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
-                map.push(new Issue(field.id,field.Title,field.Description,
-                  new Date(field.Date),new Date(field.DeclarationDate),field.IDUrgency,field.categoryId,value,
-                  field.IDAuthor, field.IDStatus,field.IDLocation,field.Picture)))
+                map.push(new Issue(field.id, field.Title, field.Description,
+                  new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
+                  field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture)));
             }
-          }))
+          }));
 
       map.filter(issue => issue.Title.toUpperCase().includes(input.toUpperCase())
         || (issue.Description != null && issue.Description.toUpperCase().includes(input.toUpperCase()))
@@ -192,31 +192,31 @@ export class IssueService {
         && new TaskService(this.httpClient).getByID(issue.id)
           .map(tasks => tasks.IDAssignee === id))
         .sort((issue1, issue2): number => {
-        if (issue1.DeclarationDate < issue2.DeclarationDate) {
-          return 1;
-        }
-        if (issue1.DeclarationDate > issue2.DeclarationDate) {
-          return -1;
-        }
-        return 0;
-      });
-    return map;
-  });
+          if (issue1.DeclarationDate < issue2.DeclarationDate) {
+            return 1;
+          }
+          if (issue1.DeclarationDate > issue2.DeclarationDate) {
+            return -1;
+          }
+          return 0;
+        });
+      return map;
+    });
   }
 
   getAssignedToByImportanceAndString(id: number, input: string): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
-      const map :Issue[] = [];
-      issues.forEach(field=> new TaskService(this.httpClient).getNbByIdIssue(field.id)
+      const map: Issue[] = [];
+      issues.forEach(field => new TaskService(this.httpClient).getNbByIdIssue(field.id)
         .subscribe(nb => {
-          if(nb["count"] > 0){
+          if (nb['count'] > 0) {
             new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
-              map.push(new Issue(field.id,field.Title,field.Description,
-                new Date(field.Date),new Date(field.DeclarationDate),field.IDUrgency,field.categoryId,value,
-                field.IDAuthor, field.IDStatus,field.IDLocation,field.Picture)))
+              map.push(new Issue(field.id, field.Title, field.Description,
+                new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
+                field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture)));
           }
 
-        }))
+        }));
       map.filter(issue => issue.Title.toUpperCase().includes(input.toUpperCase())
         || (issue.Description != null && issue.Description.toUpperCase().includes(input.toUpperCase()))
         || (issue.category != null && issue.category.toUpperCase().includes(input.toUpperCase())))
