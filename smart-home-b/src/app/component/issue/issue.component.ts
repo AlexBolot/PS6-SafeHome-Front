@@ -26,7 +26,7 @@ export class IssueComponent implements OnInit {
   categoryLabel: String;
   statusLabel: String;
   urgencyLabel: String;
-  locationLabel : String;
+  locationLabel: String;
   authorName: String;
   countTask: number;
   @Input() issue: Issue;
@@ -34,33 +34,37 @@ export class IssueComponent implements OnInit {
   constructor(private categoryService: CategoryService,
               private urgencyService: UrgencyService,
               private statusService: StatusService,
-              private locationService : LocationService,
+              private locationService: LocationService,
               private taskService: TaskService,
-              private issueService : IssueService) {
+              private issueService: IssueService) {
   }
 
   ngOnInit() {
     this.urgencyService.getByID(this.issue.IDUrgency).subscribe(value => this.urgencyLabel = value);
-    this.statusService.getByID(this.issue.IDStatus).subscribe(value => {this.statusLabel = value
-    this.issue.status=value});
+    this.statusService.getByID(this.issue.IDStatus).subscribe(value => {
+      this.statusLabel = value;
+      this.issue.status = value
+    });
     this.taskService.getAllByIssueID(this.issue.id).subscribe(value => this.tasks = value);
     this.categoryService.getByID(this.issue.categoryId).subscribe(value => this.categoryLabel = value);
     this.taskService.getNbByIdIssue(this.issue.id).subscribe(value => this.countTask = value["count"]);
-    this.locationService.getByID(this.issue.IDLocation).subscribe(value => {this.locationLabel = value;
-    this.issue.location = value});
-
-  //  this.fetchAuthorName()
-
-  }
-
- /* private fetchAuthorName() {
-    this.authorName = "None";
-    this.authService.getUserName(this.issue.IDAuthor).subscribe(value => {
-      this.authorName = value["name"];
-      console.log(value)
+    this.locationService.getByID(this.issue.IDLocation).subscribe(value => {
+      this.locationLabel = value;
+      this.issue.location = value
     });
+
+    //  this.fetchAuthorName()
+
   }
-*/
+
+  /* private fetchAuthorName() {
+     this.authorName = "None";
+     this.authService.getUserName(this.issue.IDAuthor).subscribe(value => {
+       this.authorName = value["name"];
+       console.log(value)
+     });
+   }
+ */
   showMore() {
     this.visibleDetails = !this.visibleDetails;
     this.buttonDetailsIcon = this.visibleDetails ? 'glyphicon glyphicon-menu-up' : 'glyphicon glyphicon-menu-down';
@@ -83,12 +87,14 @@ export class IssueComponent implements OnInit {
         return 'bg-default';
     }
   }
-  updateStatus(status:boolean){
-    console.log('jesuispasséparlà');
-    if(status){
-      this.issueService.getByID(this.issue.id).subscribe(value => this.issue =value );
-    }
-  }
 
+  updateStatus(status: boolean) {
+    console.log('jesuispasséparlà');
+    this.issueService.getByID(this.issue.id).subscribe(value => {
+      this.issue = value;
+      this.ngOnInit()
+    });
+
+  }
 
 }

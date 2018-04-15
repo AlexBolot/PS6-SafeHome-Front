@@ -29,7 +29,7 @@
 
   <div class="row" *ngIf="visibleTasks">
     <div class="col-md-6" *ngFor="let task of tasks">
-      <app-task [task]="task" (onVoted)="updateStatus($event)"></app-task>
+      <app-task [task]="task" (updateStatus)="updateStatus($event)"></app-task>
     </div>
   </div>
 </div>
