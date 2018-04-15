@@ -15,26 +15,28 @@ import {log} from "util";
       state('unchecked', style({})),
       state('invalid', style({})),
       transition('unchecked => invalid', animate(500, keyframes([
-        style({transform: 'translateX(-10%'}),
-        style({transform: 'translateX(10%'}),
-        style({transform: 'translateX(-10%'}),
-        style({transform: 'translateX(10%'}),
+        style({transform: 'translateX(-1%'}),
+        style({transform: 'translateX(1%'}),
+        style({transform: 'translateX(-1%'}),
+        style({transform: 'translateX(1%'}),
       ])))
     ]),
     trigger('formFalseValidationPassword', [
       state('unchecked', style({})),
       state('invalid', style({})),
       transition('unchecked => invalid', animate(500, keyframes([
-        style({transform: 'translateX(-10%'}),
-        style({transform: 'translateX(10%'}),
-        style({transform: 'translateX(-10%'}),
-        style({transform: 'translateX(10%'}),
+        style({transform: 'translateX(-1%'}),
+        style({transform: 'translateX(1%'}),
+        style({transform: 'translateX(-1%'}),
+        style({transform: 'translateX(1%'}),
       ])))
     ])]
 })
 export class ConnexionComponent implements OnInit {
   public user: User;
   erreurLogin = 'cover';
+  invalidId = "";
+  invalidPassWord = "";
   formFalseValidationPassword = 'unchecked';
   formFalseValidationId = 'unchecked';
   animationRedId = false;
@@ -61,10 +63,16 @@ export class ConnexionComponent implements OnInit {
       if (!this.user.email) {
         this.formFalseValidationId = 'invalid';
         this.animationRedId = true;
+        this.invalidId = "error";
+      }else{
+        this.invalidId = ""
       }
       if (!this.user.password) {
         this.formFalseValidationPassword = 'invalid';
         this.animationRedPassword = true;
+        this.invalidPassWord = "error";
+      }else{
+        this.invalidPassWord = ""
       }
 
       this.erreurLogin = 'display'

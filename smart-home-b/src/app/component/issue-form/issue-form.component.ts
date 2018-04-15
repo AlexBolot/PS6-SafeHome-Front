@@ -24,30 +24,30 @@ import {log} from 'util';
       state('unchecked', style({})),
       state('invalid', style({})),
       transition('unchecked => invalid', animate(500, keyframes([
-        style({transform: 'translateX(-10%'}),
-        style({transform: 'translateX(10%'}),
-        style({transform: 'translateX(-10%'}),
-        style({transform: 'translateX(-10%'}),
+        style({transform: 'translateX(-1%'}),
+        style({transform: 'translateX(1%'}),
+        style({transform: 'translateX(-1%'}),
+        style({transform: 'translateX(1%'}),
       ])))
     ]),
     trigger('formFalseValidationUrgency', [
       state('unchecked', style({})),
       state('invalid', style({})),
       transition('unchecked => invalid', animate(500, keyframes([
-        style({transform: 'translateX(-10%'}),
-        style({transform: 'translateX(10%'}),
-        style({transform: 'translateX(-10%'}),
-        style({transform: 'translateX(-10%'}),
+        style({transform: 'translateX(-1%'}),
+        style({transform: 'translateX(1%'}),
+        style({transform: 'translateX(-1%'}),
+        style({transform: 'translateX(1%'}),
       ])))
     ]),
     trigger('formFalseValidationCat', [
       state('unchecked', style({})),
       state('invalid', style({})),
       transition('unchecked => invalid', animate(500, keyframes([
-        style({transform: 'translateX(-10%'}),
-        style({transform: 'translateX(10%'}),
-        style({transform: 'translateX(-10%'}),
-        style({transform: 'translateX(-10%'}),
+        style({transform: 'translateX(-1%'}),
+        style({transform: 'translateX(1%'}),
+        style({transform: 'translateX(-1%'}),
+        style({transform: 'translateX(1%'}),
       ])))
     ])
   ],
@@ -75,9 +75,14 @@ export class IssueFormComponent implements OnInit {
   public animationRedUrgency: boolean;
   public animationRedCat: boolean;
   errorValidate = 'cover';
+
   formFalseValidationTitle = 'unchecked';
   formFalseValidationUrgency = 'unchecked';
   formFalseValidationCat = 'unchecked';
+
+  invalideTitle = "";
+  invalideUrgency = "";
+  invalideCat = "";
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -145,14 +150,23 @@ export class IssueFormComponent implements OnInit {
       if (!this.title) {
         this.animationRedTitle = true;
         this.formFalseValidationTitle = 'invalid';
+        this.invalideTitle = 'error';
+      }else{
+        this.invalideTitle = '';
       }
       if (!this.categorie) {
         this.animationRedCat = true;
         this.formFalseValidationCat = 'invalid';
+        this.invalideCat = 'error';
+      }else{
+        this.invalideCat = '';
       }
       if (!this.idUrgency) {
         this.animationRedUrgency = true;
         this.formFalseValidationUrgency = 'invalid';
+        this.invalideUrgency = 'error';
+      }else{
+        this.invalideUrgency = '';
       }
       this.errorValidate = 'display';
     }
