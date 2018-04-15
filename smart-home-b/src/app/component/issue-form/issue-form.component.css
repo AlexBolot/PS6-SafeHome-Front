@@ -53,4 +53,7 @@
 .redToBlank:focus{
   background-color: #ffffff !important;
 }
+.error{
+  border:#ff4242 2px solid;
+}
 

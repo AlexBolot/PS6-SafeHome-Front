@@ -4,10 +4,10 @@
     <div class="form-group">
       <label>Titre*</label>
       <div class="col-10">
-        <input type="text" class="form-control" placeholder="Example Vitre Cassée"
+        <input type="text" class="form-control"[ngClass]="invalideTitle" placeholder="Example Vitre Cassée"
              [(ngModel)]="title" name="titre"
              [@formFalseValidationTitle]='formFalseValidationTitle'
-             [ngStyle]="{'background-color': animationRedTitle? '#b83030' : '#ffffff'}"
+             [ngStyle]="{'border': animationRedTitle? '#ff4242 2px solid' : ''}"
              (@formFalseValidationTitle.done)="setBackToUnchecked()" >
       </div>
     </div>
@@ -40,9 +40,9 @@
           <div class="form-group">
             <label> Importance* </label>
             <div class="col-10">
-              <select class="form-control" name="importance" [(ngModel)]="idUrgency"
+              <select class="form-control" [ngClass]="invalideUrgency" name="importance" [(ngModel)]="idUrgency"
                       [@formFalseValidationUrgency]='formFalseValidationUrgency'
-                      [ngStyle]="{'background-color': animationRedUrgency? '#b83030' : '#ffffff'}"
+                      [ngStyle]="{'border': animationRedUrgency? '#ff4242 2px solid' : ''}"
                       (@formFalseValidationUrgency.done)="setBackToUnchecked()">
                 <option *ngFor="let key of mapUrgencyKeys" [ngValue]="idUrgency">{{mapUrgency.get(key)}}</option>
               </select>
@@ -68,9 +68,9 @@
           <div class="form-group">
             <label> Type Incident* </label>
             <div class="col-10">
-              <select class="form-control" name="typeIncident" [(ngModel)]="idCat"
+              <select class="form-control" [ngClass]="invalideCat" name="typeIncident" [(ngModel)]="idCat"
                       [@formFalseValidationCat]='formFalseValidationCat' (@formFalseValidationCat.done)="setBackToUnchecked()"
-                      [ngStyle]="{'background-color': animationRedCat? '#b83030' : '#ffffff'}">
+                      [ngStyle]="{'border': animationRedCat? '#ff4242 2px solid' : ''}">
                 <option *ngFor="let key of mapCategoryKeys" [value]="key">{{ mapCategory.get(key)}}</option>
               </select>
             </div>
