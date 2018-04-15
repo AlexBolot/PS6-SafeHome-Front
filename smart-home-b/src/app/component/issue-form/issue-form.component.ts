@@ -136,7 +136,7 @@ export class IssueFormComponent implements OnInit {
       this.realDateIncident = new Date(this.dateIncident);
       if (this.authentificationService.isLogged()) {
         this.idAuthor = this.authentificationService.getUser().idUser;
-        this.idStatus = 1;
+        this.idStatus = 2;
         this.issue = new Issue(undefined, this.title, this.description, this.realDateIncident,
           this.dateDeclaration, Number(this.idUrgency),Number(this.idCategory) ,this.mapCategory.get(this.idCategory), this.idAuthor, this.idStatus, Number(this.idLocation), undefined);
         console.log(this.issue);
