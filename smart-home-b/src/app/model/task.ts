@@ -5,9 +5,10 @@ export class Task {
   IDAuthor: number;
   author: String;
   IDAssignee: number;
-  assignee: String
+  assignee: String;
+  done: boolean
 
-  constructor(Text: String, id: number, IDIssue: number, IDAuthor: number, IDAssignee: number, author: String, assignee: String) {
+  constructor(Text: String, id: number, IDIssue: number, IDAuthor: number, IDAssignee: number, author: String, assignee: String, done: boolean) {
     this.Text = Text;
     this.id = id;
     this.IDIssue = IDIssue;
@@ -15,5 +16,6 @@ export class Task {
     this.IDAssignee = IDAssignee;
     this.author = author;
     this.assignee = assignee;
+    this.done = done;
   }
 }
