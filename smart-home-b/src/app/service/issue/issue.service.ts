@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {AppSettings} from '../../model/app-settings';
 import {TaskService} from '../task/task.service';
 import {CategoryService} from '../category/category.service';
+import {Task} from "../../model/task";
 
 @Injectable()
 export class IssueService {
@@ -23,6 +24,7 @@ export class IssueService {
   }
 
   add(issue: Issue) {
+    console.log(issue);
     return this.httpClient.post<JSON>(this.API_url, issue);
   }
 
@@ -33,12 +35,12 @@ export class IssueService {
         map.push(new Issue(field.id, field.Title, field.Description,
           new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
           field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture))));
-      issues.filter(issue => issue.IDAuthor === id)
+      map.filter(issue => issue.IDAuthor === id)
         .sort((issue1, issue2): number => {
-          if (issue1.DeclarationDate < issue2.DeclarationDate) {
+          if (new Date(issue1.Date) < new Date(issue2.Date)) {
             return 1;
           }
-          if (issue1.DeclarationDate > issue2.DeclarationDate) {
+          if (new Date(issue1.Date) > new Date(issue2.Date)) {
             return -1;
           }
           return 0;
@@ -54,7 +56,7 @@ export class IssueService {
         map.push(new Issue(field.id, field.Title, field.Description,
           new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
           field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture))));
-      issues.filter(issue => issue.IDAuthor === id)
+      map.filter(issue => issue.IDAuthor === id)
         .sort((issue1, issue2): number => {
           if (issue1.IDUrgency < issue2.IDUrgency) {
             return 1;
@@ -77,7 +79,7 @@ export class IssueService {
           field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture))));
 
 
-      issues.filter(issue => issue.IDAuthor === id && issue.Title.toLowerCase().includes(input.toLowerCase())
+      map.filter(issue => issue.IDAuthor === id && issue.Title.toLowerCase().includes(input.toLowerCase())
         || issue.Description != null && issue.Description.toLowerCase().includes(input.toLowerCase()))
         .sort((issue1, issue2): number => {
           if (issue1.IDUrgency < issue2.IDUrgency) {
@@ -99,13 +101,13 @@ export class IssueService {
         map.push(new Issue(field.id, field.Title, field.Description,
           new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
           field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture))));
-      issues.filter(issue => issue.IDAuthor === id && issue.Title.toLowerCase().includes(input.toLowerCase())
+      map.filter(issue => issue.IDAuthor === id && issue.Title.toLowerCase().includes(input.toLowerCase())
         || issue.Description != null && issue.Description.toLowerCase().includes(input.toLowerCase()))
         .sort((issue1, issue2): number => {
-          if (issue1.DeclarationDate < issue2.DeclarationDate) {
+          if (issue1.Date < issue2.Date) {
             return 1;
           }
-          if (issue1.DeclarationDate > issue2.DeclarationDate) {
+          if (issue1.Date > issue2.Date) {
             return -1;
           }
           return 0;
@@ -117,19 +119,17 @@ export class IssueService {
   getAssignedToByImportance(id: number): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
       const map: Issue[] = [];
-      issues.forEach(field => new TaskService(this.httpClient).getNbByIdIssue(field.id)
-        .subscribe(nb => {
-          console.log(nb);
-          if (nb['count'] > 0) {
+      issues.forEach(field => this.httpClient.get<Task[]>(this.API_url+'/'+field.id+'/tasks')
+        .subscribe(tasks =>{
+          if(tasks.filter( task => task.IDAssignee === id).length > 0)
             new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
               map.push(new Issue(field.id, field.Title, field.Description,
                 new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-                field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture)));
-          }
+                field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture)))
+        }
+        ));
 
-        }));
-      issues.filter(issue => new TaskService(this.httpClient).getByID(issue.id)
-        .map(tasks => tasks.IDAssignee === id)).sort((issue1, issue2): number => {
+      map.sort((issue1, issue2): number => {
         if (issue1.IDUrgency < issue2.IDUrgency) {
           return 1;
         }
@@ -145,23 +145,20 @@ export class IssueService {
   getAssignedToByDate(id: number): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
       const map: Issue[] = [];
-      issues.forEach(field => new TaskService(this.httpClient).getNbByIdIssue(field.id)
-        .subscribe(nb => {
-          console.log(nb);
-          if (nb['count'] > 0) {
-            new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
-              map.push(new Issue(field.id, field.Title, field.Description,
-                new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-                field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture)));
+      issues.forEach(field => this.httpClient.get<Task[]>(this.API_url+'/'+field.id+'/tasks')
+        .subscribe(tasks =>{
+            if(tasks.filter( task => task.IDAssignee === id).length > 0)
+              new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
+                map.push(new Issue(field.id, field.Title, field.Description,
+                  new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
+                  field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture)))
           }
-        }));
-
-      issues.filter(issue => new TaskService(this.httpClient).getByID(issue.id)
-        .map(tasks => tasks.IDAssignee === id)).sort((issue1, issue2): number => {
-        if (issue1.DeclarationDate < issue2.DeclarationDate) {
+        ));
+      map.sort((issue1, issue2): number => {
+        if (issue1.Date < issue2.Date) {
           return 1;
         }
-        if (issue1.DeclarationDate > issue2.DeclarationDate) {
+        if (issue1.Date > issue2.Date) {
           return -1;
         }
         return 0;
@@ -173,28 +170,24 @@ export class IssueService {
   getAssignedToByDateAndString(id: number, input: string): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
       const map: Issue[] = [];
-      issues.forEach(field =>
-        new TaskService(this.httpClient).getNbByIdIssue(field.id)
-          .subscribe(nb => {
-            console.log(nb);
-            if (nb['count'] > 0) {
+      issues.forEach(field => this.httpClient.get<Task[]>(this.API_url+'/'+field.id+'/tasks')
+        .subscribe(tasks =>{
+            if(tasks.filter( task => task.IDAssignee === id).length > 0)
               new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
                 map.push(new Issue(field.id, field.Title, field.Description,
                   new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-                  field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture)));
-            }
-          }));
+                  field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture)))
+          }
+        ));
 
       map.filter(issue => issue.Title.toUpperCase().includes(input.toUpperCase())
         || (issue.Description != null && issue.Description.toUpperCase().includes(input.toUpperCase()))
-        || (issue.category != null && issue.category.toUpperCase().includes(input.toUpperCase()))
-        && new TaskService(this.httpClient).getByID(issue.id)
-          .map(tasks => tasks.IDAssignee === id))
+        || (issue.category != null && issue.category.toUpperCase().includes(input.toUpperCase())))
         .sort((issue1, issue2): number => {
-          if (issue1.DeclarationDate < issue2.DeclarationDate) {
+          if (issue1.Date < issue2.Date) {
             return 1;
           }
-          if (issue1.DeclarationDate > issue2.DeclarationDate) {
+          if (issue1.Date > issue2.Date) {
             return -1;
           }
           return 0;
@@ -206,19 +199,18 @@ export class IssueService {
   getAssignedToByImportanceAndString(id: number, input: string): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
       const map: Issue[] = [];
-      issues.forEach(field => new TaskService(this.httpClient).getNbByIdIssue(field.id)
-        .subscribe(nb => {
-          if (nb['count'] > 0) {
-            new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
-              map.push(new Issue(field.id, field.Title, field.Description,
-                new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-          field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture)));
-}
-
-        }));
+      issues.forEach(field => this.httpClient.get<Task[]>(this.API_url+'/'+field.id+'/tasks')
+        .subscribe(tasks =>{
+            if(tasks.filter( task => task.IDAssignee === id).length > 0)
+              new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
+                map.push(new Issue(field.id, field.Title, field.Description,
+                  new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
+                  field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture)))
+          }
+        ));
       map.filter(issue => issue.Title.toUpperCase().includes(input.toUpperCase())
         || (issue.Description != null && issue.Description.toUpperCase().includes(input.toUpperCase()))
-        || (issue.category != null && issue.category.toUpperCase().includes(input.toUpperCase())))
+        || (issue.category != null && issue.category.toUpperCase().includes(input.toUpperCase())) )
         .sort((issue1, issue2): number => {
           if (issue1.IDUrgency < issue2.IDUrgency) {
             return 1;
