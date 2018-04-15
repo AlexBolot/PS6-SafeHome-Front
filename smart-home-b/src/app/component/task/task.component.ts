@@ -35,8 +35,8 @@ export class TaskComponent implements OnInit {
     this.taskService.getAuthorById(this.task.id).subscribe(value => this.author = value.username);
     this.taskService.getAsigneeById(this.task.id).subscribe(value => this.asignee = value.username);
     this.taskIsDone = this.task.done;
-    this.btnIcon = this.taskIsDone ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-ok';
-    this.btnColor = this.taskIsDone ? 'btn btn-danger' : 'btn btn-success';
+    this.btnIcon = this.taskIsDone ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove';
+    this.btnColor = this.taskIsDone ? 'btn btn-success' : 'btn btn-danger';
     if (this.authService.getUser().idUser !== this.task.IDAssignee) {
       this.userAllowed = false;
       this.btnColor = 'btn btn-default';
