@@ -31,18 +31,21 @@ export class IssueService {
   getDeclared(id: number): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
       var map: Issue[] = [];
-      issues.forEach(field => new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
-        map.push(new Issue(field.id, field.Title, field.Description,
-          new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-          field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture))));
-      return map.filter(issue => issue.IDAuthor === id)
+      issues.forEach(field => {
+        if(field.IDAuthor === id)
+        new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
+          map.push(new Issue(field.id, field.Title, field.Description,
+            new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
+            field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture))
+        )
+      });
+      return map;
     });
   }
 
   getAssignee(id: number): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
       var map: Issue[] = [];
-      var input = "Chambre"
       issues.forEach(field => this.httpClient.get<Task[]>(this.API_url + '/' + field.id + '/tasks')
         .subscribe(tasks => {
             if (tasks.filter(task => task.IDAssignee === id).length > 0)

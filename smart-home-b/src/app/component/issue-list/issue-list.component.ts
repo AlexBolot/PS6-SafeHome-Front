@@ -33,6 +33,7 @@ export class IssueListComponent implements OnInit {
       if (logged) {
         this.issueService.getDeclared(this.authService.getUser().idUser).subscribe(value => {
           this.issues = this.issueService.getSortedByDate(value);
+          this.fullIssues = this.issues;
         });
         this.sortBy = 'date';
         this.declaredButtonIsChecked = true;
@@ -51,7 +52,7 @@ export class IssueListComponent implements OnInit {
   declaredButton_OnClick() {
     this.issueService.getDeclared(this.authService.getUser().idUser).subscribe(value => {
       this.issues = this.issueService.getSortedByDate(value);
-      this.fullIssues = this.issueService.getSortedByDate(value);
+      this.fullIssues = this.issues;
     });
     this.declaredButtonStyle = this.baseStyle + 'primary';
     this.assignedButtonStyle = this.baseStyle + 'info';
