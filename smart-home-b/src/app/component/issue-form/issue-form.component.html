@@ -68,7 +68,7 @@
           <div class="form-group">
             <label> Type Incident* </label>
             <div class="col-10">
-              <select class="form-control" [ngClass]="invalideCat" name="typeIncident" [(ngModel)]="idCat"
+              <select class="form-control" [ngClass]="invalideCat" name="typeIncident" [(ngModel)]="idCategory"
                       [@formFalseValidationCat]='formFalseValidationCat' (@formFalseValidationCat.done)="setBackToUnchecked()"
                       [ngStyle]="{'border': animationRedCat? '#ff4242 2px solid' : ''}">
                 <option *ngFor="let key of mapCategoryKeys" [value]="key">{{ mapCategory.get(key)}}</option>
