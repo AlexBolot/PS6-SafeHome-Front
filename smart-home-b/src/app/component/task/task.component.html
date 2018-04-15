@@ -3,11 +3,14 @@
     <h4>{{task.Text}}</h4>
   </div>
   <div class="panel-body">
+    <div class="col-md-8">
       <p>Auteur : {{author}}</p>
       <p>Destinataire : {{asignee}}</p>
-    <div>
-      <div class="right-cell" *ngIf="task.done"><img class="logo" src="/assets/icons/check.png" width="30" height="30" (click)="clickToUncheck()" ></div>
-      <div class="right-cell" *ngIf="!task.done"><img class="logo" src="/assets/icons/red.png" width="30" height="30" (click)="clickToCheck()"></div>
+    </div>
+    <div class="col-md-4">
+      <button [ngClass]="btnColor" (click)="changeTaskStatus()" [disabled]="!userAllowed"><span [ngClass]="btnIcon"></span></button>
+      <!--<div class="right-cell" *ngIf="task.done"><img class="logo" src="/assets/icons/check.png" width="30" height="30" (click)="clickToUncheck()"></div>
+      <div class="right-cell" *ngIf="!task.done"><img class="logo" src="/assets/icons/red.png" width="30" height="30" (click)="clickToCheck()"></div>-->
     </div>
   </div>
 </div>
