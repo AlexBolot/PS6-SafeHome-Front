@@ -40,8 +40,13 @@ export class TaskService {
     return this.httpClient.get<{}>(this.API_url + '/count?[where][IDIssue]=' + id);
   }
 
-  setTaskToDone(task:Task): void{
-    this.httpClient.put(this.API_url,'{"id":'+task.id+',"done":'+task.done+'}');
+  setTaskToDone(task:Task){
+    return this.httpClient.put(this.API_url,task);
   }
+
+  setTaskToUndone(task: Task){
+    return this.httpClient.put(this.API_url,task);
+  }
+
 
 }

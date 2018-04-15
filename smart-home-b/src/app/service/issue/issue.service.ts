@@ -23,7 +23,6 @@ export class IssueService {
   }
 
   add(issue: Issue) {
-    console.log(issue);
     return this.httpClient.post<JSON>(this.API_url, issue);
   }
 
@@ -213,8 +212,8 @@ export class IssueService {
             new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
               map.push(new Issue(field.id, field.Title, field.Description,
                 new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-                field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture)));
-          }
+          field.IDAuthor, field.IDStatus, field.IDLocation, field.Picture)));
+}
 
         }));
       map.filter(issue => issue.Title.toUpperCase().includes(input.toUpperCase())

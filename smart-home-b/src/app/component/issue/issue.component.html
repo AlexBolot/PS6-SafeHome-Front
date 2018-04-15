@@ -2,7 +2,7 @@
   <div class="row panel-heading">
     <div class="col-md-8">
       <p [style.background-color]="changeBackground()" class="cercle" data-toggle="tooltip" title="Tooltip on top"></p>
-      <h3 class="issue-title">{{issue.Title}} (tache:{{countTask}})</h3>
+      <h3 class="issue-title">{{issue.Title}}</h3>
     </div>
     <div class="col-md-2">
       <button class="margin-left-1em btn btn-default" (click)="showMore()">
@@ -11,7 +11,7 @@
     </div>
     <div class="col-md-2">
       <button class="margin-left-1em btn btn-default" (click)="showTasks()">
-        <span [ngClass]="buttonTasksIcon" aria-hidden="true"></span>Tâches
+        <span [ngClass]="buttonTasksIcon" aria-hidden="true"> </span>Tâches ({{countTask}})
       </button>
     </div>
   </div>
