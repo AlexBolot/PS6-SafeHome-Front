@@ -1,13 +1,11 @@
-<div class="incident-block">
-  <h3 class="margin-left-1em">
-    <p>
-      Titre : {{task.Text}}
-    </p>
-  </h3>
-  <div class="width-full table">
-    <div class="width-full">
-      <div class="left-cell"><p class="no-margin">Auteur : {{author}}</p></div>
-      <div class="left-cell"><p class="no-margin">Destinataire : {{asignee}}</p></div>
+<div class="container-fluid panel panel-default">
+  <div class="row panel-heading">
+    <h4>{{task.Text}}</h4>
+  </div>
+  <div class="panel-body">
+      <p>Auteur : {{author}}</p>
+      <p>Destinataire : {{asignee}}</p>
+    <div>
       <div class="right-cell" *ngIf="task.done"><img class="logo" src="/assets/icons/check.png" width="30" height="30" (click)="clickToUncheck()" ></div>
       <div class="right-cell" *ngIf="!task.done"><img class="logo" src="/assets/icons/red.png" width="30" height="30" (click)="clickToCheck()"></div>
     </div>

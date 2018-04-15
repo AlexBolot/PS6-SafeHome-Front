@@ -1,24 +1,11 @@
-.incident-block {
-
-}
-
-.cercle {
+.circle {
   display: inline-flex;
   width: 25px;
   height: 25px;
   border-radius: 50%;
 }
 
-.redClass {
-  color: red
-}
-
-.width-full {
-  width: 100%;
-  display: table;
-}
-
-.issue-title{
+.issue-title {
   margin-left: .5em;
   font-weight: bold;
   display: inline;
@@ -30,39 +17,6 @@
 
 .margin-left-2em {
   margin-left: 3em;
-}
-
-.no-margin {
-  margin: 0;
-}
-
-.table {
-  display: block;
-  width: 100%;
-}
-
-.large-cell {
-  float: left;
-  width: 40%;
-  word-wrap: break-word;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.medium-cell {
-  float: left;
-  width: 30%;
-  word-wrap: break-word;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.small-cell {
-  float: left;
-  width: 20%;
-  word-wrap: break-word;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 .tasks-list {

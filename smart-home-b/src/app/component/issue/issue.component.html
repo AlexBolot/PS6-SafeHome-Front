@@ -1,17 +1,17 @@
 <div class="container-fluid panel panel-default">
   <div class="row panel-heading">
     <div class="col-md-8">
-      <p [style.background-color]="changeBackground()" class="cercle" data-toggle="tooltip" title="Tooltip on top"></p>
+      <p [style.background-color]="changeBackground()" class="circle" data-toggle="tooltip" title="Tooltip on top"></p>
       <h3 class="issue-title">{{issue.Title}}</h3>
     </div>
     <div class="col-md-2">
       <button class="margin-left-1em btn btn-default" (click)="showMore()">
-        <span [ngClass]="buttonDetailsIcon" aria-hidden="true"></span>Détails
+        <span [ngClass]="buttonDetailsIcon" aria-hidden="true"></span> Détails
       </button>
     </div>
     <div class="col-md-2">
       <button class="margin-left-1em btn btn-default" (click)="showTasks()">
-        <span [ngClass]="buttonTasksIcon" aria-hidden="true"> </span>Tâches ({{countTask}})
+        <span [ngClass]="buttonTasksIcon" aria-hidden="true"></span> Tâches ({{countTask}})
       </button>
     </div>
   </div>
@@ -22,12 +22,11 @@
   </div>
   <div class="row panel-body" *ngIf="visibleDetails">
     <br>
-    <!--<div class="col-md-3 margin-left-2em"><img src="{{issue.Picture}}"></div>-->
-    <div class="col-md-7 margin-left-2em">Description : {{issue.Description}}</div>
+    <div class="col-md-12 margin-left-2em">Description : {{issue.Description}}</div>
   </div>
 
-  <div class="tasks-list" *ngIf="visibleTasks">
-    <div *ngFor="let task of tasks">
+  <div class="row" *ngIf="visibleTasks">
+    <div class="col-md-6" *ngFor="let task of tasks">
       <app-task [task]="task"></app-task>
     </div>
   </div>

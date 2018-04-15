@@ -6,7 +6,7 @@ export class Task {
   author: String;
   IDAssignee: number;
   assignee: String;
-  done: boolean
+  done: boolean;
 
   constructor(Text: String, id: number, IDIssue: number, IDAuthor: number, IDAssignee: number, author: String, assignee: String, done: boolean) {
     this.Text = Text;
