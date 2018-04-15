@@ -5,7 +5,7 @@
     <ul class="nav nav-tabs" *ngIf="coverBtnDeconnexion()">
       <li [ngClass]="suiviIncident" (click)="updateColorBtn('suiviIncident')" ><a routerLink="/issueView"> Suivi de mes incidents </a></li>
       <li [ngClass]="ajoutIncident" (click)="updateColorBtn('ajoutIncident')" ><a routerLink="/issueForm"> Ajouter un incident </a></li>
-      <li id="deconexion" class="active"><a routerLink="/connexion"> Deconnexion </a></li>
+      <li id="deconexion" class="active"><a (click)="logout()"> Deconnexion </a></li>
     </ul>
   </div>
 </div>

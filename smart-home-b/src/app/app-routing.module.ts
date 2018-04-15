@@ -8,6 +8,7 @@ import {BodyComponent} from './component/body/body.component';
 import {GuardCategoryResolve} from './service/guard/guardCategory.resolve';
 import {GuardUrgencyResolve} from './service/guard/guardUrgency.resolve';
 import {GuardLocationResolve} from './service/guard/guardLocation.resolve';
+import {AuthGuard} from "./service/guard/auth-guard.service";
 
 const routes: Routes = [
   {
@@ -15,9 +16,10 @@ const routes: Routes = [
       dataCategory: GuardCategoryResolve,
       dataUrgency: GuardUrgencyResolve,
       dataLocation: GuardLocationResolve,
+      canActivate: [AuthGuard],
     }
   },
-  {path: 'issueView', component: BodyComponent},
+  {path: 'issueView', canActivate: [AuthGuard], component: BodyComponent},
   {path: 'connexion', component: ConnexionComponent},
   {path: '', redirectTo: '/connexion', pathMatch: 'full'},
 ];

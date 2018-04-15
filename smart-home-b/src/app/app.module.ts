@@ -29,6 +29,7 @@ import {GuardUrgencyResolve} from './service/guard/guardUrgency.resolve';
 import {GuardLocationResolve} from './service/guard/guardLocation.resolve';
 import {LocationService} from './service/location/location.service';
 import {SpinnerComponent} from './component/spinner/spinner.component';
+import {AuthGuard} from "./service/guard/auth-guard.service";
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import {SpinnerComponent} from './component/spinner/spinner.component';
     GuardCategoryResolve,
     GuardUrgencyResolve,
     GuardLocationResolve,
+    AuthGuard,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
