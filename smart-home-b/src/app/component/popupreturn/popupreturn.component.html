@@ -1,7 +1,5 @@
 
-<h3>Les données vont être perdues car vous êtes sur le point de quitter la page.
-</h3>
-<h4>Êtes-vous sûr de vouloir continuer ?</h4>
+<p>Les données vont être perdues, êtes-vous sûr de vouloir continuer ?</p>
 <!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" (click)="onOkClick()">Oui, retour à ma liste d'incidents</button>
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" (click)="onCancelClick()">Annuler</button>
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" (click)="onOkClick()">Oui, retour à ma liste d'incidents</button>
+<button type="button" id="btnAnnuler" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" (click)="onCancelClick()">Annuler</button>
