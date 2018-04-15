@@ -140,7 +140,7 @@ export class IssueFormComponent implements OnInit {
         this.issue = new Issue(undefined, this.title, this.description, this.realDateIncident,
           this.dateDeclaration, Number(this.idUrgency),this.categorieId ,this.categorie, this.idAuthor, this.idStatus, Number(this.idLocation), undefined);
         console.log(this.issue);
-        // this.issueService.add(this.issue).subscribe(value => log('added'));
+        this.issueService.add(this.issue).subscribe(value => log('added'));
         const dialogRef = this.dialog.open(PopupissueComponent, {});
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
