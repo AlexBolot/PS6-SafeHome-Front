@@ -16,8 +16,7 @@ const routes: Routes = [
       dataCategory: GuardCategoryResolve,
       dataUrgency: GuardUrgencyResolve,
       dataLocation: GuardLocationResolve,
-      canActivate: [AuthGuard],
-    }
+    }, canActivate: [AuthGuard],
   },
   {path: 'issueView', canActivate: [AuthGuard], component: BodyComponent},
   {path: 'connexion', component: ConnexionComponent},
