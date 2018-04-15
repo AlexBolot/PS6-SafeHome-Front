@@ -2,7 +2,7 @@
   <div class="row panel-heading">
     <div class="col-md-8">
       <p [style.background-color]="changeBackground()" class="cercle" data-toggle="tooltip" title="Tooltip on top"></p>
-      <h3 class="issue-title">Titre : {{issue.Title}}</h3>
+      <h3 class="issue-title">{{issue.Title}} (tache:{{countTask}})</h3>
     </div>
     <div class="col-md-2">
       <button class="margin-left-1em btn btn-default" (click)="showMore()">
@@ -17,7 +17,7 @@
   </div>
   <div class="row panel-body">
     <div class="col-md-3 margin-left-2em">Date : {{issue.DeclarationDate | date}}</div>
-    <div class="col-md-4">Catégorie : {{categoryLabel}}</div>
+    <div class="col-md-4">Catégorie : {{issue.category}}</div>
     <div class="col-md-4">Status : {{statusLabel}}</div>
   </div>
   <div class="row panel-body" *ngIf="visibleDetails">

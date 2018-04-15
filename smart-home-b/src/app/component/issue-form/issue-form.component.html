@@ -80,74 +80,19 @@
       </tr>
     </table>
   </form>
-  <!--<table>
-    <tr class="tr">
-      <td class="col1">Titre* :</td>
-      <td class="col2" colspan="2"><input class="form-control" type="text" name="titre" id="inputTitre"
-                                          [(ngModel)]="title"
-                                          [@formFalseValidationTitle]='formFalseValidationTitle'
-                                          [ngStyle]="{'background-color': animationRedTitle? '#b83030' : '#ffffff'}"
-                                          (@formFalseValidationTitle.done)="setBackToUnchecked()">
-      </td>
-      <td class="col4"></td>
-    </tr>
-    <tr>
-      <td class="col1"> Description :</td>
-      <td class="col2" colspan="3"><textarea rows="3" cols="79" autoResize="autoResize"
-                                             [(ngModel)]="description"> </textarea></td>
-    </tr>
-    <tr>
-      <td class="col1"> Date - Heure :</td>
-      <td class="col2">
-        <input type="datetime-local" [ngModel]="dateIncident | date:'yyyy-MM-ddThh:mm'" (ngModelChange)="dateIncident= $event"
-               [value]="dateIncident | date:'yyyy-MM-dd-Thh:mm'">
-      </td>
-      <td class="col3"> Localisation :</td>
-      <td>
-        <select class="custom-select" name="Localisation" [(ngModel)]="idLocation">
-          <option *ngFor="let key of mapLocationKeys" [value]="key" >{{ mapLocation.get(key)}} </option>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td class="col1">  Importance* : </td>
-      <td class="col2">
-        <select name="Importance" [(ngModel)]="idUrgency"
-                [@formFalseValidationUrgency]='formFalseValidationUrgency'
-                [ngStyle]="{'background-color': animationRedUrgency? '#b83030' : '#ffffff'}"
-                (@formFalseValidationUrgency.done)="setBackToUnchecked()">
-          <option *ngFor="let key of mapUrgencyKeys" [value]="key" >{{ mapUrgency.get(key) }}</option>
-        </select>
-      </td>
-      <td class="col3">Type incident* : </td>
-      <td class="col4">
-        <select name="Type incident" [(ngModel)]="idCat"
-                [@formFalseValidationCat]='formFalseValidationCat' (@formFalseValidationCat.done)="setBackToUnchecked()"
-                [ngStyle]="{'background-color': animationRedCat? '#b83030' : '#ffffff'}">
-          <option *ngFor="let key of mapCategoryKeys" [value]="key">{{ mapCategory.get(key)}}</option>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td class="col1"> Importer Photo :</td>
-      <td colspan="2"><input type="file" (change)="handleInputChange($event)" accept="image/*" ></td>
-    </tr>
-
-  </table>
-  -->
 </div>
 <div class="erreur margin25left " [ngClass]="errorValidate"> Veuillez remplir les champs marqués d'une * ( Ils sont
   obligatoires )
 </div>
 <div class="table" class="margin">
-  <button class="buttonleft" (click)="openDialogReturn()">
+  <button class="buttonleft btn btn-primary btn-sm" (click)="openDialogReturn()">
     Retour
   </button>
-  <button class="buttonright" (click)="openDialogValidate()">
+  <button class="buttonright btn btn-primary btn-sm" (click)="openDialogValidate()">
     Valider
   </button>
 </div>
-<label class="margintop">
+<label class="margintop margin10left">
   *champs obligatoires
 </label>
 
