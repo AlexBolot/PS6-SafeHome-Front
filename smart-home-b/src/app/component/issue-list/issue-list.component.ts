@@ -14,6 +14,7 @@ import {Categorie} from "../../model/categorie";
 export class IssueListComponent implements OnInit {
 
   issues: Issue[] = [];
+  fullIssues: Issue[] = [];
   baseStyle: String = 'btn btn-block btn-';
   declaredButtonStyle = this.baseStyle + 'primary';
   assignedButtonStyle = this.baseStyle + 'info';
@@ -23,14 +24,16 @@ export class IssueListComponent implements OnInit {
   inputSearch: string;
 
   constructor(private issueService: IssueService, private authService: AuthenticationService,
-              private categoryService : CategoryService) {
+              private categoryService: CategoryService) {
   }
 
   ngOnInit() {
 
     this.authService.isLogged().subscribe((logged) => {
       if (logged) {
-        this.issueService.getDeclaredByDate(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+        this.issueService.getDeclared(this.authService.getUser().idUser).subscribe(value => {
+          this.issues = this.issueService.getSortedByDate(value);
+        });
         this.sortBy = 'date';
         this.declaredButtonIsChecked = true;
       }
@@ -46,8 +49,10 @@ export class IssueListComponent implements OnInit {
   }
 
   declaredButton_OnClick() {
-    this.issues = null;
-    this.issueService.getDeclaredByDate(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+    this.issueService.getDeclared(this.authService.getUser().idUser).subscribe(value => {
+      this.issues = this.issueService.getSortedByDate(value);
+      this.fullIssues = this.issueService.getSortedByDate(value);
+    });
     this.declaredButtonStyle = this.baseStyle + 'primary';
     this.assignedButtonStyle = this.baseStyle + 'info';
     this.assignedButtonIsChecked = false;
@@ -62,8 +67,10 @@ export class IssueListComponent implements OnInit {
   }
 
   assignedButton_OnClick() {
-    this.issues = null;
-    this.issueService.getAssignedToByImportance(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+    this.issueService.getAssignee(this.authService.getUser().idUser).subscribe(value => {
+      this.issues = this.issueService.getSortedByImportance(value);
+      this.fullIssues = this.issues;
+    });
     this.assignedButtonStyle = this.baseStyle + 'primary';
     this.declaredButtonStyle = this.baseStyle + 'info';
     this.declaredButtonIsChecked = false;
@@ -73,34 +80,30 @@ export class IssueListComponent implements OnInit {
     if (this.inputSearch === undefined) {
       if (this.assignedButtonIsChecked) {
         if (this.sortBy === 'importance') {
-          this.issueService.getAssignedToByImportance(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+          this.issues = this.issueService.getSortedByImportance(this.issues);
+
         } else if (this.sortBy === 'date') {
-          this.issueService.getAssignedToByDate(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+          this.issues = this.issueService.getSortedByDate(this.issues);
         }
       } else if (this.declaredButtonIsChecked) {
         if (this.sortBy === 'importance') {
-          this.issueService.getDeclaredByImportance(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+          this.issues = this.issueService.getSortedByImportance(this.issues);
         } else if (this.sortBy === 'date') {
-          this.issueService.getDeclaredByDate(this.authService.getUser().idUser).subscribe(value => this.issues = value);
+          this.issues = this.issueService.getSortedByDate(this.issues);
         }
       }
-    } else if (this.inputSearch !== undefined) {
-      console.log(this.inputSearch);
+    } else if (this.inputSearch !== "") {
       if (this.assignedButtonIsChecked) {
         if (this.sortBy === 'importance') {
-          this.issueService.getAssignedToByImportanceAndString(this.authService.getUser().idUser, this.inputSearch)
-            .subscribe(value => this.issues = value);
+          this.issues = this.issueService.getSortedByImportance(this.issueService.getFilter(this.fullIssues, this.inputSearch));
         } else if (this.sortBy === 'date') {
-          this.issueService.getAssignedToByDateAndString(this.authService.getUser().idUser, this.inputSearch , )
-            .subscribe(value =>this.issues = value);
+          this.issues = this.issueService.getSortedByDate(this.issueService.getFilter(this.fullIssues, this.inputSearch));
         }
       } else if (this.declaredButtonIsChecked) {
         if (this.sortBy === 'importance') {
-          this.issueService.getDeclaredFilterStringAndImportance(this.authService.getUser().idUser, this.inputSearch)
-            .subscribe(value => this.issues = value);
+          this.issues = this.issueService.getSortedByImportance(this.issueService.getFilter(this.fullIssues, this.inputSearch));
         } else if (this.sortBy === 'date') {
-          this.issueService.getDeclaredFilterStringAndDate(this.authService.getUser().idUser, this.inputSearch)
-            .subscribe(value => this.issues = value);
+          this.issues = this.issueService.getSortedByDate(this.issueService.getFilter(this.fullIssues, this.inputSearch));
         }
       }
     }
