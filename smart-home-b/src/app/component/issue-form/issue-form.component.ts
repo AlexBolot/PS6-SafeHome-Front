@@ -138,9 +138,9 @@ export class IssueFormComponent implements OnInit {
         this.idAuthor = this.authentificationService.getUser().idUser;
         this.idStatus = 1;
         this.issue = new Issue(undefined, this.title, this.description, this.realDateIncident,
-          this.dateDeclaration, Number(this.idUrgency),this.idCategory ,this.mapCategory.get(this.idCategory), this.idAuthor, this.idStatus, Number(this.idLocation), undefined);
+          this.dateDeclaration, Number(this.idUrgency),Number(this.idCategory) ,this.mapCategory.get(this.idCategory), this.idAuthor, this.idStatus, Number(this.idLocation), undefined);
         console.log(this.issue);
-        //this.issueService.add(this.issue).subscribe(value => log('added'));
+        this.issueService.add(this.issue).subscribe(value => log('added'));
         const dialogRef = this.dialog.open(PopupissueComponent, {});
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
