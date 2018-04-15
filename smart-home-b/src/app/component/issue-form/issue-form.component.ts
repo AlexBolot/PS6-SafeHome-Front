@@ -65,8 +65,8 @@ export class IssueFormComponent implements OnInit {
   public dateDeclaration: Date;
   public realDateIncident: Date;
   public idUrgency: number;
-  public categorie:string;
-  public categorieId: number;
+  public category : string;
+  public idCategory: number;
   public idAuthor: number;
   public idStatus: number;
   public idLocation: number;
@@ -110,7 +110,7 @@ export class IssueFormComponent implements OnInit {
   }
 
   openDialogReturn(): void {
-    if (!this.categorie && !this.description && !this.title && !this.idLocation) {
+    if (!this.idCategory && !this.description && !this.title && !this.idLocation) {
       this.router.navigate(['/issueView']);
     } else {
       const dialogRef = this.dialog.open(PopupreturnComponent, {});
@@ -131,16 +131,16 @@ export class IssueFormComponent implements OnInit {
   }
 
   openDialogValidate(): void {
-    if (this.title && this.categorie && this.idUrgency) {
+    if (this.title && this.idCategory && this.idUrgency) {
       this.dateDeclaration = new Date();
       this.realDateIncident = new Date(this.dateIncident);
       if (this.authentificationService.isLogged()) {
         this.idAuthor = this.authentificationService.getUser().idUser;
-        this.idStatus = 1;
+        this.idStatus = 2;
         this.issue = new Issue(undefined, this.title, this.description, this.realDateIncident,
-          this.dateDeclaration, Number(this.idUrgency),this.categorieId ,this.categorie, this.idAuthor, this.idStatus, Number(this.idLocation), undefined);
+          this.dateDeclaration, Number(this.idUrgency),Number(this.idCategory) ,this.mapCategory.get(this.idCategory), this.idAuthor, this.idStatus, Number(this.idLocation), undefined);
         console.log(this.issue);
-        // this.issueService.add(this.issue).subscribe(value => log('added'));
+        this.issueService.add(this.issue).subscribe(value => log('added'));
         const dialogRef = this.dialog.open(PopupissueComponent, {});
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
@@ -154,7 +154,7 @@ export class IssueFormComponent implements OnInit {
       }else{
         this.invalideTitle = '';
       }
-      if (!this.categorie) {
+      if (!this.idCategory) {
         this.animationRedCat = true;
         this.formFalseValidationCat = 'invalid';
         this.invalideCat = 'error';
