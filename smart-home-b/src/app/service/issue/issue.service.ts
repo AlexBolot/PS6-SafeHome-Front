@@ -60,11 +60,16 @@ export class IssueService {
       var map: Issue[] = [];
       issues.forEach(field => this.httpClient.get<Task[]>(this.API_url + '/' + field.id + '/tasks')
         .subscribe(tasks => {
-            if (tasks.filter(task => task.IDAssignee === id).length > 0)
+            var location :String;
+            if (tasks.filter(task => task.IDAssignee === id).length > 0) {
+              new LocationService(this.httpClient).getByID(field.IDLocation).subscribe(value => {
+                location = value
+              });
               new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
                 map.push(new Issue(field.id, field.Title, field.Description,
                   new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-                  field.IDAuthor, field.IDStatus,field.status, field.IDLocation,field.location, field.Picture)))
+                  field.IDAuthor, field.IDStatus, field.status, field.IDLocation, location, field.Picture)))
+            }
           }
         ));
       return map;
