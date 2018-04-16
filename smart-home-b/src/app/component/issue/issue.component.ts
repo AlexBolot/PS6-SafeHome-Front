@@ -41,11 +41,17 @@ export class IssueComponent implements OnInit {
 
   ngOnInit() {
     this.urgencyService.getByID(this.issue.IDUrgency).subscribe(value => this.urgencyLabel = value);
-    this.statusService.getByID(this.issue.IDStatus).subscribe(value => this.statusLabel = value);
+    this.statusService.getByID(this.issue.IDStatus).subscribe(value => {this.statusLabel = value;
+    this.issue.statusName = value}
+    );
     this.taskService.getAllByIssueID(this.issue.id).subscribe(value => this.tasks = value);
-    this.categoryService.getByID(this.issue.categoryId).subscribe(value => this.categoryLabel = value);
+    this.categoryService.getByID(this.issue.categoryId).subscribe(value =>{ this.categoryLabel = value;
+    this.issue.category = value});
     this.taskService.getNbByIdIssue(this.issue.id).subscribe(value => this.countTask = value["count"]);
-    this.locationService.getByID(this.issue.IDLocation).subscribe(value => this.locationLabel = value);
+    this.locationService.getByID(this.issue.IDLocation).subscribe(value => {
+      this.locationLabel = value;
+      this.issue.locationName = value;
+    });
 
 
   //  this.fetchAuthorName()

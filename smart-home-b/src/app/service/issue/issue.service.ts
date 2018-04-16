@@ -14,7 +14,8 @@ export class IssueService {
 
   API_url = AppSettings.API_ROOT + '/Issues';
 
-  constructor(private httpClient: HttpClient, private categoryService: CategoryService) {
+  constructor(private httpClient: HttpClient, private categoryService: CategoryService,
+              private taskService :TaskService) {
   }
 
   getAll(): Observable<Issue[]> {
@@ -39,15 +40,7 @@ export class IssueService {
       var map: Issue[] = [];
       issues.forEach(field => {
         if(field.IDAuthor === id){
-          var status :String;
-          var location :String;
-
-          new LocationService(this.httpClient).getByID(field.IDLocation).subscribe(value => {location = value});
-          new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
-            map.push(new Issue(field.id, field.Title, field.Description,
-              new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-              field.IDAuthor, field.IDStatus,status, field.IDLocation,location, field.Picture))
-          )
+            map.push(field);
         }
 
       });
@@ -58,20 +51,10 @@ export class IssueService {
   getAssignee(id: number): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
       var map: Issue[] = [];
-      issues.forEach(field => this.httpClient.get<Task[]>(this.API_url + '/' + field.id + '/tasks')
-        .subscribe(tasks => {
-            var location :String;
-            if (tasks.filter(task => task.IDAssignee === id).length > 0) {
-              new LocationService(this.httpClient).getByID(field.IDLocation).subscribe(value => {
-                location = value
-              });
-              new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
-                map.push(new Issue(field.id, field.Title, field.Description,
-                  new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-                  field.IDAuthor, field.IDStatus, field.statusName, field.IDLocation, location, field.Picture)))
-            }
-          }
-        ));
+      issues.forEach(field => this.taskService.getAllByIssueID(field.id).subscribe(tasks =>{
+      if(tasks.filter(task => task.IDAssignee ===id).length>0){
+        map.push(field);
+      }}));
       return map;
     });
   }
@@ -105,7 +88,7 @@ export class IssueService {
       || (issue.Description != null && issue.Description.toUpperCase().includes(input.toUpperCase()))
       || (issue.category != null && issue.category.toUpperCase().includes(input.toUpperCase()))
       || (issue.locationName != null && issue.locationName.toUpperCase().includes(input.toUpperCase()))
-      || (issue.statusName != null && issue.statusName.toUpperCase().includes(input.toUpperCase()))
+      || (issue.statusName != null && issue.statusName.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"").includes(input.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"")))
     );
   }
 

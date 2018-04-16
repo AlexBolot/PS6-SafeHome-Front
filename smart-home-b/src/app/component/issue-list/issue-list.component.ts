@@ -41,13 +41,6 @@ export class IssueListComponent implements OnInit {
         this.sortBy = 'date';
       }
     });
-    this.declaredButton_OnClickOneTime();
-    this.issues.map(issue =>{
-      this.statusService.getByID(issue.IDStatus).subscribe(value => {issue.statusName = value});
-    });
-    this.issues = this.issueService.getSortedByDate(this.issues);
-    this.fullIssues = this.issues;
-
 
 
   }
@@ -89,11 +82,10 @@ export class IssueListComponent implements OnInit {
   }
 
   callType() {
-    if (this.inputSearch === undefined) {
+    if (this.inputSearch === undefined || this.inputSearch ==="") {
       if (this.assignedButtonIsChecked) {
         if (this.sortBy === 'importance') {
           this.issues = this.issueService.getSortedByImportance(this.issues);
-
         } else if (this.sortBy === 'date') {
           this.issues = this.issueService.getSortedByDate(this.issues);
         }
