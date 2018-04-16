@@ -68,7 +68,7 @@ export class IssueService {
               new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
                 map.push(new Issue(field.id, field.Title, field.Description,
                   new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-                  field.IDAuthor, field.IDStatus, field.status, field.IDLocation, location, field.Picture)))
+                  field.IDAuthor, field.IDStatus, field.statusName, field.IDLocation, location, field.Picture)))
             }
           }
         ));
@@ -104,8 +104,8 @@ export class IssueService {
     return issues.filter(issue => issue.Title.toUpperCase().includes(input.toUpperCase())
       || (issue.Description != null && issue.Description.toUpperCase().includes(input.toUpperCase()))
       || (issue.category != null && issue.category.toUpperCase().includes(input.toUpperCase()))
-      || (issue.location != null && issue.location.toUpperCase().includes(input.toUpperCase()))
-      || (issue.status != null && issue.status.toUpperCase().includes(input.toUpperCase()))
+      || (issue.locationName != null && issue.locationName.toUpperCase().includes(input.toUpperCase()))
+      || (issue.statusName != null && issue.statusName.toUpperCase().includes(input.toUpperCase()))
     );
   }
 
@@ -148,7 +148,7 @@ export class IssueService {
               new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
                 map.push(new Issue(field.id, field.Title, field.Description,
                   new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-                  field.IDAuthor, field.IDStatus,field.status, field.IDLocation,field.location, field.Picture)))
+                  field.IDAuthor, field.IDStatus,field.statusName, field.IDLocation,field.locationName, field.Picture)))
           }
         ));
       return this.getSortedByImportance(map);
@@ -167,7 +167,7 @@ export class IssueService {
               new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
                 map.push(new Issue(field.id, field.Title, field.Description,
                   new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-                  field.IDAuthor, field.IDStatus,field.status, field.IDLocation,field.location, field.Picture)))
+                  field.IDAuthor, field.IDStatus,field.statusName, field.IDLocation,field.locationName, field.Picture)))
           }
         ));
       return this.getSortedByDate(map);

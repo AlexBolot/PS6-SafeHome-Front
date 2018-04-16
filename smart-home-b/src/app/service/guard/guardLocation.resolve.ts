@@ -10,7 +10,7 @@ export class GuardLocationResolve implements Resolve<any> {
   constructor(private locationService: LocationService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    console.log('resolve location activated');
+    console.log('resolve locationName activated');
     return this.locationService.getAll();
   }
 

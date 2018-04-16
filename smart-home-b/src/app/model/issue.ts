@@ -12,8 +12,8 @@ export class Issue {
   IDLocation: number;
   Picture: string;
   homesId: number;
-  location:String;
-  status:String;
+  locationName:String;
+  statusName:String;
 
   constructor(idIssue: number, title: string, description: string, dateIncident: Date, dateDeclaration: Date, idUrgency: number,
               idCat: number,categorie: String, idAuthor: number, idStatus: number,status:String, idLocation: number,location:String, image: string, idHome: number = -1) {
@@ -28,9 +28,9 @@ export class Issue {
     this.IDAuthor = idAuthor;
     this.IDStatus = idStatus;
     this.IDLocation = idLocation;
-    this.location = location;
+    this.locationName = location;
     this.Picture = image;
     this.homesId = idHome;
-    this.status = status;
+    this.statusName = status;
   }
 }
