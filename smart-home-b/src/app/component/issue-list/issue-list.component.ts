@@ -4,6 +4,8 @@ import {IssueService} from '../../service/issue/issue.service';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
 import {CategoryService} from "../../service/category/category.service";
 import {Categorie} from "../../model/categorie";
+import {StatusService} from "../../service/status/status.service";
+import {LocationService} from "../../service/location/location.service";
 
 @Component({
   selector: 'app-issue-list',
@@ -23,8 +25,8 @@ export class IssueListComponent implements OnInit {
   sortBy: string;
   inputSearch: string;
 
-  constructor(private issueService: IssueService, private authService: AuthenticationService,
-              private categoryService: CategoryService) {
+  constructor(private issueService: IssueService, private authService: AuthenticationService,private statusService: StatusService,
+              private locationService : LocationService, private categoryService: CategoryService) {
   }
 
   ngOnInit() {
@@ -39,6 +41,13 @@ export class IssueListComponent implements OnInit {
         this.declaredButtonIsChecked = true;
       }
     });
+    this.declaredButton_OnClickOneTime();
+    this.issues.map(issue =>{
+      this.statusService.getByID(issue.IDStatus).subscribe(value => {issue.status = value});
+    });
+
+    this.fullIssues = this.issues;
+    this.issues = this.issueService.getSortedByDate(this.issues);
   }
 
   declaredButton_OnClickOneTime() {

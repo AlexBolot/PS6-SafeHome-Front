@@ -6,6 +6,8 @@ import {AppSettings} from '../../model/app-settings';
 import {TaskService} from '../task/task.service';
 import {CategoryService} from '../category/category.service';
 import {Task} from "../../model/task";
+import {StatusService} from "../status/status.service";
+import {LocationService} from "../location/location.service";
 
 @Injectable()
 export class IssueService {
@@ -36,12 +38,18 @@ export class IssueService {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
       var map: Issue[] = [];
       issues.forEach(field => {
-        if(field.IDAuthor === id)
+        if(field.IDAuthor === id){
+          var status :String;
+          var location :String;
+
+          new LocationService(this.httpClient).getByID(field.IDLocation).subscribe(value => {location = value});
           new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
             map.push(new Issue(field.id, field.Title, field.Description,
               new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-              field.IDAuthor, field.IDStatus,field.status, field.IDLocation,field.location, field.Picture))
+              field.IDAuthor, field.IDStatus,status, field.IDLocation,location, field.Picture))
           )
+        }
+
       });
       return map;
     });
@@ -90,7 +98,10 @@ export class IssueService {
   getFilter(issues: Issue[], input: string): Issue[] {
     return issues.filter(issue => issue.Title.toUpperCase().includes(input.toUpperCase())
       || (issue.Description != null && issue.Description.toUpperCase().includes(input.toUpperCase()))
-      || (issue.category != null && issue.category.toUpperCase().includes(input.toUpperCase())));
+      || (issue.category != null && issue.category.toUpperCase().includes(input.toUpperCase()))
+      || (issue.location != null && issue.location.toUpperCase().includes(input.toUpperCase()))
+      || (issue.status != null && issue.status.toUpperCase().includes(input.toUpperCase()))
+    );
   }
 
 //USELESS BUT no delete au cas ou
