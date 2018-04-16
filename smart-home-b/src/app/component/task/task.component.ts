@@ -7,6 +7,7 @@ import {IssueService} from '../../service/issue/issue.service';
 import {log} from 'util';
 import {Issue} from '../../model/issue';
 import {EventEmitter} from '@angular/core';
+import {User} from "../../model/user";
 
 @Component({
   selector: 'app-task',
@@ -26,17 +27,26 @@ export class TaskComponent implements OnInit {
   btnIcon: String = 'glyphicon glyphicon-ok';
   btnColor: String = 'btn btn-success';
   userAllowed = true;
+  userID: number;
+  toggleSwitch: boolean;
+  bannerColor :string;
 
   constructor(private taskService: TaskService, private authService: AuthenticationService,
               private issueService: IssueService) {
   }
 
   ngOnInit() {
+    this.userID = this.authService.getUser().idUser;
     this.taskService.getAuthorById(this.task.id).subscribe(value => this.author = value.username);
     this.taskService.getAsigneeById(this.task.id).subscribe(value => this.asignee = value.username);
     this.taskIsDone = this.task.done;
-    this.btnIcon = this.taskIsDone ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove';
-    this.btnColor = this.taskIsDone ? 'btn btn-success' : 'btn btn-danger';
+    this.toggleSwitch = this.taskIsDone;
+    if(this.taskIsDone){
+      this.bannerColor="container-fluid panel panel-success";
+    }
+    else{
+      this.bannerColor="container-fluid panel panel-danger";
+    }
     if (this.authService.getUser().idUser !== this.task.IDAssignee) {
       this.userAllowed = false;
       this.btnColor = 'btn btn-default';
