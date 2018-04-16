@@ -17,10 +17,10 @@
     </div>
   </div>
   <div class="row panel-body">
-    <div class="col-md-3">Date : {{issue.DeclarationDate | date}}</div>
-    <div class="col-md-3">Catégorie : {{categoryLabel}}</div>
-    <div class="col-md-3">Lieu : {{locationLabel}}</div>
-    <div class="col-md-3">Status : {{statusLabel}}</div>
+    <div class="col-md-3 list-group-item">Date : {{issue.DeclarationDate | date}}</div>
+    <div class="col-md-3 list-group-item">Catégorie : {{categoryLabel}}</div>
+    <div class="col-md-3 list-group-item">Lieu : {{locationLabel}}</div>
+    <div class="col-md-3 list-group-item">Status : {{statusLabel}}</div>
   </div>
   <div class="row panel-body" *ngIf="visibleDetails">
     <br>

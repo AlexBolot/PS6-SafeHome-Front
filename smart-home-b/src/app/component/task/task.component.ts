@@ -1,13 +1,12 @@
 ///<reference path="../../../../node_modules/@types/node/index.d.ts"/>
 import {Component, Input, OnInit, Output} from '@angular/core';
-import {Task} from '../../model/task';
 import {TaskService} from '../../service/task/task.service';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
 import {IssueService} from '../../service/issue/issue.service';
 import {log} from 'util';
 import {Issue} from '../../model/issue';
 import {EventEmitter} from '@angular/core';
-import {User} from "../../model/user";
+import {Task} from '../../model/task';
 
 @Component({
   selector: 'app-task',
@@ -29,7 +28,8 @@ export class TaskComponent implements OnInit {
   userAllowed = true;
   userID: number;
   toggleSwitch: boolean;
-  bannerColor :string;
+  bannerColor: string;
+  toggleVisible: string = '';
 
   constructor(private taskService: TaskService, private authService: AuthenticationService,
               private issueService: IssueService) {
@@ -41,15 +41,16 @@ export class TaskComponent implements OnInit {
     this.taskService.getAsigneeById(this.task.id).subscribe(value => this.asignee = value.username);
     this.taskIsDone = this.task.done;
     this.toggleSwitch = this.taskIsDone;
-    if(this.taskIsDone){
-      this.bannerColor="container-fluid panel panel-success";
+    if (this.taskIsDone) {
+      this.bannerColor = 'container-fluid panel panel-success';
     }
-    else{
-      this.bannerColor="container-fluid panel panel-danger";
+    else {
+      this.bannerColor = 'container-fluid panel panel-danger';
     }
     if (this.authService.getUser().idUser !== this.task.IDAssignee) {
       this.userAllowed = false;
       this.btnColor = 'btn btn-default';
+      this.toggleVisible = 'sneaky';
     }
   }
 

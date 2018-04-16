@@ -1,24 +1,21 @@
 <div [ngClass]="bannerColor">
   <div class="row panel-heading">
     <h4>{{task.Text}}</h4>
-    <div></div>
   </div>
-  <div class="panel-body">
+  <div class="panel-body row">
     <div class="col-md-8">
       <p>Destinataire : {{asignee}}</p>
     </div>
     <div class="col-md-4">
-      <div *ngIf="task.IDAssignee==userID">
+      <div [ngClass]="toggleVisible">
+        <label class="switch">
+          <input type="checkbox" (click)="changeTaskStatus()" [(ngModel)]="toggleSwitch">
+          <span class="slider round"></span>
+        </label>
         <label *ngIf="toggleSwitch" class="left">Validée</label>
         <label *ngIf="!toggleSwitch" class="right">A faire</label>
-      <label class="switch">
-        <input type="checkbox" (click)="changeTaskStatus()" [(ngModel)]="toggleSwitch">
-        <span class="slider round"></span>
-      </label>
-        </div>
-    </div>
-      <!--<div class="right-cell" *ngIf="task.done"><img class="logo" src="/assets/icons/check.png" width="30" height="30" (click)="clickToUncheck()"></div>
-      <div class="right-cell" *ngIf="!task.done"><img class="logo" src="/assets/icons/red.png" width="30" height="30" (click)="clickToCheck()"></div>-->
+      </div>
     </div>
   </div>
+</div>
 
