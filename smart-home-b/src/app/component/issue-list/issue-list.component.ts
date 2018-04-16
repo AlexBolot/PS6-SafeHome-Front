@@ -30,22 +30,20 @@ export class IssueListComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.authService.isLogged().subscribe((logged) => {
       if (logged) {
         this.issueService.getDeclared(this.authService.getUser().idUser).subscribe(value => {
           this.issues = this.issueService.getSortedByDate(value);
           this.fullIssues = this.issues;
         });
-        this.sortBy = 'date';
         this.declaredButtonIsChecked = true;
+        this.sortBy = 'date';
       }
     });
     this.declaredButton_OnClickOneTime();
     this.issues.map(issue =>{
       this.statusService.getByID(issue.IDStatus).subscribe(value => {issue.status = value});
     });
-
     this.fullIssues = this.issues;
     this.issues = this.issueService.getSortedByDate(this.issues);
   }

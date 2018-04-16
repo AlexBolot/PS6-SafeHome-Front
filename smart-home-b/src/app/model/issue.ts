@@ -13,10 +13,10 @@ export class Issue {
   Picture: string;
   homesId: number;
   location:String;
-  status:String
+  status:String;
 
   constructor(idIssue: number, title: string, description: string, dateIncident: Date, dateDeclaration: Date, idUrgency: number,
-              idCat: number,categorie: String, idAuthor: number, idStatus: number,staus:String, idLocation: number,location:String, image: string, idHome: number = -1) {
+              idCat: number,categorie: String, idAuthor: number, idStatus: number,status:String, idLocation: number,location:String, image: string, idHome: number = -1) {
     this.id = idIssue;
     this.Title = title;
     this.Description = description;

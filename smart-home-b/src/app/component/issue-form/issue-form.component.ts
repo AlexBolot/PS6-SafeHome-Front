@@ -111,7 +111,7 @@ export class IssueFormComponent implements OnInit {
   }
 
   openDialogReturn(): void {
-    if (!this.idCategory && !this.description && !this.title && !this.idLocation) {
+    if (!this.idCategory && !this.description && !this.title) {
       this.router.navigate(['/issueView']);
     } else {
       const dialogRef = this.dialog.open(PopupreturnComponent, {});
