@@ -104,4 +104,17 @@ export class IssueListComponent implements OnInit {
       }
     }
   }
+  fullIssuesUpdate(update :boolean){
+    console.log("jesuispasséparlà");
+    if(this.assignedButtonIsChecked){
+      this.issueService.getAssignee(this.authService.getUser().idUser).subscribe(value => {
+        this.fullIssues = value;
+      });
+    }
+    else if(this.declaredButtonIsChecked){
+      this.issueService.getDeclared(this.authService.getUser().idUser).subscribe(value => {
+        this.fullIssues = value;
+      });
+    }
+  }
 }

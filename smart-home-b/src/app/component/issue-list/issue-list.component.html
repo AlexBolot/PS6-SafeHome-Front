@@ -46,8 +46,8 @@
     <div *ngIf="issues == null ">
       <app-spinner></app-spinner>
     </div>
-    <div *ngFor="let issue of issues">
-      <app-issue [issue]="issue"></app-issue>
+    <div *ngFor="let issue of issues" >
+      <app-issue [issue]="issue" (fullIssuesUpdate)="fullIssuesUpdate($event)"></app-issue>
     </div>
   </div>
 </div>

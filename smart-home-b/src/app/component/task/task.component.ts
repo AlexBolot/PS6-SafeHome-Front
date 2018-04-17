@@ -94,9 +94,8 @@ export class TaskComponent implements OnInit {
             }
             this.issueService.put(this.issue).subscribe(
               value => {
-                log('updated');
                 this.updateStatus.emit(true);
-                console.log('jesuisaussipasséparlà');
+
               });
           }
         );

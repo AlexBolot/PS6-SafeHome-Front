@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Issue} from '../../model/issue';
 import {CategoryService} from '../../service/category/category.service';
 import {StatusService} from '../../service/status/status.service';
@@ -30,6 +30,7 @@ export class IssueComponent implements OnInit {
   authorName: String;
   countTask: number;
   @Input() issue: Issue;
+  @Output() fullIssuesUpdate = new EventEmitter<boolean>();
 
   constructor(private categoryService: CategoryService,
               private urgencyService: UrgencyService,
@@ -89,11 +90,11 @@ export class IssueComponent implements OnInit {
     }
   }
 
-  updateStatus(status: boolean) {
-    console.log('jesuispasséparlà');
+  updateStatus(status: boolean){
     this.issueService.getByID(this.issue.id).subscribe(value => {
       this.issue = value;
       this.ngOnInit()
+      this.fullIssuesUpdate.emit(true);
     });
 
   }
