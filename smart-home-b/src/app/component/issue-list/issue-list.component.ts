@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Issue} from '../../model/issue';
 import {IssueService} from '../../service/issue/issue.service';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
-import {CategoryService} from "../../service/category/category.service";
-import {Categorie} from "../../model/categorie";
-import {StatusService} from "../../service/status/status.service";
-import {LocationService} from "../../service/location/location.service";
+import {CategoryService} from '../../service/category/category.service';
+import {Categorie} from '../../model/categorie';
+import {StatusService} from '../../service/status/status.service';
+import {LocationService} from '../../service/location/location.service';
 
 @Component({
   selector: 'app-issue-list',
@@ -25,24 +25,16 @@ export class IssueListComponent implements OnInit {
   sortBy: string;
   inputSearch: string;
 
-  constructor(private issueService: IssueService, private authService: AuthenticationService,private statusService: StatusService,
-              private locationService : LocationService, private categoryService: CategoryService) {
+  constructor(private issueService: IssueService, private authService: AuthenticationService, private statusService: StatusService,
+              private locationService: LocationService, private categoryService: CategoryService) {
   }
 
   ngOnInit() {
-
     this.authService.isLogged().subscribe((logged) => {
       if (logged) {
-        this.issueService.getDeclared(this.authService.getUser().idUser).subscribe(value => {
-          this.issues = this.issueService.getSortedByDate(value);
-          this.fullIssues = this.issues;
-        });
-        this.declaredButtonIsChecked = true;
-        this.sortBy = 'date';
+        this.declaredButton_OnClickOneTime();
       }
     });
-
-
   }
 
   declaredButton_OnClickOneTime() {
@@ -82,7 +74,7 @@ export class IssueListComponent implements OnInit {
   }
 
   callType() {
-    if (this.inputSearch === undefined || this.inputSearch ==="") {
+    if (this.inputSearch === undefined || this.inputSearch === '') {
       if (this.assignedButtonIsChecked) {
         if (this.sortBy === 'importance') {
           this.issues = this.issueService.getSortedByImportance(this.issues);
@@ -96,7 +88,7 @@ export class IssueListComponent implements OnInit {
           this.issues = this.issueService.getSortedByDate(this.issues);
         }
       }
-    } else if (this.inputSearch !== "") {
+    } else if (this.inputSearch !== '') {
       if (this.assignedButtonIsChecked) {
         if (this.sortBy === 'importance') {
           this.issues = this.issueService.getSortedByImportance(this.issueService.getFilter(this.fullIssues, this.inputSearch));
