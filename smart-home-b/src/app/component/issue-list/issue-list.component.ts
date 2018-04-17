@@ -32,8 +32,10 @@ export class IssueListComponent implements OnInit {
   ngOnInit() {
     this.authService.isLogged().subscribe((logged) => {
       if (logged) {
+        console.log('I am logged');
         this.declaredButton_OnClickOneTime();
       }
+      console.log('I am not logged yet');
     });
   }
 
