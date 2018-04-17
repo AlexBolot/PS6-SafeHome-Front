@@ -30,6 +30,7 @@ import {GuardLocationResolve} from './service/guard/guardLocation.resolve';
 import {LocationService} from './service/location/location.service';
 import {SpinnerComponent} from './component/spinner/spinner.component';
 import {AuthGuard} from "./service/guard/auth-guard.service";
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 
 @NgModule({
@@ -72,6 +73,8 @@ import {AuthGuard} from "./service/guard/auth-guard.service";
     GuardUrgencyResolve,
     GuardLocationResolve,
     AuthGuard,
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
