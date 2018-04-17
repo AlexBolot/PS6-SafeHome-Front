@@ -6,7 +6,7 @@
     </div>
       <div class="col-md-2">
         <div *ngIf="issue.Description"><button class="margin-left-1em btn btn-default" (click)="showMore()">
-        <span [ngClass]="buttonDetailsIcon" aria-hidden="true"></span>Détails
+        <span [ngClass]="buttonDetailsIcon" aria-hidden="true"></span> Détails
       </button>
     </div>
     </div>
@@ -18,9 +18,9 @@
   </div>
   <div class="row panel-body">
     <div class="col-md-3 list-group-item">Date : {{issue.DeclarationDate | date}}</div>
-    <div class="col-md-3 list-group-item">Catégorie : {{categoryLabel}}</div>
+    <div class="col-md-4 list-group-item">Catégorie : {{categoryLabel}}</div>
     <div class="col-md-3 list-group-item">Lieu : {{locationLabel}}</div>
-    <div class="col-md-3 list-group-item">Status : {{statusLabel}}</div>
+    <div class="col-md-2 list-group-item">Status : {{statusLabel}}</div>
   </div>
   <div class="row panel-body" *ngIf="visibleDetails">
     <br>
