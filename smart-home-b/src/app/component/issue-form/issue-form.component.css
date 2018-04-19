@@ -1,59 +1,36 @@
-.divForm{
-  width:90%;
-  background-color: #7fd8ff/*#3cf*/;
-  margin: 1% 5%;
+.divForm {
+  width: 60%;
+
+  margin: 1% auto 5% auto;
   border-radius: 10px;
-  padding-top: 1%;
-  padding-bottom: 1%;
-}
-.divForm form{
-  margin:0% 20%;
-}
-.divForm table{
-  width: 100%;
-}
-.divForm table .col1{
-  width: 20%;
-  min-width: 150px;
-}
-.divForm table .col2{
-  width: 20%;
-  min-width: 150px;
-}
-.buttonleft{
-  margin-left:30%;
-}
-.buttonright{
-  margin-left:30%;
-}
-.margin10left{
-  margin-left:10%;
-}
-.margin25left{
-  margin-left:35%;
-   margin-bottom: 3%;
-}
-.margintop5{
-  margin-top:3%;
-  }
- .marginleft4{
-  margin-left:4.4%;
-}
-.div{
-  vertical-align:top;
+  padding: 1%;
 }
 
-.erreur{
-  color:red;
+.buttonleft {
+  margin-left: 30%;
 }
 
-.cover{
-  display: none;
-}
-.redToBlank:focus{
-  background-color: #ffffff !important;
-}
-.error{
-  border:#ff4242 2px solid;
+.buttonright {
+  margin-left: 30%;
 }
 
+.margin10left {
+  margin-left: 10%;
+}
+
+.input-group-addon {
+  min-width: 7em;
+  text-align: left;
+}
+
+.input-group {
+  margin-bottom: 2em;
+}
+
+.ddl-radius {
+  border-radius: 0 4px 4px 0 !important;
+}
+
+.align-top {
+  vertical-align: top;
+}

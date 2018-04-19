@@ -1,14 +1,19 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);
-.cover{
+
+.cover {
   display: none;
 }
-.erreur{
-  color:red;
+
+.erreur {
+  color: red;
   text-align: center;
 }
-#connexion{
-  margin: 10% 30%;
+
+#connexion {
+  width: 30%;
+  margin: 10% auto;
 }
-.error{
-  border:#ff4242 2px solid;
+
+.error {
+  border: #ff4242 2px solid;
 }

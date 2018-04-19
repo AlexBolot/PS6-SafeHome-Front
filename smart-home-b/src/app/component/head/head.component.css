@@ -1,21 +1,26 @@
 .head {
-  background-color: #37beff;
+  background-color: #46b8da;
   min-height: 115px;
 }
+
 .logo {
   margin: .5%;
 }
-#titrePage{
+
+#titrePage {
   display: inline;
   position: absolute;
-  top:20px; left: 50%;
+  top: 20px;
+  left: 50%;
   transform: translate(-50%, -50%);
 }
-#deconexion{
-  float:right;
+
+#deconexion {
+  float: right;
 }
-#deconexion a:hover{
-  cursor:pointer;
-  background-color: #ff4242;
+
+#deconexion a:hover {
+  cursor: pointer;
+  background-color: #d9534f;
   color: white;
 }

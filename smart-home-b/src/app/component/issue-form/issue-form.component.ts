@@ -65,7 +65,7 @@ export class IssueFormComponent implements OnInit {
   public dateDeclaration: Date;
   public realDateIncident: Date;
   public idUrgency: number;
-  public category : string;
+  public category: string;
   public idCategory: number;
   public idAuthor: number;
   public idStatus: number;
@@ -80,9 +80,9 @@ export class IssueFormComponent implements OnInit {
   formFalseValidationUrgency = 'unchecked';
   formFalseValidationCat = 'unchecked';
 
-  invalideTitle = "";
-  invalideUrgency = "";
-  invalideCat = "";
+  invalideTitle = '';
+  invalideUrgency = '';
+  invalideCat = '';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -139,7 +139,7 @@ export class IssueFormComponent implements OnInit {
         this.idAuthor = this.authentificationService.getUser().idUser;
         this.idStatus = 2;
         this.issue = new Issue(undefined, this.title, this.description, this.realDateIncident,
-          this.dateDeclaration, Number(this.idUrgency),Number(this.idCategory) ,this.mapCategory.get(this.idCategory), this.idAuthor, this.idStatus,"À Faire", Number(this.idLocation),this.mapLocation.get(this.idLocation), undefined);
+          this.dateDeclaration, Number(this.idUrgency), Number(this.idCategory), this.mapCategory.get(this.idCategory), this.idAuthor, this.idStatus, 'À Faire', Number(this.idLocation), this.mapLocation.get(this.idLocation), undefined);
         console.log(this.issue);
         this.issueService.add(this.issue).subscribe(value => log('added'));
         const dialogRef = this.dialog.open(PopupissueComponent, {});
@@ -152,21 +152,21 @@ export class IssueFormComponent implements OnInit {
         this.animationRedTitle = true;
         this.formFalseValidationTitle = 'invalid';
         this.invalideTitle = 'error';
-      }else{
+      } else {
         this.invalideTitle = '';
       }
       if (!this.idCategory) {
         this.animationRedCat = true;
         this.formFalseValidationCat = 'invalid';
         this.invalideCat = 'error';
-      }else{
+      } else {
         this.invalideCat = '';
       }
       if (!this.idUrgency) {
         this.animationRedUrgency = true;
         this.formFalseValidationUrgency = 'invalid';
         this.invalideUrgency = 'error';
-      }else{
+      } else {
         this.invalideUrgency = '';
       }
       this.errorValidate = 'display';

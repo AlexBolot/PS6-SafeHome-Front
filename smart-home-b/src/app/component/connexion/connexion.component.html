@@ -16,7 +16,7 @@
              [ngStyle]="{'border': animationRedPassword? '#ff4242 2px solid' : ''}"
              (@formFalseValidationPassword.done)="setBackToUnchecked()">
     </div>
-    <div class="erreur" [ngClass]="erreurLogin"> le mot de passe ou le login n'est pas valide</div>
-    <button (click)="login()" value="Login" type="Submit" class="btn btn-default ">Connexion</button>
+    <div class="alert alert-danger" [ngClass]="erreurLogin"> le mot de passe ou le login n'est pas valide</div>
+    <button (click)="login()" value="Login" type="Submit" class="btn btn-default">Connexion</button>
   </form>
 </div>
