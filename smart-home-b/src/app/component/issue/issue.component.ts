@@ -82,9 +82,9 @@ export class IssueComponent implements OnInit {
       case 'Faible':
         return 'yellow';
       case 'Moyenne':
-        return 'orange';
+        return '#f0ad4e';
       case 'Forte':
-        return 'red';
+        return '#d9534f';
       default:
         return 'bg-default';
     }
@@ -93,7 +93,7 @@ export class IssueComponent implements OnInit {
   updateStatus(status: boolean){
     this.issueService.getByID(this.issue.id).subscribe(value => {
       this.issue = value;
-      this.ngOnInit()
+      this.ngOnInit();
       this.fullIssuesUpdate.emit(true);
     });
 

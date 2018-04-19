@@ -4,11 +4,12 @@
       <p [style.background-color]="changeBackground()" class="circle"></p>
       <h3 class="issue-title">{{issue.Title}}</h3>
     </div>
-      <div class="col-md-2">
-        <div *ngIf="issue.Description"><button class="margin-left-1em btn btn-default" (click)="showMore()">
-        <span [ngClass]="buttonDetailsIcon" aria-hidden="true"></span> Détails
-      </button>
-    </div>
+    <div class="col-md-2">
+      <div *ngIf="issue.Description">
+        <button class="margin-left-1em btn btn-default" (click)="showMore()">
+          <span [ngClass]="buttonDetailsIcon" aria-hidden="true"></span> Détails
+        </button>
+      </div>
     </div>
     <div class="col-md-2">
       <button class="margin-left-1em btn btn-default" (click)="showTasks()">
@@ -16,15 +17,17 @@
       </button>
     </div>
   </div>
-  <div class="row panel-body">
-    <div class="col-md-3 list-group-item">Date : {{issue.DeclarationDate | date}}</div>
-    <div class="col-md-4 list-group-item">Catégorie : {{categoryLabel}}</div>
-    <div class="col-md-3 list-group-item">Lieu : {{locationLabel}}</div>
-    <div class="col-md-2 list-group-item">Status : {{statusLabel}}</div>
-  </div>
-  <div class="row panel-body" *ngIf="visibleDetails">
-    <br>
-    <div class="col-md-12 margin-left-2em">Description : {{issue.Description}}</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-3 list-group-item">Date : {{issue.DeclarationDate | date}}</div>
+      <div class="col-md-4 list-group-item">Catégorie : {{categoryLabel}}</div>
+      <div class="col-md-3 list-group-item">Lieu : {{locationLabel}}</div>
+      <div class="col-md-2 list-group-item">Status : {{statusLabel}}</div>
+    </div>
+    <div class="row" *ngIf="visibleDetails">
+      <br>
+      <div class="col-md-12 list-group-item">Description : {{issue.Description}}</div>
+    </div>
   </div>
 
   <div class="row" *ngIf="visibleTasks">
