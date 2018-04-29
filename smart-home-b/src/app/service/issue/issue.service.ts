@@ -5,9 +5,9 @@ import {HttpClient} from '@angular/common/http';
 import {AppSettings} from '../../model/app-settings';
 import {TaskService} from '../task/task.service';
 import {CategoryService} from '../category/category.service';
-import {Task} from "../../model/task";
-import {StatusService} from "../status/status.service";
-import {LocationService} from "../location/location.service";
+import {Task} from '../../model/task';
+import {StatusService} from '../status/status.service';
+import {LocationService} from '../location/location.service';
 
 @Injectable()
 export class IssueService {
@@ -15,7 +15,7 @@ export class IssueService {
   API_url = AppSettings.API_ROOT + '/Issues';
 
   constructor(private httpClient: HttpClient, private categoryService: CategoryService,
-              private taskService :TaskService) {
+              private taskService: TaskService) {
   }
 
   getAll(): Observable<Issue[]> {
@@ -37,12 +37,11 @@ export class IssueService {
 
   getDeclared(id: number): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
-      var map: Issue[] = [];
-      issues.forEach(field => {
-        if(field.IDAuthor === id){
-            map.push(field);
+      const map: Issue[] = [];
+      issues.forEach(issue => {
+        if (issue.IDAuthor === id) {
+          map.push(issue);
         }
-
       });
       return map;
     });
@@ -50,11 +49,12 @@ export class IssueService {
 
   getAssignee(id: number): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
-      var map: Issue[] = [];
-      issues.forEach(field => this.taskService.getAllByIssueID(field.id).subscribe(tasks =>{
-      if(tasks.filter(task => task.IDAssignee ===id).length>0){
-        map.push(field);
-      }}));
+      const map: Issue[] = [];
+      issues.forEach(issue => this.taskService.getAllByIssueID(issue.id).subscribe(tasks => {
+        if (tasks.filter(task => task.IDAssignee === id).length > 0) {
+          map.push(issue);
+        }
+      }));
       return map;
     });
   }
@@ -88,20 +88,24 @@ export class IssueService {
       || (issue.Description != null && issue.Description.toUpperCase().includes(input.toUpperCase()))
       || (issue.category != null && issue.category.toUpperCase().includes(input.toUpperCase()))
       || (issue.locationName != null && issue.locationName.toUpperCase().includes(input.toUpperCase()))
-      || (issue.statusName != null && issue.statusName.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"").includes(input.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"")))
+      || (issue.statusName != null && issue.statusName.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(input.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')))
     );
+  }
+
+  getCountByState(issues: Issue[], issueState: number) {
+    return issues.filter(issue => issue.IDStatus === issueState).length;
   }
 
 //USELESS BUT no delete au cas ou
   getDeclaredByDate(id: number): Issue[] {
-    var issues: Issue[] = [];
+    let issues: Issue[] = [];
     this.getDeclared(id).subscribe(value => issues = value);
     return this.getSortedByDate(issues);
   }
 
 
   getDeclaredByImportance(id: number): Issue[] {
-    var issues: Issue[] = [];
+    let issues: Issue[] = [];
     this.getDeclared(id).subscribe(value => {
       issues = this.getSortedByImportance(value);
     });
@@ -109,14 +113,14 @@ export class IssueService {
   }
 
   getDeclaredFilterStringAndImportance(id: number, input: string): Issue[] {
-    var issues: Issue[] = [];
+    let issues: Issue[] = [];
     this.getDeclared(id).subscribe(value => issues = value);
     issues = this.getFilter(issues.filter(issue => issue.IDAuthor === id), input);
     return this.getSortedByImportance(issues);
   }
 
   getDeclaredFilterStringAndDate(id: number, input: string): Issue[] {
-    var issues: Issue[] = [];
+    let issues: Issue[] = [];
     this.getDeclared(id).subscribe(value => issues = value);
     issues = this.getFilter(issues.filter(issue => issue.IDAuthor === id), input);
     return this.getSortedByDate(issues);
@@ -124,14 +128,15 @@ export class IssueService {
 
   getAssignedToByImportance(id: number): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
-      var map: Issue[] = [];
+      const map: Issue[] = [];
       issues.forEach(field => this.httpClient.get<Task[]>(this.API_url + '/' + field.id + '/tasks')
         .subscribe(tasks => {
-            if (tasks.filter(task => task.IDAssignee === id).length > 0)
+            if (tasks.filter(task => task.IDAssignee === id).length > 0) {
               new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
                 map.push(new Issue(field.id, field.Title, field.Description,
                   new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-                  field.IDAuthor, field.IDStatus,field.statusName, field.IDLocation,field.locationName, field.Picture)))
+                  field.IDAuthor, field.IDStatus, field.statusName, field.IDLocation, field.locationName, field.Picture)));
+            }
           }
         ));
       return this.getSortedByImportance(map);
@@ -143,14 +148,15 @@ export class IssueService {
 
   getAssignedToByDate(id: number): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
-      var map: Issue[] = [];
+      const map: Issue[] = [];
       issues.forEach(field => this.httpClient.get<Task[]>(this.API_url + '/' + field.id + '/tasks')
         .subscribe(tasks => {
-            if (tasks.filter(task => task.IDAssignee === id).length > 0)
+            if (tasks.filter(task => task.IDAssignee === id).length > 0) {
               new CategoryService(this.httpClient).getByID(field.categoryId).subscribe(value =>
                 map.push(new Issue(field.id, field.Title, field.Description,
                   new Date(field.Date), new Date(field.DeclarationDate), field.IDUrgency, field.categoryId, value,
-                  field.IDAuthor, field.IDStatus,field.statusName, field.IDLocation,field.locationName, field.Picture)))
+                  field.IDAuthor, field.IDStatus, field.statusName, field.IDLocation, field.locationName, field.Picture)));
+            }
           }
         ));
       return this.getSortedByDate(map);
@@ -161,14 +167,14 @@ export class IssueService {
   }
 
   getAssignedToByDateAndString(id: number, input: string): Issue[] {
-    var issues: Issue[] = [];
+    let issues: Issue[] = [];
     this.getAssignee(id).subscribe(value => issues = value);
     issues = this.getFilter(issues, input);
     return this.getSortedByDate(issues);
   }
 
   getAssignedToByImportanceAndString(id: number, input: string): Issue[] {
-    var issues: Issue[] = [];
+    let issues: Issue[] = [];
     this.getAssignee(id).subscribe(value => issues = value);
     issues = this.getFilter(issues, input);
     return this.getSortedByImportance(issues);

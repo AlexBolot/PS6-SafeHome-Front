@@ -1,4 +1,9 @@
 export class Issue {
+
+  static TodoID = 2;
+  static DoingID = 3;
+  static DoneID = 1;
+
   id: number;
   Title: string;
   Description: string;
@@ -12,11 +17,11 @@ export class Issue {
   IDLocation: number;
   Picture: string;
   homesId: number;
-  locationName:String;
-  statusName:String;
+  locationName: String;
+  statusName: String;
 
   constructor(idIssue: number, title: string, description: string, dateIncident: Date, dateDeclaration: Date, idUrgency: number,
-              idCat: number,categorie: String, idAuthor: number, idStatus: number,status:String, idLocation: number,location:String, image: string, idHome: number = -1) {
+              idCat: number, categorie: String, idAuthor: number, idStatus: number, status: String, idLocation: number, location: String, image: string, idHome: number = -1) {
     this.id = idIssue;
     this.Title = title;
     this.Description = description;
