@@ -1,64 +1,79 @@
-<div class="col-md-2">
-  <ul class="list-group fixed">
-    <li class="list-group-item">
-      <div class="chip">
-        <p class="circle red"></p> Forte
-      </div>
-    </li>
-    <li class="list-group-item">
-      <div class="chip">
-        <p class="circle orange"></p> Moyenne
-      </div>
-    </li>
-    <li class="list-group-item">
-      <div class="chip">
-        <p class="circle yellow"></p> Faible
-      </div>
-    </li>
-  </ul>
-</div>
-<div class="divRight">
-  <ul class="list-group height">
-    <li class="list-group-item heightli">
-      <p>Trier par : </p>
+<div class="container-fluid">
+  <div class="row">
 
-      <select class="form-control" [(ngModel)]="sortBy" (change)="callType()">
-        <option value="importance">Importance</option>
-        <option value="date">Date</option>
-      </select>
-      <input type="text" placeholder="Rechercher" [(ngModel)]="inputSearch" [value]="inputSearch" (input)="callType()"
-             class="form-control margin">
-    </li>
-  </ul>
-</div>
-<div class="col-md-8">
-  <div class="container-fluid buttons-area">
-    <div class="row">
-      <div class="col-md-6 no-padding-left">
-        <button [ngClass]="declaredButtonStyle" (click)="declaredButton_OnClickOneTime()">Déclaré</button>
+    <div class="col-xs-12 col-sm-3 col-md-3">
+      <div class="col-md-12">
+        <ul class="list-group">
+          <li class="list-group-item">
+            Importance :
+          </li>
+          <li class="list-group-item">
+            <div class="chip">
+              <p class="circle red"></p> Forte
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="chip">
+              <p class="circle orange"></p> Moyenne
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="chip">
+              <p class="circle yellow"></p> Faible
+            </div>
+          </li>
+        </ul>
       </div>
-      <div class="col-md-6 no-padding-right">
-        <button [ngClass]="assignedButtonStyle" (click)="assignedButton_OnClickOneTime()">Assigné</button>
+      <div class="col-md-12">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <p>Trier par : </p>
+
+            <select class="form-control" [(ngModel)]="sortBy" (change)="callType()">
+              <option value="importance">Importance</option>
+              <option value="date">Date</option>
+            </select>
+          </li>
+          <li class="list-group-item">
+            <p>Rechercher : </p>
+            <input type="text" placeholder="Rechercher" [(ngModel)]="inputSearch" [value]="inputSearch"
+                   (input)="callType()" class="form-control">
+          </li>
+        </ul>
       </div>
     </div>
-  </div>
-  <div class="progress" [ngStyle]="{'opacity':opacityProgress}">
-    <div [ngClass]="doneProgressStyle" [ngStyle]="{'width.%':doneWidth}">
-      <span class="sr-only">10% Complete (danger)</span>
-    </div>
-    <div [ngClass]="doingProgressStyle" [ngStyle]="{'width.%':doingWidth}">
-      <span class="sr-only">20% Complete (warning)</span>
-    </div>
-    <div [ngClass]="todoProgressStyle" [ngStyle]="{'width.%':todoWidth}">
-      <span class="sr-only">35% Complete (success)</span>
-    </div>
-  </div>
-  <div class="list">
-    <div *ngIf="issues == null ">
-      <app-spinner></app-spinner>
-    </div>
-    <div *ngFor="let issue of issues">
-      <app-issue [issue]="issue" (fullIssuesUpdate)="fullIssuesUpdate($event)"></app-issue>
+
+
+    <div class="col-xs-12 col-sm-9 col-md-8">
+      <div class="container-fluid buttons-area">
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6 no-padding-left">
+            <button [ngClass]="declaredButtonStyle" (click)="declaredButton_OnClickOneTime()">Déclaré</button>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6 no-padding-right">
+            <button [ngClass]="assignedButtonStyle" (click)="assignedButton_OnClickOneTime()">Assigné</button>
+          </div>
+        </div>
+      </div>
+      <div class="progress" [ngStyle]="{'opacity':opacityProgress}">
+        <div [ngClass]="doneProgressStyle" [ngStyle]="{'width.%':doneWidth}">
+          <span class="sr-only">10% Complete (danger)</span>
+        </div>
+        <div [ngClass]="doingProgressStyle" [ngStyle]="{'width.%':doingWidth}">
+          <span class="sr-only">20% Complete (warning)</span>
+        </div>
+        <div [ngClass]="todoProgressStyle" [ngStyle]="{'width.%':todoWidth}">
+          <span class="sr-only">35% Complete (success)</span>
+        </div>
+      </div>
+      <div class="list">
+        <div *ngIf="issues == null ">
+          <app-spinner></app-spinner>
+        </div>
+        <div *ngFor="let issue of issues">
+          <app-issue [issue]="issue" (fullIssuesUpdate)="fullIssuesUpdate($event)"></app-issue>
+        </div>
+      </div>
     </div>
   </div>
 </div>

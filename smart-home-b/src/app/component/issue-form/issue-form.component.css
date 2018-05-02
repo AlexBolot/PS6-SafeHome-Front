@@ -1,16 +1,9 @@
 .divForm {
-  width: 60%;
-  margin: 1% auto 5% auto;
   border-radius: 10px;
-  padding: 1%;
 }
 
-.buttonleft {
-  margin-left: 30%;
-}
-
-.buttonright {
-  margin-left: 30%;
+.btn-div {
+  text-align: center;
 }
 
 .input-group-addon {
@@ -32,4 +25,8 @@
 
 .cover {
   display: none;
+}
+
+.margin-top-3em {
+  margin-top: 3em;
 }

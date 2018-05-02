@@ -6,9 +6,9 @@ import {UrgencyService} from '../../service/urgency/urgency.service';
 import {TaskService} from '../../service/task/task.service';
 import {Task} from '../../model/task';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
-import {User} from "../../model/user";
-import {LocationService} from "../../service/location/location.service";
-import {IssueService} from "../../service/issue/issue.service";
+import {User} from '../../model/user';
+import {LocationService} from '../../service/location/location.service';
+import {IssueService} from '../../service/issue/issue.service';
 
 @Component({
   selector: 'app-issue',
@@ -42,31 +42,22 @@ export class IssueComponent implements OnInit {
 
   ngOnInit() {
     this.urgencyService.getByID(this.issue.IDUrgency).subscribe(value => this.urgencyLabel = value);
-    this.statusService.getByID(this.issue.IDStatus).subscribe(value => {this.statusLabel = value;
-    this.issue.statusName = value}
-    );
+    this.statusService.getByID(this.issue.IDStatus).subscribe(value => {
+      this.statusLabel = value;
+      this.issue.statusName = value;
+    });
     this.taskService.getAllByIssueID(this.issue.id).subscribe(value => this.tasks = value);
-    this.categoryService.getByID(this.issue.categoryId).subscribe(value =>{ this.categoryLabel = value;
-    this.issue.category = value});
-    this.taskService.getNbByIdIssue(this.issue.id).subscribe(value => this.countTask = value["count"]);
+    this.categoryService.getByID(this.issue.categoryId).subscribe(value => {
+      this.categoryLabel = value;
+      this.issue.category = value;
+    });
+    this.taskService.getNbByIdIssue(this.issue.id).subscribe(value => this.countTask = value['count']);
     this.locationService.getByID(this.issue.IDLocation).subscribe(value => {
       this.locationLabel = value;
       this.issue.locationName = value;
     });
-
-
-  //  this.fetchAuthorName()
-
   }
 
-  /* private fetchAuthorName() {
-     this.authorName = "None";
-     this.authService.getUserName(this.issue.IDAuthor).subscribe(value => {
-       this.authorName = value["name"];
-       console.log(value)
-     });
-   }
- */
   showMore() {
     this.visibleDetails = !this.visibleDetails;
     this.buttonDetailsIcon = this.visibleDetails ? 'glyphicon glyphicon-menu-up' : 'glyphicon glyphicon-menu-down';
@@ -77,7 +68,20 @@ export class IssueComponent implements OnInit {
     this.buttonTasksIcon = this.visibleTasks ? 'glyphicon glyphicon-menu-up' : 'glyphicon glyphicon-menu-down';
   }
 
-  changeBackground(): String {
+  changeStatusBackGround(): String {
+    switch (this.issue.IDStatus) {
+      case 1:
+        return '#dff0d8';
+      case 2:
+        return '#f2dede';
+      case 3:
+        return '#fcf8e3';
+      default:
+        return '#f5f5f5';
+    }
+  }
+
+  changeUrgencyBackground(): String {
     switch (this.urgencyLabel) {
       case 'Faible':
         return 'yellow';
@@ -90,14 +94,11 @@ export class IssueComponent implements OnInit {
     }
   }
 
-  updateStatus(status: boolean){
+  updateStatus(status: boolean) {
     this.issueService.getByID(this.issue.id).subscribe(value => {
       this.issue = value;
       this.ngOnInit();
       this.fullIssuesUpdate.emit(true);
     });
-
   }
-
-
 }

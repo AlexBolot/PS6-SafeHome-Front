@@ -1,98 +1,104 @@
-<div class="divForm">
+<div class="container-fluid">
+  <div class="row">
+    <div class="divForm col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3">
 
-  <form class="container-fluid">
+      <form class="container-fluid">
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="input-group input-group-md">
-          <span class="input-group-addon">Titre*</span>
-          <input type="text" class="form-control" [ngClass]="invalideTitle"
-                 placeholder="Un titre clair pour facilement comprendre le problème"
-                 [(ngModel)]="title" name="titre"
-                 [@formFalseValidationTitle]='formFalseValidationTitle'
-                 [ngStyle]="{'border': animationRedTitle? '#ff4242 2px solid' : ''}"
-                 (@formFalseValidationTitle.done)="setBackToUnchecked()">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="input-group input-group-md">
+              <span class="input-group-addon">Titre*</span>
+              <input type="text" class="form-control" [ngClass]="invalideTitle"
+                     placeholder="Un titre clair pour facilement comprendre le problème"
+                     [(ngModel)]="title" name="titre"
+                     [@formFalseValidationTitle]='formFalseValidationTitle'
+                     [ngStyle]="{'border': animationRedTitle? '#ff4242 2px solid' : ''}"
+                     (@formFalseValidationTitle.done)="setBackToUnchecked()">
+            </div>
+          </div>
         </div>
-      </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="input-group input-group-md">
+              <span class="input-group-addon align-top">Description</span>
+              <textarea class="form-control" rows="4" name="description"
+                        placeholder="Une description bève et précise pour ceux qui devront résoude l'incident !"
+                        [(ngModel)]="description"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="input-group input-group-md">
+              <span class="input-group-addon"> Date</span>
+              <input class="form-control" type="datetime-local"
+                     [ngModel]="dateIncident | date:'yyyy-MM-ddTHH:mm'"
+                     (ngModelChange)="dateIncident = $event"
+                     [value]="dateIncident | date:'yyyy-MM-ddTHH:mm'" name="date">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="input-group input-group-md">
+              <span class="input-group-addon">Importance* </span>
+              <select class="form-control selectpicker" [ngClass]="invalideUrgency" name="importance"
+                      [(ngModel)]="idUrgency"
+                      [@formFalseValidationUrgency]='formFalseValidationUrgency'
+                      [ngStyle]="{'border': animationRedUrgency? '#ff4242 2px solid' : ''}"
+                      (@formFalseValidationUrgency.done)="setBackToUnchecked()"
+                      data-live-search="true">
+                <option *ngFor="let key of mapUrgencyKeys" [ngValue]="key">{{mapUrgency.get(key)}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="input-group input-group-md">
+              <span class="input-group-addon">Localisation </span>
+              <select class="form-control ddl-radius" name="localisation" [(ngModel)]="idLocation">
+                <option *ngFor="let key of mapLocationKeys" [value]="key">{{ mapLocation.get(key)}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="input-group input-group-md">
+              <span class="input-group-addon">Type Incident* </span>
+              <select class="form-control" [ngClass]="invalideCat" name="typeIncident" [(ngModel)]="idCategory"
+                      [@formFalseValidationCat]='formFalseValidationCat'
+                      (@formFalseValidationCat.done)="setBackToUnchecked()"
+                      [ngStyle]="{'border': animationRedCat? '#ff4242 2px solid' : ''}">
+                <option *ngFor="let key of mapCategoryKeys" [value]="key">{{ mapCategory.get(key)}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-danger" [ngClass]="errorValidate"> Veuillez remplir les champs marqués d'une * ( Ils
+          sont
+          obligatoires )
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-6 btn-div">
+          <button class="btn btn-primary" (click)="openDialogReturn()">
+            Retour
+          </button>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 btn-div">
+          <button class="btn btn-primary" (click)="openDialogValidate()">
+            Valider
+          </button>
+        </div>
+
+        <label class="margin-top-3em">*champs obligatoires</label>
+
+      </form>
+
     </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <div class="input-group input-group-md">
-          <span class="input-group-addon align-top">Description</span>
-          <textarea class="form-control" rows="4" name="description"
-                    placeholder="Une description bève et précise pour ceux qui devront résoude l'incident !"
-                    [(ngModel)]="description"></textarea>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-
-      <div class="col-md-6">
-        <div class="input-group input-group-md">
-          <span class="input-group-addon"> Date</span>
-          <input class="form-control" type="datetime-local"
-                 [ngModel]="dateIncident | date:'yyyy-MM-ddTHH:mm'"
-                 (ngModelChange)="dateIncident = $event"
-                 [value]="dateIncident | date:'yyyy-MM-ddTHH:mm'" name="date">
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="input-group input-group-md">
-          <span class="input-group-addon">Importance* </span>
-          <select class="form-control selectpicker" [ngClass]="invalideUrgency" name="importance"
-                  [(ngModel)]="idUrgency"
-                  [@formFalseValidationUrgency]='formFalseValidationUrgency'
-                  [ngStyle]="{'border': animationRedUrgency? '#ff4242 2px solid' : ''}"
-                  (@formFalseValidationUrgency.done)="setBackToUnchecked()"
-                  data-live-search="true">
-            <option *ngFor="let key of mapUrgencyKeys" [ngValue]="key">{{mapUrgency.get(key)}}</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-
-      <div class="col-md-6">
-        <div class="input-group input-group-md">
-          <span class="input-group-addon">Localisation </span>
-          <select class="form-control ddl-radius" name="localisation" [(ngModel)]="idLocation">
-            <option *ngFor="let key of mapLocationKeys" [value]="key">{{ mapLocation.get(key)}}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="input-group input-group-md">
-          <span class="input-group-addon">Type Incident* </span>
-          <select class="form-control" [ngClass]="invalideCat" name="typeIncident" [(ngModel)]="idCategory"
-                  [@formFalseValidationCat]='formFalseValidationCat'
-                  (@formFalseValidationCat.done)="setBackToUnchecked()"
-                  [ngStyle]="{'border': animationRedCat? '#ff4242 2px solid' : ''}">
-            <option *ngFor="let key of mapCategoryKeys" [value]="key">{{ mapCategory.get(key)}}</option>
-          </select>
-        </div>
-
-      </div>
-
-    </div>
-
-  </form>
-
-  <div class="alert alert-danger" [ngClass]="errorValidate"> Veuillez remplir les champs marqués d'une * ( Ils sont
-    obligatoires )
   </div>
-  <div class="table margin">
-    <button class="buttonleft btn btn-primary btn-md" (click)="openDialogReturn()">
-      Retour
-    </button>
-    <button class="buttonright btn btn-primary btn-md" (click)="openDialogValidate()">
-      Valider
-    </button>
-  </div>
-  <label>*champs obligatoires</label>
-
 </div>
-

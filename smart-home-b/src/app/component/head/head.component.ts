@@ -12,32 +12,28 @@ export class HeadComponent implements OnInit {
 
   suiviIncident = 'active';
   ajoutIncident = '';
+  collapsedState: String = 'collapse';
+  collapsedClass: String = 'navbar-collapse ' + this.collapsedState;
 
   constructor(private location: Location, private authenticationService: AuthenticationService, private router: Router) {
   }
 
   ngOnInit() {
     this.suiviIncident = 'active';
+    this.collapsedState = 'collapse';
   }
 
-  coverBtnDeconnexion() {
-    return location.pathname !== '/connexion';
-  }
-
-  updateColorBtn(localisation: String) {
-    this.suiviIncident = ' ';
-    this.ajoutIncident = ' ';
-
-    if (localisation === 'suiviIncident') {
-      this.suiviIncident = 'active';
-    }
-    else if (localisation === 'ajoutIncident') {
-      this.ajoutIncident = 'active';
-    }
+  showNavBar() {
+    console.log('path : ' + this.location.path().endsWith('/connexion'));
+    return !this.location.path().endsWith('/connexion');
   }
 
   logout() {
-    const response = this.authenticationService.logout();
-    response.subscribe(() => this.router.navigate(['connexion']), () => this.router.navigate(['connexion']));
+    this.authenticationService.logout().subscribe(() => this.router.navigate(['connexion']));
+  }
+
+  expandOrCollapse() {
+    this.collapsedState = (this.collapsedState === '') ? 'collapse' : '';
+    this.collapsedClass = 'navbar-collapse ' + this.collapsedState;
   }
 }

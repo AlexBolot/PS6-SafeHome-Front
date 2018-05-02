@@ -1,12 +1,24 @@
 <div class="head">
-  <img class="logo" src="assets/icons/safe-house-icon.png" width="58" height="63">
-  <h1 id="titrePage"> Smart Home : Gestion d'incidents </h1>
-  <div class="container">
-    <ul class="nav nav-tabs" *ngIf="coverBtnDeconnexion()">
-      <li [ngClass]="suiviIncident" (click)="updateColorBtn('suiviIncident')" ><a routerLink="/issueView"> Suivi de mes incidents </a></li>
-      <li [ngClass]="ajoutIncident" (click)="updateColorBtn('ajoutIncident')" ><a routerLink="/issueForm"> Ajouter un incident </a></li>
-      <li id="deconexion" class="active"><a (click)="logout()"> Deconnexion </a></li>
-    </ul>
-  </div>
+  <img class="logo" src="assets/icons/safe-house-icon.png" width="70" height="70">
+  <h2 class="titrePage"> Smart Home</h2>
+  <nav class="navbar navbar-info" *ngIf="showNavBar()">
+    <div class="container-fluid">
+      <div class="col-sm-1 col-md-1"></div>
+      <div class="navbar-header">
+        <div class="btn btn-default navbar-toggle" (click)="expandOrCollapse()">
+          <span class="glyphicon glyphicon-menu-hamburger"></span>
+        </div>
+      </div>
+      <div [ngClass]="collapsedClass">
+        <ul class="nav navbar-nav">
+          <li class="text-right"><a routerLink="/issueView">Mes incidents</a></li>
+          <li role="separator" class="divider"></li>
+          <li class="text-right"><a routerLink="/issueForm">Ajouter un incident</a></li>
+          <li role="separator" class="divider"></li>
+          <li class="text-right" (click)="logout()"><a>Deconnexion</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </div>
 <hr>

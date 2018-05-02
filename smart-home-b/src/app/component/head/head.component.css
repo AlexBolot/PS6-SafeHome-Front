@@ -7,7 +7,7 @@
   margin: .5%;
 }
 
-#titrePage {
+.titrePage {
   display: inline;
   position: absolute;
   top: 20px;
@@ -23,4 +23,8 @@
   cursor: pointer;
   background-color: #d9534f;
   color: white;
+}
+
+.text-right{
+  text-align: right;
 }
