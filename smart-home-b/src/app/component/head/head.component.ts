@@ -24,7 +24,7 @@ export class HeadComponent implements OnInit {
   }
 
   showNavBar() {
-    console.log('path : ' + this.location.path().endsWith('/connexion'));
+    //console.log('path : ' + this.location.path().endsWith('/connexion'));
     return !this.location.path().endsWith('/connexion');
   }
 

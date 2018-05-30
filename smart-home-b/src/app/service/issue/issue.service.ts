@@ -8,10 +8,12 @@ import {CategoryService} from '../category/category.service';
 import {Task} from '../../model/task';
 import {StatusService} from '../status/status.service';
 import {LocationService} from '../location/location.service';
+import {log} from 'util';
 
 @Injectable()
 export class IssueService {
 
+  private weekSpan = 604800000;
   API_url = AppSettings.API_ROOT + '/Issues';
 
   constructor(private httpClient: HttpClient, private categoryService: CategoryService,
@@ -32,27 +34,37 @@ export class IssueService {
   }
 
   put(issue: Issue) {
-    return this.httpClient.put<JSON>(this.API_url, issue);
+    return this.httpClient.put<Issue>(this.API_url, issue);
   }
 
-  getDeclared(id: number): Observable<Issue[]> {
+  getDeclared(id: number, archivedToo: boolean = false): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
+
+      this.checkArchive(issues);
+
       const map: Issue[] = [];
       issues.forEach(issue => {
         if (issue.IDAuthor === id) {
-          map.push(issue);
+          if (archivedToo || issue.IDStatus !== Issue.ArchivedID) {
+            map.push(issue);
+          }
         }
       });
       return map;
     });
   }
 
-  getAssignee(id: number): Observable<Issue[]> {
+  getAssignee(id: number, archivedToo: boolean = false): Observable<Issue[]> {
     return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
+
+      this.checkArchive(issues);
+
       const map: Issue[] = [];
       issues.forEach(issue => this.taskService.getAllByIssueID(issue.id).subscribe(tasks => {
         if (tasks.filter(task => task.IDAssignee === id).length > 0) {
-          map.push(issue);
+          if (archivedToo || issue.IDStatus !== Issue.ArchivedID) {
+            map.push(issue);
+          }
         }
       }));
       return map;
@@ -96,7 +108,24 @@ export class IssueService {
     return issues.filter(issue => issue.IDStatus === issueState).length;
   }
 
-//USELESS BUT no delete au cas ou
+  checkArchive(issues: Issue[]) {
+    issues.forEach(issue => {
+      if (issue.IDStatus === 3 && issue.DateDone !== undefined) {
+        const eventStartTime = new Date(issue.DateDone);
+        const eventEndTime = new Date();
+        const duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+
+        if (duration > this.weekSpan) {
+          log('archiving issue n°' + issue.id);
+          issue.IDStatus = 4;
+          this.put(issue);
+        }
+      }
+    });
+  }
+
+
+  // USELESS BUT no delete au cas ou
   getDeclaredByDate(id: number): Issue[] {
     let issues: Issue[] = [];
     this.getDeclared(id).subscribe(value => issues = value);

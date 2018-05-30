@@ -3,7 +3,6 @@ import {Issue} from '../../model/issue';
 import {IssueService} from '../../service/issue/issue.service';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
 import {CategoryService} from '../../service/category/category.service';
-import {Categorie} from '../../model/categorie';
 import {StatusService} from '../../service/status/status.service';
 import {LocationService} from '../../service/location/location.service';
 
@@ -17,6 +16,8 @@ export class IssueListComponent implements OnInit, DoCheck {
 
   issues: Issue[] = [];
   fullIssues: Issue[] = [];
+
+  loadingAttempt = 0;
 
   buttonBaseStyle: String = 'btn btn-block btn-';
   declaredButtonStyle = this.buttonBaseStyle + 'primary';
@@ -40,6 +41,7 @@ export class IssueListComponent implements OnInit, DoCheck {
   opacityProgress = 1;
 
   differ: any;
+  showArchives = false;
 
   constructor(private issueService: IssueService, private authService: AuthenticationService, private statusService: StatusService,
               private locationService: LocationService, private categoryService: CategoryService, private differs: IterableDiffers) {
@@ -51,8 +53,14 @@ export class IssueListComponent implements OnInit, DoCheck {
       if (logged) {
         console.log('I am logged');
         this.declaredButton_OnClick();
+      } else {
+        console.log('I am not logged yet');
+
+        if (this.loadingAttempt < 5) {
+          setTimeout(() => this.ngOnInit(), 200);
+          this.loadingAttempt++;
+        }
       }
-      console.log('I am not logged yet');
     });
   }
 
@@ -82,22 +90,17 @@ export class IssueListComponent implements OnInit, DoCheck {
   }
 
   declaredButton_OnClick() {
-    this.issueService.getAll().subscribe(value => {
+    this.issueService.getDeclared(this.authService.getUser().idUser, this.showArchives).subscribe(value => {
       this.issues = this.issueService.getSortedByDate(value);
       this.fullIssues = this.issues;
     });
-    /*
-        this.issueService.getDeclared(this.authService.getUser().idUser).subscribe(value => {
-          this.issues = this.issueService.getSortedByDate(value);
-          this.fullIssues = this.issues;
-        });*/
     this.declaredButtonStyle = this.buttonBaseStyle + 'primary';
     this.assignedButtonStyle = this.buttonBaseStyle + 'info';
     this.assignedButtonIsChecked = false;
   }
 
   assignedButton_OnClick() {
-    this.issueService.getAssignee(this.authService.getUser().idUser).subscribe(value => {
+    this.issueService.getAssignee(this.authService.getUser().idUser, this.showArchives).subscribe(value => {
       this.issues = this.issueService.getSortedByImportance(value);
       this.fullIssues = this.issues;
     });
@@ -107,16 +110,22 @@ export class IssueListComponent implements OnInit, DoCheck {
   }
 
   updatePercents(issues: Issue[]) {
-    const total = issues.length;
 
-    if (total === 0) {
+    let totalUnarchived = 0;
+    issues.forEach(issue => {
+      if (issue.IDStatus !== Issue.ArchivedID) {
+        totalUnarchived++;
+      }
+    });
+
+    if (totalUnarchived === 0) {
       this.todoWidth = 0;
       this.doingWidth = 0;
       this.doneWidth = 0;
     } else {
-      this.todoWidth = this.issueService.getCountByState(issues, Issue.TodoID) * 100 / total;
-      this.doingWidth = this.issueService.getCountByState(issues, Issue.DoingID) * 100 / total;
-      this.doneWidth = this.issueService.getCountByState(issues, Issue.DoneID) * 100 / total;
+      this.todoWidth = this.issueService.getCountByState(issues, Issue.TodoID) * 100 / totalUnarchived;
+      this.doingWidth = this.issueService.getCountByState(issues, Issue.DoingID) * 100 / totalUnarchived;
+      this.doneWidth = this.issueService.getCountByState(issues, Issue.DoneID) * 100 / totalUnarchived;
     }
   }
 
@@ -154,12 +163,12 @@ export class IssueListComponent implements OnInit, DoCheck {
 
   fullIssuesUpdate(update: boolean) {
     if (this.assignedButtonIsChecked) {
-      this.issueService.getAssignee(this.authService.getUser().idUser).subscribe(value => {
+      this.issueService.getAssignee(this.authService.getUser().idUser, this.showArchives).subscribe(value => {
         this.fullIssues = value;
         this.changeProgressOpacity(0.5);
       });
     } else if (this.declaredButtonIsChecked) {
-      this.issueService.getDeclared(this.authService.getUser().idUser).subscribe(value => {
+      this.issueService.getDeclared(this.authService.getUser().idUser, this.showArchives).subscribe(value => {
         this.fullIssues = value;
         this.changeProgressOpacity(0.5);
       });
@@ -168,5 +177,15 @@ export class IssueListComponent implements OnInit, DoCheck {
 
   changeProgressOpacity(amount: number) {
     this.opacityProgress = amount;
+  }
+
+  showArchives_OnClick() {
+    this.showArchives = !this.showArchives;
+
+    if (this.assignedButtonIsChecked) {
+      this.assignedButton_OnClick();
+    } else {
+      this.declaredButton_OnClick();
+    }
   }
 }

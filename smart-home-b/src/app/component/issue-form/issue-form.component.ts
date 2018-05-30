@@ -137,9 +137,10 @@ export class IssueFormComponent implements OnInit {
       this.realDateIncident = new Date(this.dateIncident);
       if (this.authentificationService.isLogged()) {
         this.idAuthor = this.authentificationService.getUser().idUser;
-        this.idStatus = 2;
+        this.idStatus = 1;
         this.issue = new Issue(undefined, this.title, this.description, this.realDateIncident,
-          this.dateDeclaration, Number(this.idUrgency), Number(this.idCategory), this.mapCategory.get(this.idCategory), this.idAuthor, this.idStatus, 'À Faire', Number(this.idLocation), this.mapLocation.get(this.idLocation), undefined);
+          this.dateDeclaration, Number(this.idUrgency), Number(this.idCategory), this.mapCategory.get(this.idCategory),
+          this.idAuthor, this.idStatus, 'À Faire', Number(this.idLocation), this.mapLocation.get(this.idLocation), undefined);
         console.log(this.issue);
         this.issueService.add(this.issue).subscribe(value => log('added'));
         const dialogRef = this.dialog.open(PopupissueComponent, {});

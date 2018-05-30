@@ -3,14 +3,12 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {AppSettings} from '../../model/app-settings';
-import {ActivatedRoute} from '@angular/router';
 
 @Injectable()
 export class CategoryService {
   API_url = AppSettings.API_ROOT + '/categories';
   constructor(private httpClient: HttpClient) {
   }
-
 
   getAll(): Observable<Map<Number, String>> {
     return this.httpClient.get<JSON[]>(this.API_url).map(json => {

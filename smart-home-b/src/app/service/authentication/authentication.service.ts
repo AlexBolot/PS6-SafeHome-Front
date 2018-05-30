@@ -3,14 +3,14 @@ import {AppSettings} from '../../model/app-settings';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {User} from '../../model/user';
 import {Observable} from 'rxjs/Observable';
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class AuthenticationService {
-  private static USER_KEY: string = "User";
+  private static USER_KEY = 'User';
   private static personURL: string = AppSettings.API_ROOT + '/People';
   private static _loginURL = '/login';
-  private static TOKEN_KEY: string = "token";
+  private static TOKEN_KEY = 'token';
 
   static get loginURL(): string {
     return this._loginURL;
@@ -38,32 +38,32 @@ export class AuthenticationService {
   login(user: User): Observable<JSON> {
     this.user = user;
     localStorage.removeItem(AuthenticationService.TOKEN_KEY);
-    let request = this.httpclient.post<JSON>(AuthenticationService.personURL + AuthenticationService._loginURL, user);
+    const request = this.httpclient.post<JSON>(AuthenticationService.personURL + AuthenticationService._loginURL, user);
     request.subscribe(response => this.aknowledgeLogin(response));
 
     return request;
   }
 
   logout(): Observable<JSON> {
-    let request = this.httpclient.post<JSON>(AuthenticationService.personURL + "/logout", "");
+    const request = this.httpclient.post<JSON>(AuthenticationService.personURL + '/logout', '');
     request.subscribe(this.acknowledgeLogout, this.acknowledgeLogout);
     return request;
   }
 
   acknowledgeLogout() {
     localStorage.removeItem(AuthenticationService.TOKEN_KEY);
-    localStorage.removeItem("Expire");
+    localStorage.removeItem('Expire');
   }
   getUserName(id: number) {
     let parameters = new HttpParams();
-    parameters = parameters.set("id", String(id));
+    parameters = parameters.set('id', String(id));
     const options = {params: parameters};
-    console.log("quering");
-    return this.httpclient.get<JSON>(AuthenticationService.personURL + "/name", options)
+    console.log('quering');
+    return this.httpclient.get<JSON>(AuthenticationService.personURL + '/name', options);
   }
   getProfile(user: User = null) {
-    if (user == null) user = this.user;
-    if (user == undefined) return null;
+    if (user == null) { user = this.user; }
+    if (user === undefined) { return null; }
     const url: string = AuthenticationService.personURL + '/' + user.idUser;
     return this.httpclient.get<User>(url);
   }
@@ -91,20 +91,21 @@ export class AuthenticationService {
 
     this.user.idUser = response['userId'];
 
-    if (response["id"] != undefined)
-      this.setToken(response["id"], response["ttl"]);
+    if (response['id'] !== undefined) {
+      this.setToken(response['id'], response['ttl']);
+    }
     localStorage.setItem(AuthenticationService.USER_KEY, JSON.stringify(this.user));
   }
 
   private setToken(token: string, ttl: number) {
     this.user.token = token;
     localStorage.setItem(AuthenticationService.TOKEN_KEY, token);
-    let time: Date = new Date();
-    localStorage.setItem("Expire", String(time.getTime() + ttl));
+    const time: Date = new Date();
+    localStorage.setItem('Expire', String(time.getTime() + ttl));
   }
 
   private isTokenValid() {
-    let expire: Date = new Date(parseInt(localStorage.getItem("Expire")));
+    const expire: Date = new Date(parseInt(localStorage.getItem('Expire')));
     return new Date() <= expire;
   }
 

@@ -16,7 +16,7 @@ import {Task} from '../../model/task';
 export class TaskComponent implements OnInit {
 
   @Input() task: Task;
-  @Output() updateStatus = new EventEmitter<boolean>();
+  @Output() updateParent = new EventEmitter<boolean>();
   author: String;
   asignee: String;
   issue: Issue;
@@ -24,12 +24,12 @@ export class TaskComponent implements OnInit {
   numberOfTask: number;
   taskIsDone: boolean;
   btnIcon: String = 'glyphicon glyphicon-ok';
-  btnColor: String = 'btn btn-success';
-  userAllowed = true;
+  btnColor: String = 'btn btn-default';
+  userAllowed = false;
   userID: number;
   toggleSwitch: boolean;
-  bannerColor: string;
-  toggleVisible: string = '';
+  bannerColor: String = 'container-fluid panel panel-default';
+  toggleVisible = 'sneaky';
 
   constructor(private taskService: TaskService, private authService: AuthenticationService,
               private issueService: IssueService) {
@@ -41,17 +41,22 @@ export class TaskComponent implements OnInit {
     this.taskService.getAsigneeById(this.task.id).subscribe(value => this.asignee = value.username);
     this.taskIsDone = this.task.done;
     this.toggleSwitch = this.taskIsDone;
-    if (this.taskIsDone) {
-      this.bannerColor = 'container-fluid panel panel-success';
-    }
-    else {
-      this.bannerColor = 'container-fluid panel panel-danger';
-    }
-    if (this.authService.getUser().idUser !== this.task.IDAssignee) {
-      this.userAllowed = false;
-      this.btnColor = 'btn btn-default';
-      this.toggleVisible = 'sneaky';
-    }
+
+    this.issueService.getByID(this.task.IDIssue).subscribe(value => {
+      this.issue = value;
+
+      if (this.authService.getUser().idUser === this.task.IDAssignee && this.issue.IDStatus !== Issue.ArchivedID) {
+        this.userAllowed = true;
+        this.btnColor = 'btn btn-success';
+        this.toggleVisible = '';
+
+        if (this.taskIsDone) {
+          this.bannerColor = 'container-fluid panel panel-success';
+        } else {
+          this.bannerColor = 'container-fluid panel panel-danger';
+        }
+      }
+    });
   }
 
   changeTaskStatus() {
@@ -70,6 +75,8 @@ export class TaskComponent implements OnInit {
   }
 
   private updateStatusIssue() {
+    //this.updateParent.emit(true);
+
     this.taskService.getAllByIssueID(this.task.IDIssue).subscribe(value => {
       this.taskList = value;
 
@@ -78,29 +85,29 @@ export class TaskComponent implements OnInit {
         this.taskService.getNbByIdIssue(this.task.IDIssue).subscribe(value => {
             this.numberOfTask = value;
             let numberOfTaskDone = 0;
-            for (const taskk of this.taskList) {
-              if (taskk.done) {
+            for (const task of this.taskList) {
+              if (task.done) {
                 numberOfTaskDone++;
               }
             }
             if (numberOfTaskDone > 0) {
-              if (this.numberOfTask['count'] == numberOfTaskDone) {
-                this.issue.IDStatus = 1;
-              } else {
+              if (this.numberOfTask['count'] === numberOfTaskDone) {
                 this.issue.IDStatus = 3;
+                this.issue.DateDone = new Date();
+              } else {
+                this.issue.IDStatus = 2;
+                this.issue.DateDone = null;
               }
-            } else if (numberOfTaskDone == 0) {
-              this.issue.IDStatus = 2;
+            } else if (numberOfTaskDone === 0) {
+              this.issue.IDStatus = 1;
+              this.issue.DateDone = null;
             }
-            this.issueService.put(this.issue).subscribe(
-              value => {
-                this.updateStatus.emit(true);
-
-              });
+            this.issueService.put(this.issue).subscribe(value => {
+              this.updateParent.emit(true);
+            });
           }
         );
       });
     });
   }
-
 }

@@ -22,6 +22,9 @@
     },
     "Date": {
       "type": "date"
+    },
+    "DateDone": {
+      "type": "date"
     }
   },
   "validations": [],

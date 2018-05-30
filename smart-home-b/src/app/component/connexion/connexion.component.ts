@@ -3,8 +3,6 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
 import {User} from '../../model/user';
 import {animate, keyframes, state, style, transition, trigger} from '@angular/animations';
-import {logger} from 'codelyzer/util/logger';
-import {log} from 'util';
 
 @Component({
   selector: 'app-connexion',

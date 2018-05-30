@@ -39,6 +39,11 @@
             <input type="text" placeholder="Rechercher" [(ngModel)]="inputSearch" [value]="inputSearch"
                    (input)="callType()" class="form-control">
           </li>
+          <li class="list-group-item">
+            <p>Afficher archives :
+              <input type="checkbox" [checked]="showArchives" (change)="showArchives_OnClick()">
+            </p>
+          </li>
         </ul>
       </div>
     </div>

@@ -29,8 +29,8 @@ import {GuardUrgencyResolve} from './service/guard/guardUrgency.resolve';
 import {GuardLocationResolve} from './service/guard/guardLocation.resolve';
 import {LocationService} from './service/location/location.service';
 import {SpinnerComponent} from './component/spinner/spinner.component';
-import {AuthGuard} from "./service/guard/auth-guard.service";
-import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import {AuthGuard} from './service/guard/auth-guard.service';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 
 @NgModule({

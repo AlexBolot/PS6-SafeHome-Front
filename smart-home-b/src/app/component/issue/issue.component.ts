@@ -71,11 +71,11 @@ export class IssueComponent implements OnInit {
   changeStatusBackGround(): String {
     switch (this.issue.IDStatus) {
       case 1:
-        return '#dff0d8';
-      case 2:
         return '#f2dede';
-      case 3:
+      case 2:
         return '#fcf8e3';
+      case 3:
+        return '#dff0d8';
       default:
         return '#f5f5f5';
     }
@@ -94,7 +94,7 @@ export class IssueComponent implements OnInit {
     }
   }
 
-  updateStatus(status: boolean) {
+  updateSelf(status: boolean) {
     this.issueService.getByID(this.issue.id).subscribe(value => {
       this.issue = value;
       this.ngOnInit();
