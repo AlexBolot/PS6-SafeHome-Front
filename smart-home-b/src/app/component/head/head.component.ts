@@ -21,6 +21,9 @@ export class HeadComponent implements OnInit {
   ngOnInit() {
     this.suiviIncident = 'active';
     this.collapsedState = 'collapse';
+    this.authenticationService.isLogged().subscribe(value => {
+      if (!value) this.router.navigate(['connexion']);
+    });
   }
 
   showNavBar() {
@@ -29,9 +32,7 @@ export class HeadComponent implements OnInit {
   }
 
   logout() {
-    this.authenticationService.isLogged().subscribe(value => {
-      if (!value) this.router.navigate(['connexion']);
-    });
+
     this.authenticationService.logout();
 
   }

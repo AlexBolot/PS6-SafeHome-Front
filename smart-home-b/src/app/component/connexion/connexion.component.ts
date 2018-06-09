@@ -47,6 +47,11 @@ export class ConnexionComponent implements OnInit {
   ngOnInit() {
     this.user = new User();
     this.erreurLogin = 'cover';
+    this.authentication.isLogged().subscribe(value => {
+      if (value) {
+        return this.router.navigate(['/issueView']);
+      }
+    });
   }
 
   setBackToUnchecked() {
@@ -58,11 +63,6 @@ export class ConnexionComponent implements OnInit {
 
   login() {
     if (this.user.email && this.user.password) {
-      this.authentication.isLogged().subscribe(value => {
-        if (value) {
-          return this.router.navigate(['/issueView']);
-        }
-      });
       this.authentication.login(this.user);
     } else {
       if (!this.user.email) {
