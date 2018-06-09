@@ -29,7 +29,11 @@ export class HeadComponent implements OnInit {
   }
 
   logout() {
-    this.authenticationService.logout().subscribe(() => this.router.navigate(['connexion']));
+    this.authenticationService.isLogged().subscribe(value => {
+      if (!value) this.router.navigate(['connexion']);
+    });
+    this.authenticationService.logout();
+
   }
 
   expandOrCollapse() {

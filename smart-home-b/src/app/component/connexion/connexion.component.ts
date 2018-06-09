@@ -58,13 +58,12 @@ export class ConnexionComponent implements OnInit {
 
   login() {
     if (this.user.email && this.user.password) {
-      this.authentication.login(this.user).pipe().subscribe(
-        value => {
-          if (value) {
-            return this.router.navigate(['/issueView']);
-          }
-        },
-        error => this.erreurLogin = 'display');
+      this.authentication.isLogged().subscribe(value => {
+        if (value) {
+          return this.router.navigate(['/issueView']);
+        }
+      });
+      this.authentication.login(this.user);
     } else {
       if (!this.user.email) {
         this.formFalseValidationId = 'invalid';

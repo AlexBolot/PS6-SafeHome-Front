@@ -22,7 +22,7 @@ export class AuthenticationService {
 
 
   private user: User = null;
-  private logged: Observable<boolean> = new BehaviorSubject<boolean>(this.hasToken());
+  private logged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.hasToken());
 
   constructor(private httpclient: HttpClient) {
     this.httpclient = httpclient;
@@ -45,31 +45,33 @@ export class AuthenticationService {
   }
 
   logout(): Observable<JSON> {
+    console.log(this.logged);
     const request = this.httpclient.post<JSON>(AuthenticationService.personURL + '/logout', '');
-    request.subscribe(this.acknowledgeLogout, this.acknowledgeLogout);
+    request.subscribe(response => this.acknowledgeLogout(response));
+
     return request;
   }
 
-  acknowledgeLogout() {
+  acknowledgeLogout(response: JSON) {
     localStorage.removeItem(AuthenticationService.TOKEN_KEY);
     localStorage.removeItem('Expire');
+    this.logged.next(false);
   }
+
+  isLogged(): BehaviorSubject<boolean> {
+    return this.logged;
+  }
+
+  hasToken(): boolean {
+    return !!this.getToken();
+  }
+
   getUserName(id: number) {
     let parameters = new HttpParams();
     parameters = parameters.set('id', String(id));
     const options = {params: parameters};
     console.log('quering');
     return this.httpclient.get<JSON>(AuthenticationService.personURL + '/name', options);
-  }
-  getProfile(user: User = null) {
-    if (user == null) { user = this.user; }
-    if (user === undefined) { return null; }
-    const url: string = AuthenticationService.personURL + '/' + user.idUser;
-    return this.httpclient.get<User>(url);
-  }
-
-  isLogged(): Observable<boolean> {
-    return this.logged;
   }
 
   getToken(): string {
@@ -79,12 +81,29 @@ export class AuthenticationService {
     return null;
   }
 
-  getUser() {
-    return this.user;
+  getProfile(user: User = null) {
+    if (user == null) {
+      user = this.user;
+    }
+    if (user === undefined) {
+      return null;
+    }
+    const url: string = AuthenticationService.personURL + '/' + user.idUser;
+    return this.httpclient.get<User>(url);
   }
 
-  hasToken(): boolean {
-    return !!this.getToken();
+
+
+
+  private setToken(token: string, ttl: number) {
+    this.user.token = token;
+    localStorage.setItem(AuthenticationService.TOKEN_KEY, token);
+    const time: Date = new Date();
+    localStorage.setItem('Expire', String(time.getTime() + ttl));
+  }
+
+  getUser() {
+    return this.user;
   }
 
   private aknowledgeLogin(response: JSON) {
@@ -95,13 +114,7 @@ export class AuthenticationService {
       this.setToken(response['id'], response['ttl']);
     }
     localStorage.setItem(AuthenticationService.USER_KEY, JSON.stringify(this.user));
-  }
-
-  private setToken(token: string, ttl: number) {
-    this.user.token = token;
-    localStorage.setItem(AuthenticationService.TOKEN_KEY, token);
-    const time: Date = new Date();
-    localStorage.setItem('Expire', String(time.getTime() + ttl));
+    this.logged.next(true);
   }
 
   private isTokenValid() {
