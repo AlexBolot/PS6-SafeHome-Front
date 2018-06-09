@@ -11,11 +11,12 @@ export class AuthInterceptor implements HttpInterceptor{
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let params = req.params;
+    let headers = req.headers;
+
     if (this.authService.hasToken())
     {
-      params = params.set("access_token",this.authService.getUser().token);
-      req = req.clone({params:params});
-
+      headers = headers.set("Authorization", this.authService.getUser().token);
+      req = req.clone({headers});
     }
     return next.handle(req);
   }
