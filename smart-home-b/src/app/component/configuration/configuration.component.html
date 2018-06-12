@@ -1,14 +1,13 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4 blue">
+  <div class="row padding">
+    <div class="col-sm-4">
       <div *ngFor="let domoticItem of domoticItems">
         <app-domotic-item [domoticItem]="domoticItem"></app-domotic-item>
       </div>
     </div>
 
-    <div class="col-md-8">
-
-    </div>
+      <app-data-domotic class="col-sm-8 paddingleft">
+      </app-data-domotic>
   </div>
 
 </div>

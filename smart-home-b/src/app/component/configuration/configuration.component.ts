@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {DomoticItem} from "../../model/domotic";
+import {Domotic} from "../../model/domotic";
+import {DomoticService} from "../../service/domotic/domotic.service";
 
 @Component({
   selector: 'app-configuration',
@@ -7,11 +8,14 @@ import {DomoticItem} from "../../model/domotic";
   styleUrls: ['./configuration.component.css']
 })
 export class ConfigurationComponent implements OnInit {
-  domoticItems:DomoticItem[] = [];
+  domoticItems:Domotic[] = [];
 
   constructor() { }
 
   ngOnInit() {
+    this.domoticItems.push(new Domotic(0,"Thermostat"));
+    this.domoticItems.push(new Domotic(1,"Alarme"));
+    this.domoticItems.push(new Domotic(2,"Lumière"));
   }
 
 }

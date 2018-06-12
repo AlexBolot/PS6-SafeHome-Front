@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./data-domotic.component.css']
 })
 export class DataDomoticComponent implements OnInit {
-
+  List<>
   constructor() { }
 
   ngOnInit() {

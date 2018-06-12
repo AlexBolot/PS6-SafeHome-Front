@@ -1,8 +1,12 @@
 .divForm {
   border-radius: 10px;
 }
-.blue {
-  background-color: lightgrey;
+.padding{
+  padding-right: 35px;
+  padding-left:35px;
+}
+.paddingleft{
+  padding-left:35px;
 }
 .btn-div {
   text-align: center;
