@@ -1,0 +1,119 @@
+[
+  {
+    "id": "fecacf27.dc262",
+    "type": "tab",
+    "label": "Flow 1",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "2a8f4ffa.acc7a",
+    "type": "inject",
+    "z": "fecacf27.dc262",
+    "name": "",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 420,
+    "y": 300,
+    "wires": [
+      [
+        "e97b9172.665"
+      ]
+    ]
+  },
+  {
+    "id": "13fac3e4.4c38dc",
+    "type": "mosca in",
+    "z": "fecacf27.dc262",
+    "mqtt_port": 1883,
+    "mqtt_ws_port": 8080,
+    "name": "",
+    "username": "",
+    "password": "",
+    "dburl": "",
+    "x": 630,
+    "y": 140,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "b004527a.b8125",
+    "type": "http in",
+    "z": "fecacf27.dc262",
+    "name": "Temperature http",
+    "url": "/temperature/set",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 400,
+    "y": 240,
+    "wires": [
+      [
+        "683e63a2.0a50dc"
+      ]
+    ]
+  },
+  {
+    "id": "683e63a2.0a50dc",
+    "type": "function",
+    "z": "fecacf27.dc262",
+    "name": "Temperature set",
+    "func": "flow.set('temp',msg.payload.value);\nmsg.payload = \"ok\";\nreturn msg",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 670,
+    "y": 240,
+    "wires": [
+      [
+        "3c171702.502688"
+      ]
+    ]
+  },
+  {
+    "id": "e97b9172.665",
+    "type": "function",
+    "z": "fecacf27.dc262",
+    "name": "Print Temp",
+    "func": "msg.payload = flow.get('temp')\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 670,
+    "y": 300,
+    "wires": [
+      [
+        "a56c4b42.27cfc8"
+      ]
+    ]
+  },
+  {
+    "id": "a56c4b42.27cfc8",
+    "type": "debug",
+    "z": "fecacf27.dc262",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 900,
+    "y": 300,
+    "wires": []
+  },
+  {
+    "id": "3c171702.502688",
+    "type": "http response",
+    "z": "fecacf27.dc262",
+    "name": "",
+    "statusCode": "200",
+    "headers": {},
+    "x": 920,
+    "y": 240,
+    "wires": []
+  }
+]
