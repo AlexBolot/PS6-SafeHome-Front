@@ -9,6 +9,7 @@ import {GuardCategoryResolve} from './service/guard/guardCategory.resolve';
 import {GuardUrgencyResolve} from './service/guard/guardUrgency.resolve';
 import {GuardLocationResolve} from './service/guard/guardLocation.resolve';
 import {AuthGuard} from "./service/guard/auth-guard.service";
+import {ConfigurationComponent} from "./component/configuration/configuration.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
   },
   {path: 'issueView', canActivate: [AuthGuard], component: BodyComponent},
   {path: 'connexion', component: ConnexionComponent},
+  {path: 'config',component: ConfigurationComponent},
   {path: '', redirectTo: '/connexion', pathMatch: 'full'},
 ];
 

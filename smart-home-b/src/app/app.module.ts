@@ -19,7 +19,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConnexionComponent} from './component/connexion/connexion.component';
 import {PopupreturnComponent} from './component/popupreturn/popupreturn.component';
 import {FormsModule} from '@angular/forms';
-import {InputTextareaModule} from 'primeng/inputtextarea';
 import {TaskComponent} from './component/task/task.component';
 import {TaskService} from './service/task/task.service';
 import {AuthenticationService} from './service/authentication/authentication.service';
@@ -31,6 +30,9 @@ import {LocationService} from './service/location/location.service';
 import {SpinnerComponent} from './component/spinner/spinner.component';
 import {AuthGuard} from './service/guard/auth-guard.service';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import { ConfigurationComponent } from './component/configuration/configuration.component';
+import { DomoticItemComponent } from './component/domotic-item/domotic-item.component';
+import { DataDomoticComponent } from './component/data-domotic/data-domotic.component';
 
 
 @NgModule({
@@ -46,6 +48,9 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
     ConnexionComponent,
     TaskComponent,
     SpinnerComponent,
+    ConfigurationComponent,
+    DomoticItemComponent,
+    DataDomoticComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, AppRoutingModule,
@@ -54,7 +59,6 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
     FormsModule,
     MatDialogModule,
     BrowserAnimationsModule,
-    InputTextareaModule,
   ],
   entryComponents: [
     PopupissueComponent,

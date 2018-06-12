@@ -1,0 +1,39 @@
+.divForm {
+  border-radius: 10px;
+}
+.blue {
+  background-color: lightgrey;
+}
+.btn-div {
+  text-align: center;
+}
+
+.input-group-addon {
+  min-width: 7em;
+  text-align: left;
+}
+
+.input-group {
+  margin-bottom: 2em;
+}
+
+.ddl-radius {
+  border-radius: 0 4px 4px 0 !important;
+}
+
+.align-top {
+  vertical-align: top;
+}
+
+.cover {
+  display: none;
+}
+
+.margin-top-3em {
+  margin-top: 3em;
+}
+
+.list {
+  display: block;
+  width: 100%;
+}
