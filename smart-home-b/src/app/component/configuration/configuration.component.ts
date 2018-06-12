@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Domotic} from "../../model/domotic";
 import {DomoticService} from "../../service/domotic/domotic.service";
 
@@ -8,14 +8,20 @@ import {DomoticService} from "../../service/domotic/domotic.service";
   styleUrls: ['./configuration.component.css']
 })
 export class ConfigurationComponent implements OnInit {
-  domoticItems:Domotic[] = [];
+  domoticItems: Domotic[] = [];
+  displayingTemperature = false;
+  clickOnItem = false;
 
-  constructor() { }
-
-  ngOnInit() {
-    this.domoticItems.push(new Domotic(0,"Thermostat"));
-    this.domoticItems.push(new Domotic(1,"Alarme"));
-    this.domoticItems.push(new Domotic(2,"Lumière"));
+  constructor(private domoticService: DomoticService) {
   }
 
+  ngOnInit() {
+    this.domoticService.getAll().subscribe(value => this.domoticItems = value);
+  }
+
+  onDomoticItemClick(domoticItem: Domotic) {
+    this.displayingTemperature = domoticItem.id == Domotic.thermostatId;
+    this.clickOnItem = true;
+
+  }
 }

@@ -1,13 +1,13 @@
 <div class="container-fluid">
   <div class="row padding">
-    <div class="col-sm-4">
-      <div *ngFor="let domoticItem of domoticItems">
-        <app-domotic-item [domoticItem]="domoticItem"></app-domotic-item>
+    <div class="col-sm-2">
+      <div *ngFor="let domoticItem of domoticItems" (click)="onDomoticItemClick(domoticItem)">
+          <app-domotic-item [domoticItem]="domoticItem"></app-domotic-item>
       </div>
     </div>
-
-      <app-data-domotic class="col-sm-8 paddingleft">
-      </app-data-domotic>
+    <div *ngIf="clickOnItem" class="col-sm-10 paddingleft">
+      <app-data-domotic-list [displayingTemperature]="displayingTemperature">
+      </app-data-domotic-list>
+    </div>
   </div>
-
 </div>

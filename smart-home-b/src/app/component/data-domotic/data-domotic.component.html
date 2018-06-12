@@ -1,10 +1,48 @@
-<div class="contener-fluid grey">
-    <div class="row">
-      <div class="col-md-8">
-
-      </div>
+<div class="container-fluid panel panel-default">
+  <div class="row panel-heading">
+    <div class="col-md-2">
+      Jour
+      <select class="form-control selectpicker">
+        <option *ngFor="let day of dayOfWeek">{{day}}</option>
+      </select>
     </div>
-  <button class="buttons-area">
-
-  </button>
+    <div class="col-md-1">
+      Entre
+    </div>
+    <div class="col-md-1">
+      Heures
+      <input type="number" class="form-control input-number" (keyup)="keyPressedHours1(minValueHours,maxValueHours)"
+             [(ngModel)]="currentValueHours1" min="1" max="24">
+    </div>
+    <div class="col-md-1">
+      Minutes
+      <input type="number" class="form-control input-number"
+             (keyup)="keyPressedMinute1(minValueMinute,maxValueMinute)"
+             [(ngModel)]="currentValueMinute1" min="0" max="59">
+    </div>
+    <div class="col-md-1">
+      Et
+    </div>
+    <div class="col-md-1">
+      Heures
+      <input type="number" class="form-control input-number" (keyup)="keyPressedHours2(minValueHours,maxValueHours)"
+             [(ngModel)]="currentValueHours2" min="1" max="24">
+    </div>
+    <div class="col-md-1">
+      Minutes
+      <input type="number" class="form-control input-number"
+             (keyup)="keyPressedMinute2(minValueMinute,maxValueMinute)"
+             [(ngModel)]="currentValueMinute2" min="0" max="59">
+    </div>
+    <div *ngIf="displayingTemperature" class="col-md-2">
+      Température minimale
+      <input type="number" class="form-control input-number"
+             [(ngModel)]="temperatureMin" min="0" max="59">
+    </div>
+    <div class="col-md-1">
+      <button class="btn-success btn" (click)="onAddClick()">
+        Ajouter
+      </button>
+    </div>
+  </div>
 </div>

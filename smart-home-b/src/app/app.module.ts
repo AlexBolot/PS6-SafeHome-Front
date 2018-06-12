@@ -33,11 +33,14 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import { ConfigurationComponent } from './component/configuration/configuration.component';
 import { DomoticItemComponent } from './component/domotic-item/domotic-item.component';
 import { DataDomoticComponent } from './component/data-domotic/data-domotic.component';
+import {DomoticService} from "./service/domotic/domotic.service";
+import { DataDomoticListComponent } from './component/data-domotic-list/data-domotic-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    DataDomoticListComponent,
     BodyComponent,
     IssueListComponent,
     HeadComponent,
@@ -51,6 +54,7 @@ import { DataDomoticComponent } from './component/data-domotic/data-domotic.comp
     ConfigurationComponent,
     DomoticItemComponent,
     DataDomoticComponent,
+    DataDomoticListComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, AppRoutingModule,
@@ -69,6 +73,7 @@ import { DataDomoticComponent } from './component/data-domotic/data-domotic.comp
     CategoryService,
     UrgencyService,
     StatusService,
+    DomoticService,
     LocationService,
     HttpClient,
     TaskService,

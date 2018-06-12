@@ -1,14 +1,14 @@
 export class Domotic {
   id: number;
-  Name: string;
+  name: string;
 
-  static alarm = 0;
-  static thermostat = 1;
-  static light = 2;
+  static thermostatId = 1;
+  static alarmId = 2;
+  static bowlId = 3;
 
   constructor(id: number, name: string) {
     this.id = id;
-    this.Name = name;
+    this.name = name;
   }
 
 }

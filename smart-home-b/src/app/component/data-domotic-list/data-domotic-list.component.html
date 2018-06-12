@@ -1,0 +1,12 @@
+<div class="container-fluid grey">
+  <div class="row panel-heading">
+  </div>
+  <button class="btn btn-lg" (click)="onClickEffect()">
+    <span class="glyphicon glyphicon-plus-sign"></span>
+  </button>
+  <div *ngIf="showData">
+    <app-data-domotic [displayingTemperature]="displayingTemperature">
+    </app-data-domotic>
+  </div>
+</div>
+

@@ -1,5 +1,8 @@
-<div class="container-fluid panel panel-default">
+<div class="container-fluid panel panel-default" (click)="onClickChangeEye()">
   <div class="row panel-heading">
-    {{domoticItem.Name}}
+    {{domoticItem.name}}
+    <div class="right">
+    <span [ngClass]="eye"></span>
+    </div>
   </div>
 </div>

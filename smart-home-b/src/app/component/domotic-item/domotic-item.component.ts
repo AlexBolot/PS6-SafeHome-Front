@@ -7,13 +7,19 @@ import {Domotic} from "../../model/domotic";
   styleUrls: ['./domotic-item.component.css']
 })
 export class DomoticItemComponent implements OnInit {
-  @Input() domoticItem:Domotic;
+  @Input() domoticItem: Domotic;
+  eye:String = "glyphicon glyphicon-eye-open";
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
 
+
   }
 
-
+  onClickChangeEye() {
+    if(this.eye== "glyphicon glyphicon-eye-open") this.eye = "glyphicon glyphicon-eye-close";
+    else this.eye = "glyphicon glyphicon-eye-open"
+  }
 }
