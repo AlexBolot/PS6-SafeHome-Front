@@ -14,7 +14,7 @@
   "validations": [],
   "relations": {
     "type": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "Domotic-item-type",
       "foreignKey": "",
       "options": {
