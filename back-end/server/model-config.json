@@ -70,5 +70,13 @@
   "Category2": {
     "dataSource": "postgreDev",
     "public": true
+  },
+  "DomoticItem": {
+    "dataSource": "postgreDev",
+    "public": true
+  },
+  "DomoticDataItem": {
+    "dataSource": "postgreDev",
+    "public": false
   }
 }

@@ -1,0 +1,34 @@
+{
+  "name": "DomoticItem",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "Name": {
+      "type": "string",
+      "required": true
+    },
+    "TypeID": {
+      "type": "number",
+      "required": true
+    },
+    "Icon": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "DataItems": {
+      "type": "hasMany",
+      "model": "DomoticDataItem",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
