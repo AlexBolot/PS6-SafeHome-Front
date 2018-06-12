@@ -67,16 +67,20 @@
     "dataSource": "postgreDev",
     "public": true
   },
-  "Category2": {
+  "Domotic-item": {
     "dataSource": "postgreDev",
     "public": true
   },
-  "DomoticItem": {
+  "Domotic-item-type": {
     "dataSource": "postgreDev",
     "public": true
   },
-  "DomoticDataItem": {
+  "schedule": {
     "dataSource": "postgreDev",
-    "public": false
+    "public": true
+  },
+  "Domotic-item-temperature": {
+    "dataSource": "postgreDev",
+    "public": true
   }
 }

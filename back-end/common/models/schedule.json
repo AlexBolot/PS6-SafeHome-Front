@@ -1,17 +1,17 @@
 {
-  "name": "DomoticDataItem",
+  "name": "schedule",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "Key": {
-      "type": "string",
+    "start": {
+      "type": "date",
       "required": true
     },
-    "Value": {
-      "type": "string",
+    "end": {
+      "type": "date",
       "required": true
     }
   },

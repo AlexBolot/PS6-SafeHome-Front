@@ -1,28 +1,20 @@
 {
-  "name": "Domotic-item",
+  "name": "Domotic-item-temperature",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "name": {
-      "type": "string",
+    "value": {
+      "type": "number",
       "required": true
     }
   },
   "validations": [],
   "relations": {
-    "type": {
-      "type": "hasOne",
-      "model": "Domotic-item-type",
-      "foreignKey": "",
-      "options": {
-        "nestRemoting": true
-      }
-    },
-    "schedules": {
-      "type": "hasMany",
+    "schedule": {
+      "type": "belongsTo",
       "model": "schedule",
       "foreignKey": "",
       "options": {
