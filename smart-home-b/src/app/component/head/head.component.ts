@@ -32,7 +32,6 @@ export class HeadComponent implements OnInit {
   }
 
   logout() {
-
     this.authenticationService.logout();
 
   }
