@@ -1,13 +1,14 @@
 {
-  "name": "Category2",
-  "base": "Category",
+  "name": "Domotic-item-type",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],

@@ -1,0 +1,35 @@
+{
+  "name": "Domotic-item",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "type": {
+      "type": "hasOne",
+      "model": "Domotic-item-type",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "schedules": {
+      "type": "hasMany",
+      "model": "schedule",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

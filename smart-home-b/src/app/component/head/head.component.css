@@ -28,3 +28,18 @@
 .text-right{
   text-align: right;
 }
+
+ul li a {
+  color: white;
+  margin: 0.5vw;
+}
+
+ul li a:hover {
+  color: unset;
+  border-radius: 1vw;
+}
+
+ul li a:focus {
+  color: unset;
+  border-radius: 1vw;
+}
