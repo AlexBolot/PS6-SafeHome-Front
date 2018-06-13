@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Domotic} from "../../model/domotic";
 import {DomoticService} from "../../service/domotic/domotic.service";
+import {DomoticItemComponent} from "../domotic-item/domotic-item.component";
 
 @Component({
   selector: 'app-configuration',
@@ -9,6 +10,7 @@ import {DomoticService} from "../../service/domotic/domotic.service";
 })
 export class ConfigurationComponent implements OnInit {
   domoticItems: Domotic[] = [];
+  lastDomoticIdClicked:number;
   displayingTemperature = false;
   clickOnItem = false;
 
@@ -22,6 +24,8 @@ export class ConfigurationComponent implements OnInit {
   onDomoticItemClick(domoticItem: Domotic) {
     this.displayingTemperature = domoticItem.id == Domotic.thermostatId;
     this.clickOnItem = true;
-
+    this.lastDomoticIdClicked = domoticItem.id;
   }
+
 }
+

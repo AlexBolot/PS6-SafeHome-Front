@@ -1,12 +1,21 @@
 <div class="container-fluid grey">
-  <div class="row panel-heading">
-  </div>
+  <h1 class="font-weight-bold">
+    Ajout d'une nouvelle horaire
+  </h1>
   <button class="btn btn-lg" (click)="onClickEffect()">
     <span class="glyphicon glyphicon-plus-sign"></span>
   </button>
   <div *ngIf="showData">
-    <app-data-domotic [displayingTemperature]="displayingTemperature">
+    <app-data-domotic [displayingTemperature]="displayingTemperature" [idDomoticItem]="idDomoticItem" (updateList)="updateList($event)">
     </app-data-domotic>
   </div>
+  <h1 class="font-weight-bold">
+    Affichage des horaires déjà enregistrées
+  </h1>
+  <div class="row panel-heading">
+    <div *ngFor="let schedule of schedulesList" >
+      <app-data-domotic [idDomoticItem]="idDomoticItem" [currentSchedule]="schedule" (updateList)="updateList($event)">
+      </app-data-domotic>
+    </div>
+  </div>
 </div>
-
