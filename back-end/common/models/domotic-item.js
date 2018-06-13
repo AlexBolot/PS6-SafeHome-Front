@@ -81,17 +81,22 @@ module.exports = function(Item) {
         'IDLocation': 10,
         'homesId': -1,
         'statusName': 'À Faire',
-      }, function() {
+      }, function(err, obj) {
+        console.log(obj);
       Issue.find({'where': {'IDAuthor': 5}},
           function(err, issues) {
             const lastIssue = issues[issues.length - 1];
+            let Task = Issue.app.models.Task;
             Task.create({
               'Text': 'Remplir la gamelle du chien',
               'IDIssue': lastIssue.id,
               'IDAuthor': 5,
               'IDAssignee': 2,
               'done': false,
-            });
+              },
+              function (err, task) {
+                callback(null, err);
+              });
           });
     }
     );
