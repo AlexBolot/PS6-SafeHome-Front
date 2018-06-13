@@ -2,14 +2,28 @@
     {
         "id": "fecacf27.dc262",
         "type": "tab",
-      "label": "Temperature",
-      "disabled": false,
-      "info": ""
+        "label": "Temperature",
+        "disabled": false,
+        "info": ""
     },
-  {
-    "id": "687877f4.0d1578",
-    "type": "tab",
-    "label": "Bowl",
+    {
+        "id": "687877f4.0d1578",
+        "type": "tab",
+        "label": "Bowl",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "adbd2cd3.b4f08",
+        "type": "tab",
+        "label": "SystemSecurite",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e9474b73.28c278",
+        "type": "tab",
+        "label": "Lumière",
         "disabled": false,
         "info": ""
     },
@@ -35,27 +49,71 @@
         "willQos": "0",
         "willPayload": ""
     },
-  {
-    "id": "de6f5fa4.d6bae",
-    "type": "mqtt-broker",
-    "z": "",
-    "name": "MQTT Broquer",
-    "broker": "localhost",
-    "port": "1883",
-    "clientid": "",
-    "usetls": false,
-    "compatmode": true,
-    "keepalive": "60",
-    "cleansession": true,
-    "birthTopic": "",
-    "birthQos": "0",
-    "birthPayload": "",
-    "closeTopic": "",
-    "closeQos": "0",
-    "closePayload": "",
-    "willTopic": "",
-    "willQos": "0",
-    "willPayload": ""
+    {
+        "id": "de6f5fa4.d6bae",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "MQTT Broquer",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "83ff25ee.98c6c8",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "localhost:1883",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "2d9f33d9.7e599c",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "localhost:1883",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
     },
     {
         "id": "11292d98.701a82",
@@ -314,105 +372,414 @@
         "y": 677,
         "wires": []
     },
-  {
-    "id": "37f6bd32.94e182",
-    "type": "mqtt in",
-    "z": "687877f4.0d1578",
-    "name": "Arduino",
-    "topic": "v1/devices/me/telemetry",
-    "qos": "2",
-    "broker": "de6f5fa4.d6bae",
-    "x": 150,
-    "y": 280,
-    "wires": [
-      [
-        "ab6115fe.7df6f8",
-        "efdfc21f.75f2"
-      ]
-    ]
-  },
-  {
-    "id": "352c53ac.fdd60c",
-    "type": "http request",
-    "z": "687877f4.0d1578",
-    "name": "signal Empty Bowl",
-    "method": "POST",
-    "ret": "txt",
-    "url": "http://localhost:5491/api/Domotic-items/bowl/empty",
-    "tls": "",
-    "x": 610,
-    "y": 280,
-    "wires": [
-      [
-        "e713bfcc.fb5ec"
-      ]
-    ]
-  },
-  {
-    "id": "e713bfcc.fb5ec",
-    "type": "debug",
-    "z": "687877f4.0d1578",
-    "name": "",
-    "active": true,
-    "tosidebar": true,
-    "console": false,
-    "tostatus": false,
-    "complete": "false",
-    "x": 790,
-    "y": 280,
-    "wires": []
-  },
-  {
-    "id": "ab6115fe.7df6f8",
-    "type": "function",
-    "z": "687877f4.0d1578",
-    "name": "Filter True",
-    "func": "let json =JSON.parse(msg.payload);\nif(json.state===1)return msg;",
-    "outputs": 1,
-    "noerr": 0,
-    "x": 280,
-    "y": 280,
-    "wires": [
-      [
-        "936a8be9.33c208"
-      ]
-    ]
-  },
-  {
-    "id": "936a8be9.33c208",
-    "type": "delay",
-    "z": "687877f4.0d1578",
-    "name": "Rate Filter",
-    "pauseType": "rate",
-    "timeout": "5",
-    "timeoutUnits": "seconds",
-    "rate": "1",
-    "nbRateUnits": "5",
-    "rateUnits": "second",
-    "randomFirst": "1",
-    "randomLast": "5",
-    "randomUnits": "seconds",
-    "drop": true,
-    "x": 430,
-    "y": 280,
-    "wires": [
-      [
-        "352c53ac.fdd60c"
-      ]
-    ]
-  },
-  {
-    "id": "efdfc21f.75f2",
-    "type": "debug",
-    "z": "687877f4.0d1578",
-    "name": "",
-    "active": true,
-    "tosidebar": true,
-    "console": false,
-    "tostatus": false,
-    "complete": "false",
-    "x": 270,
-    "y": 200,
-    "wires": []
+    {
+        "id": "37f6bd32.94e182",
+        "type": "mqtt in",
+        "z": "687877f4.0d1578",
+        "name": "Arduino",
+        "topic": "v1/devices/me/telemetry",
+        "qos": "2",
+        "broker": "de6f5fa4.d6bae",
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "ab6115fe.7df6f8",
+                "efdfc21f.75f2"
+            ]
+        ]
+    },
+    {
+        "id": "352c53ac.fdd60c",
+        "type": "http request",
+        "z": "687877f4.0d1578",
+        "name": "signal Empty Bowl",
+        "method": "POST",
+        "ret": "txt",
+        "url": "http://localhost:5491/api/Domotic-items/bowl/empty",
+        "tls": "",
+        "x": 610,
+        "y": 280,
+        "wires": [
+            [
+                "e713bfcc.fb5ec"
+            ]
+        ]
+    },
+    {
+        "id": "e713bfcc.fb5ec",
+        "type": "debug",
+        "z": "687877f4.0d1578",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 790,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ab6115fe.7df6f8",
+        "type": "function",
+        "z": "687877f4.0d1578",
+        "name": "Filter True",
+        "func": "let json =JSON.parse(msg.payload);\nif(json.state===1)return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 280,
+        "y": 280,
+        "wires": [
+            [
+                "936a8be9.33c208"
+            ]
+        ]
+    },
+    {
+        "id": "936a8be9.33c208",
+        "type": "delay",
+        "z": "687877f4.0d1578",
+        "name": "Rate Filter",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "20",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 430,
+        "y": 280,
+        "wires": [
+            [
+                "352c53ac.fdd60c"
+            ]
+        ]
+    },
+    {
+        "id": "efdfc21f.75f2",
+        "type": "debug",
+        "z": "687877f4.0d1578",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 270,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "c8bb80b9.faf6d",
+        "type": "mqtt in",
+        "z": "adbd2cd3.b4f08",
+        "name": "all detecteur de movement ",
+        "topic": "/home/+/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "83ff25ee.98c6c8",
+        "x": 170,
+        "y": 240,
+        "wires": [
+            [
+                "7497439c.e78a3c"
+            ]
+        ]
+    },
+    {
+        "id": "7497439c.e78a3c",
+        "type": "function",
+        "z": "adbd2cd3.b4f08",
+        "name": "Alarm",
+        "func": "var alarm = flow.get(\"alarm\")|| \"False\";\nif(msg.payload==\"True\" && alarm==\"True\"){\n    msg.payload = true;\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 480,
+        "y": 240,
+        "wires": [
+            [
+                "1b9c91f5.48741e"
+            ]
+        ]
+    },
+    {
+        "id": "8b33d3bd.ccdce",
+        "type": "http in",
+        "z": "adbd2cd3.b4f08",
+        "name": "alarm HTTP",
+        "url": "/alarm/on",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 160,
+        "wires": [
+            [
+                "c467e6d8.c10d58"
+            ]
+        ]
+    },
+    {
+        "id": "c467e6d8.c10d58",
+        "type": "function",
+        "z": "adbd2cd3.b4f08",
+        "name": "alarmOn",
+        "func": "flow.set('alarm',msg.payload);\nmsg.payload = \"ok\";\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 160,
+        "wires": [
+            [
+                "bb2807ef.9687c8"
+            ]
+        ]
+    },
+    {
+        "id": "e47b24da.2a74b8",
+        "type": "http response",
+        "z": "adbd2cd3.b4f08",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 760,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9ac84d00.c4091",
+        "type": "link in",
+        "z": "adbd2cd3.b4f08",
+        "name": "",
+        "links": [],
+        "x": 575,
+        "y": 120,
+        "wires": [
+            [
+                "e47b24da.2a74b8"
+            ]
+        ]
+    },
+    {
+        "id": "bb2807ef.9687c8",
+        "type": "link out",
+        "z": "adbd2cd3.b4f08",
+        "name": "",
+        "links": [],
+        "x": 680,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "1b9c91f5.48741e",
+        "type": "mqtt out",
+        "z": "adbd2cd3.b4f08",
+        "name": "sirène",
+        "topic": "/home/O/Output/bool/Sirène",
+        "qos": "",
+        "retain": "",
+        "broker": "83ff25ee.98c6c8",
+        "x": 730,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "733a3c4b.9708f4",
+        "type": "inject",
+        "z": "adbd2cd3.b4f08",
+        "name": "",
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 470,
+        "y": 320,
+        "wires": [
+            [
+                "1b9c91f5.48741e"
+            ]
+        ]
+    },
+    {
+        "id": "d7f2c302.51e92",
+        "type": "inject",
+        "z": "adbd2cd3.b4f08",
+        "name": "",
+        "topic": "",
+        "payload": "False",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 170,
+        "y": 80,
+        "wires": [
+            [
+                "c467e6d8.c10d58"
+            ]
+        ]
+    },
+    {
+        "id": "d7cd9390.65cbf",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "lumiere A",
+        "topic": "/home/A/Input/bool/Interrupteur_Lumière_1",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 160,
+        "y": 200,
+        "wires": [
+            [
+                "8c3c394d.f98178"
+            ]
+        ]
+    },
+    {
+        "id": "8c3c394d.f98178",
+        "type": "function",
+        "z": "e9474b73.28c278",
+        "name": "lightOn",
+        "func": "console.log(msg.payload+\"lightOn\");\nif(msg.payload){\n    flow.set(\"turnOn\",Date.now());\n}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 200,
+        "wires": [
+            [
+                "7b2d9e63.d46a1"
+            ]
+        ]
+    },
+    {
+        "id": "7b2d9e63.d46a1",
+        "type": "delay",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 510,
+        "y": 200,
+        "wires": [
+            [
+                "e6d49346.93395"
+            ]
+        ]
+    },
+    {
+        "id": "41457d2.8467d84",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "detecteur de movement A",
+        "topic": "/home/A/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 120,
+        "y": 260,
+        "wires": [
+            [
+                "2ef78f10.e479c"
+            ]
+        ]
+    },
+    {
+        "id": "e6d49346.93395",
+        "type": "function",
+        "z": "e9474b73.28c278",
+        "name": "check",
+        "func": "var temps = flow.get(\"turnOn\");\nconsole.log( Date.now() -temps);\nconsole.log( flow.get(\"someHere\"));\nif(Date.now() - temps >10000 && !flow.get(\"someHere\")){\n    msg.payload=false;\n    return msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 200,
+        "wires": [
+            [
+                "63c24cfc.431d64"
+            ]
+        ]
+    },
+    {
+        "id": "63c24cfc.431d64",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "lumiere A",
+        "topic": "/home/A/Output/bool/Lumières",
+        "qos": "",
+        "retain": "",
+        "broker": "2d9f33d9.7e599c",
+        "x": 820,
+        "y": 199,
+        "wires": []
+    },
+    {
+        "id": "77c76ffb.0e3a8",
+        "type": "inject",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 560,
+        "y": 300,
+        "wires": [
+            [
+                "63c24cfc.431d64"
+            ]
+        ]
+    },
+    {
+        "id": "b800f6c6.3dc4b8",
+        "type": "inject",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "8c3c394d.f98178"
+            ]
+        ]
+    },
+    {
+        "id": "2ef78f10.e479c",
+        "type": "function",
+        "z": "e9474b73.28c278",
+        "name": "moveA",
+        "func": "console.log(msg.payload+\"MoveA\");\n\nif(msg.payload==\"False\"){\n    flow.set(\"turnOn\",Date.now());\n    flow.set(\"someHere\",false);\n}else{\n     flow.set(\"someHere\",true);\n}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 260,
+        "wires": [
+            [
+                "7b2d9e63.d46a1"
+            ]
+        ]
     }
 ]
