@@ -67,8 +67,7 @@ export class TaskComponent implements OnInit {
     }
 
     if (this.authService.getUser().idUser === this.task.IDAssignee) {
-      this.task.done = this.taskIsDone;
-      this.taskService.setTaskToUndone(this.task).subscribe(() => this.updateStatusIssue());
+      this.taskService.toggleStatus(this.task).subscribe(() => this.updateStatusIssue());
     } else {
       console.log('you are not authorized');
     }
