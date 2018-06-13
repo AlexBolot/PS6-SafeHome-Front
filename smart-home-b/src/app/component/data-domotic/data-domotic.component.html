@@ -1,53 +1,55 @@
-<div class="container-fluid panel panel-default">
-  <div class="row panel-heading">
-    <div class="col-md-2">
-      Jour
-      <select class="form-control selectpicker" [(ngModel)]="dayUserChose">
+<div class="container-fluid box">
+  <div class="row form-inline">
+
+    <div class="input-group col-md-20prc">
+      <span class="input-group-addon">Jour</span>
+      <select class="form-control" [(ngModel)]="dayUserChose">
         <option *ngFor="let day of dayOfWeek">{{day}}</option>
       </select>
     </div>
-    <div class="col-md-1">
-      Entre
+
+    <div class="input-group col-md-20prc">
+      <span class="input-group-addon">Début : </span>
+      <div class="form-control no-padding">
+        <input type="number" class="input-number col-md-6 sub-form-control"
+               (keyup)="checkStartHour()"
+               [(ngModel)]="startHour" min="1" max="24">
+        <input type="number" class="input-number col-md-6 sub-form-control"
+               (keyup)="checkStartMinutes()"
+               [(ngModel)]="startMinutes" min="0" max="59">
+      </div>
     </div>
-    <div class="col-md-1">
-      Heures
-      <input type="number" class="form-control input-number" (keyup)="keyPressedHours1(minValueHours,maxValueHours)"
-             [(ngModel)]="currentValueHours1" min="1" max="24">
+
+    <div class="input-group col-md-20prc">
+      <span class="input-group-addon">Fin : </span>
+      <div class="form-control no-padding">
+        <input type="number" class="input-number col-md-6 sub-form-control"
+               (keyup)="checkEndHour()"
+               [(ngModel)]="endHour" min="1" max="24">
+        <input type="number" class="input-number col-md-6 sub-form-control"
+               (keyup)="checkEndMinutes()"
+               [(ngModel)]="endMinutes" min="0" max="59">
+      </div>
     </div>
-    <div class="col-md-1">
-      Minutes
+
+    <div *ngIf="showTemperature" class="input-group col-md-20prc">
+      <span class="input-group-addon">Mini : </span>
       <input type="number" class="form-control input-number"
-             (keyup)="keyPressedMinute1(minValueMinute,maxValueMinute)"
-             [(ngModel)]="currentValueMinute1" min="0" max="59">
+             [(ngModel)]="minTemperature" min="0" max="59">
+      <span class="input-group-addon">°C</span>
     </div>
-    <div class="col-md-1">
-      Et
-    </div>
-    <div class="col-md-1">
-      Heures
-      <input type="number" class="form-control input-number" (keyup)="keyPressedHours2(minValueHours,maxValueHours)"
-             [(ngModel)]="currentValueHours2" min="1" max="24">
-    </div>
-    <div class="col-md-1">
-      Minutes
-      <input type="number" class="form-control input-number"
-             (keyup)="keyPressedMinute2(minValueMinute,maxValueMinute)"
-             [(ngModel)]="currentValueMinute2" min="0" max="59">
-    </div>
-    <div *ngIf="displayingTemperature" class="col-md-2">
-      Température minimale
-      <input type="number" class="form-control input-number"
-             [(ngModel)]="currentTemperatureMin" min="0" max="59">
-    </div>
-    <div class="col-md-1" *ngIf="!currentSchedule">
-      <button class="btn-success btn" (click)="onAddClick()">
+
+    <div class="input-group col-md-1" *ngIf="!currentSchedule">
+      <button class="btn btn-success" (click)="addSchedule()">
         Ajouter
       </button>
     </div>
-      <div class="col-md-1" *ngIf="currentSchedule">
-        <button class="btn-danger btn" (click)="onModifyClick()">
-          Modifier
-        </button>
+
+    <div class="input-group col-md-1" *ngIf="currentSchedule">
+      <button class="btn btn-warning" (click)="updateSchedule()">
+        Modifier
+      </button>
     </div>
+
   </div>
 </div>

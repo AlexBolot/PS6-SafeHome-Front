@@ -30,13 +30,12 @@ import {LocationService} from './service/location/location.service';
 import {SpinnerComponent} from './component/spinner/spinner.component';
 import {AuthGuard} from './service/guard/auth-guard.service';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
-import { ConfigurationComponent } from './component/configuration/configuration.component';
-import { DomoticItemComponent } from './component/domotic-item/domotic-item.component';
-import { DataDomoticComponent } from './component/data-domotic/data-domotic.component';
-import {DomoticService} from "./service/domotic/domotic.service";
-import { DataDomoticListComponent } from './component/data-domotic-list/data-domotic-list.component';
-import {SchedulesService} from "./service/schedules/schedules.service";
-import {DomoticTemperatureService} from "./service/domoticTemperature/domotic-temperature.service";
+import {ConfigurationComponent} from './component/configuration/configuration.component';
+import {DataDomoticComponent} from './component/data-domotic/data-domotic.component';
+import {DomoticService} from './service/domotic/domotic.service';
+import {DataDomoticListComponent} from './component/data-domotic-list/data-domotic-list.component';
+import {ScheduleService} from './service/schedules/schedule.service';
+import {DomoticTemperatureService} from './service/domoticTemperature/domotic-temperature.service';
 
 
 @NgModule({
@@ -54,7 +53,6 @@ import {DomoticTemperatureService} from "./service/domoticTemperature/domotic-te
     TaskComponent,
     SpinnerComponent,
     ConfigurationComponent,
-    DomoticItemComponent,
     DataDomoticComponent,
   ],
   imports: [
@@ -75,7 +73,7 @@ import {DomoticTemperatureService} from "./service/domoticTemperature/domotic-te
     UrgencyService,
     StatusService,
     DomoticService,
-    SchedulesService,
+    ScheduleService,
     DomoticTemperatureService,
     LocationService,
     HttpClient,

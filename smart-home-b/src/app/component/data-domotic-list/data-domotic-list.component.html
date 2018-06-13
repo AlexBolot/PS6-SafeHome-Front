@@ -1,20 +1,23 @@
-<div class="container-fluid grey">
-  <h1 class="font-weight-bold">
-    Ajout d'une nouvelle horaire
-  </h1>
-  <button class="btn btn-lg" (click)="onClickEffect()">
-    <span class="glyphicon glyphicon-plus-sign"></span>
-  </button>
-  <div *ngIf="showData">
-    <app-data-domotic [displayingTemperature]="displayingTemperature" [idDomoticItem]="idDomoticItem" (updateList)="updateList($event)">
+<div class="container-fluid container-background">
+  <h2 class="no-margin-top">
+    Ajouter un créneau horaire :
+    <button class="btn btn-primary" (click)="showAddSchedule()">
+      <span [ngClass]="addScheduleIcon" aria-hidden="true"></span>
+    </button>
+  </h2>
+  <div *ngIf="visibleAddSchedule">
+    <app-data-domotic [showTemperature]="showTemperature" [domoticItemID]="domoticItemID" (updateList)="ngOnChanges()">
     </app-data-domotic>
   </div>
-  <h1 class="font-weight-bold">
-    Affichage des horaires déjà enregistrées
-  </h1>
-  <div class="row panel-heading">
-    <div *ngFor="let schedule of schedulesList" >
-      <app-data-domotic [idDomoticItem]="idDomoticItem" [currentSchedule]="schedule" (updateList)="updateList($event)">
+  <h2>
+    Créneaux déjà existants :
+    <button class="btn btn-primary" (click)="showListSchedules()">
+      <span [ngClass]="listSchedulesIcon" aria-hidden="true"></span>
+    </button>
+  </h2>
+  <div *ngIf="visibleListSchedules" class="row panel-heading">
+    <div *ngFor="let schedule of schedules">
+      <app-data-domotic [domoticItemID]="domoticItemID" [currentSchedule]="schedule" (updateList)="ngOnChanges()">
       </app-data-domotic>
     </div>
   </div>

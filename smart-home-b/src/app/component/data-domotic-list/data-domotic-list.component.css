@@ -1,4 +1,11 @@
-.grey{
-  background-color: darkgrey;
-  min-height: 500px;
+.container-background {
+  min-height: 70vh;
+  border-radius: 10px;
+  padding-right: 2vw;
+  padding-left: 2vw;
+}
+
+
+.no-margin-top{
+  margin-top: 0;
 }
