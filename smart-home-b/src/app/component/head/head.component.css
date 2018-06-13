@@ -36,10 +36,10 @@ ul li a {
 
 ul li a:hover {
   color: unset;
-  border-radius: 1vw;
+  border-radius: .5vw;
 }
 
 ul li a:focus {
   color: unset;
-  border-radius: 1vw;
+  border-radius: .5vw;
 }

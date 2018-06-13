@@ -18,13 +18,6 @@ export class CategoryService {
       }
     );
   }
-  getLabels(): Observable<String[]> {
-    return this.httpClient.get<JSON[]>(this.API_url).map(json => {
-      const res: String[] = [];
-      json.forEach(field => res.push(field['name']));
-      return res;
-    });
-  }
 
   getByID(id: number): Observable<String> {
     return this.httpClient.get<JSON>(this.API_url + '/' + id)

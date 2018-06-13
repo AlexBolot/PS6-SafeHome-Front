@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {AppSettings} from '../../model/app-settings';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {Task} from '../../model/task';
 
 @Injectable()
 export class LocationService {
@@ -17,13 +16,6 @@ export class LocationService {
         return map;
       }
     );
-  }
-  getLabels(): Observable<String[]> {
-    return this.httpClient.get<JSON[]>(this.API_url).map(json => {
-      const res: String[] = [];
-      json.forEach(field => res.push(field['Name']));
-      return res;
-    });
   }
 
   getByID(id: number): Observable<String> {
