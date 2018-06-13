@@ -8,7 +8,7 @@ import {Domotic} from "../../model/domotic";
 })
 export class DomoticItemComponent implements OnInit {
   @Input() domoticItem: Domotic;
-  eye:String = "glyphicon glyphicon-eye-open";
+  eye:String = "container-fluid panel panel-default";
 
   constructor() {
   }
@@ -19,7 +19,7 @@ export class DomoticItemComponent implements OnInit {
   }
 
   onClickChangeEye() {
-    if(this.eye== "glyphicon glyphicon-eye-open") this.eye = "glyphicon glyphicon-eye-close";
-    else this.eye = "glyphicon glyphicon-eye-open"
+    if(this.eye== "container-fluid panel panel-default") this.eye = "container-fluid panel panel-primary";
+    else this.eye = "container-fluid panel panel-default";
   }
 }

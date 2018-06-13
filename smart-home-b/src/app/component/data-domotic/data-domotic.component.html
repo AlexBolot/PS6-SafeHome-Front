@@ -2,7 +2,7 @@
   <div class="row panel-heading">
     <div class="col-md-2">
       Jour
-      <select class="form-control selectpicker">
+      <select class="form-control selectpicker" [(ngModel)]="dayUserChose">
         <option *ngFor="let day of dayOfWeek">{{day}}</option>
       </select>
     </div>
@@ -37,12 +37,17 @@
     <div *ngIf="displayingTemperature" class="col-md-2">
       Température minimale
       <input type="number" class="form-control input-number"
-             [(ngModel)]="temperatureMin" min="0" max="59">
+             [(ngModel)]="currentTemperatureMin" min="0" max="59">
     </div>
-    <div class="col-md-1">
+    <div class="col-md-1" *ngIf="!currentSchedule">
       <button class="btn-success btn" (click)="onAddClick()">
         Ajouter
       </button>
+    </div>
+      <div class="col-md-1" *ngIf="currentSchedule">
+        <button class="btn-danger btn" (click)="onModifyClick()">
+          Modifier
+        </button>
     </div>
   </div>
 </div>

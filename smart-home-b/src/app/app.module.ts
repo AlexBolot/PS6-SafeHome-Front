@@ -35,6 +35,8 @@ import { DomoticItemComponent } from './component/domotic-item/domotic-item.comp
 import { DataDomoticComponent } from './component/data-domotic/data-domotic.component';
 import {DomoticService} from "./service/domotic/domotic.service";
 import { DataDomoticListComponent } from './component/data-domotic-list/data-domotic-list.component';
+import {SchedulesService} from "./service/schedules/schedules.service";
+import {DomoticTemperatureService} from "./service/domoticTemperature/domotic-temperature.service";
 
 
 @NgModule({
@@ -54,7 +56,6 @@ import { DataDomoticListComponent } from './component/data-domotic-list/data-dom
     ConfigurationComponent,
     DomoticItemComponent,
     DataDomoticComponent,
-    DataDomoticListComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, AppRoutingModule,
@@ -74,6 +75,8 @@ import { DataDomoticListComponent } from './component/data-domotic-list/data-dom
     UrgencyService,
     StatusService,
     DomoticService,
+    SchedulesService,
+    DomoticTemperatureService,
     LocationService,
     HttpClient,
     TaskService,
