@@ -1,20 +1,42 @@
 [
+    {
+        "id": "fecacf27.dc262",
+        "type": "tab",
+      "label": "Temperature",
+      "disabled": false,
+      "info": ""
+    },
   {
-    "id": "fecacf27.dc262",
+    "id": "687877f4.0d1578",
     "type": "tab",
-    "label": "Flow 1",
-    "disabled": false,
-    "info": ""
-  },
+    "label": "Bowl",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6778f509.69879c",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "localhost:1883",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
   {
-    "id": "b7f64f84.c4df2",
-    "type": "tab",
-    "label": "Flow 2",
-    "disabled": false,
-    "info": ""
-  },
-  {
-    "id": "394c16f4.8da80a",
+    "id": "de6f5fa4.d6bae",
     "type": "mqtt-broker",
     "z": "",
     "name": "MQTT Broquer",
@@ -34,425 +56,325 @@
     "willTopic": "",
     "willQos": "0",
     "willPayload": ""
-  },
+    },
+    {
+        "id": "11292d98.701a82",
+        "type": "inject",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 402,
+        "y": 541,
+        "wires": [
+            [
+                "756e7e50.59fe2"
+            ]
+        ]
+    },
+    {
+        "id": "76dca8a1.f5a828",
+        "type": "mosca in",
+        "z": "fecacf27.dc262",
+        "mqtt_port": 1883,
+        "mqtt_ws_port": 8080,
+        "name": "",
+        "username": "",
+        "password": "",
+        "dburl": "",
+        "x": 612,
+        "y": 381,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6aadca24.d3a654",
+        "type": "http in",
+        "z": "fecacf27.dc262",
+        "name": "Temperature http",
+        "url": "/temperature/set",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 382,
+        "y": 481,
+        "wires": [
+            [
+                "1643a10.20b925f"
+            ]
+        ]
+    },
+    {
+        "id": "1643a10.20b925f",
+        "type": "function",
+        "z": "fecacf27.dc262",
+        "name": "Temperature set",
+        "func": "flow.set('temp',msg.payload.value);\nmsg.payload = \"ok\";\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 652,
+        "y": 481,
+        "wires": [
+            [
+                "357224c2.927b9c"
+            ]
+        ]
+    },
+    {
+        "id": "756e7e50.59fe2",
+        "type": "function",
+        "z": "fecacf27.dc262",
+        "name": "Print Temp",
+        "func": "msg.payload = flow.get('temp')\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 652,
+        "y": 541,
+        "wires": [
+            [
+                "b1f3977d.d46c18"
+            ]
+        ]
+    },
+    {
+        "id": "b1f3977d.d46c18",
+        "type": "debug",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 882,
+        "y": 541,
+        "wires": []
+    },
+    {
+        "id": "6edada65.b560a4",
+        "type": "http response",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 942,
+        "y": 441,
+        "wires": []
+    },
+    {
+        "id": "abefb9f5.5a4838",
+        "type": "function",
+        "z": "fecacf27.dc262",
+        "name": "check temp",
+        "func": "var date = flow.get(\"date\") || 0;\nconsole.log(msg.payload);\ntemps = Date.now() - date;\nif(parseInt(msg.payload) < 293 && temps>60000){\n    console.log(\"pass heraz\");\n    flow.set(\"date\",Date.now());\n\n    msg.payload = \"{value:\"+msg.payload+\"}\";\nreturn msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 532,
+        "y": 621,
+        "wires": [
+            [
+                "b64c2736.545de8"
+            ]
+        ]
+    },
+    {
+        "id": "8253fe90.32e62",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo E",
+        "topic": "/home/general/Memory/float/Température_Zone_E_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 382,
+        "y": 621,
+        "wires": [
+            [
+                "abefb9f5.5a4838"
+            ]
+        ]
+    },
+    {
+        "id": "1607fd7d.e0c9a3",
+        "type": "link in",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "links": [
+            "69cf9074.8679b"
+        ],
+        "x": 757,
+        "y": 441,
+        "wires": [
+            [
+                "6edada65.b560a4"
+            ]
+        ]
+    },
+    {
+        "id": "357224c2.927b9c",
+        "type": "link out",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "links": [],
+        "x": 862,
+        "y": 481,
+        "wires": []
+    },
+    {
+        "id": "b64c2736.545de8",
+        "type": "http request",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "url": "https://galles.io/pns/shb/api/Domotic-items/thermometer/declare",
+        "tls": "",
+        "x": 692,
+        "y": 621,
+        "wires": [
+            [
+                "92dc6e1f.de3bf"
+            ]
+        ]
+    },
+    {
+        "id": "92dc6e1f.de3bf",
+        "type": "debug",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 852,
+        "y": 621,
+        "wires": []
+    },
+    {
+        "id": "e489d7ef.82f648",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur E",
+        "topic": "/home/E/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 652,
+        "y": 721,
+        "wires": []
+    },
+    {
+        "id": "69cf9074.8679b",
+        "type": "link out",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "links": [
+            "1607fd7d.e0c9a3"
+        ],
+        "x": 617,
+        "y": 781,
+        "wires": []
+    },
+    {
+        "id": "2f6d9b85.587064",
+        "type": "http in",
+        "z": "fecacf27.dc262",
+        "name": "Turn Heater",
+        "url": "/TurnHeater/",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 382,
+        "y": 721,
+        "wires": [
+            [
+                "e489d7ef.82f648",
+                "69cf9074.8679b",
+                "c72092d4.df691"
+            ]
+        ]
+    },
+    {
+        "id": "c72092d4.df691",
+        "type": "debug",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 654,
+        "y": 677,
+        "wires": []
+    },
   {
-    "id": "2a8f4ffa.acc7a",
-    "type": "inject",
-    "z": "fecacf27.dc262",
-    "name": "",
-    "topic": "",
-    "payload": "",
-    "payloadType": "date",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "onceDelay": 0.1,
-    "x": 420,
-    "y": 300,
-    "wires": [
-      [
-        "e97b9172.665"
-      ]
-    ]
-  },
-  {
-    "id": "13fac3e4.4c38dc",
-    "type": "mosca in",
-    "z": "fecacf27.dc262",
-    "mqtt_port": 1883,
-    "mqtt_ws_port": 8080,
-    "name": "",
-    "username": "",
-    "password": "",
-    "dburl": "",
-    "x": 670,
-    "y": 140,
-    "wires": [
-      []
-    ]
-  },
-  {
-    "id": "b004527a.b8125",
-    "type": "http in",
-    "z": "fecacf27.dc262",
-    "name": "Temperature http",
-    "url": "/temperature/set",
-    "method": "post",
-    "upload": false,
-    "swaggerDoc": "",
-    "x": 400,
-    "y": 240,
-    "wires": [
-      [
-        "683e63a2.0a50dc"
-      ]
-    ]
-  },
-  {
-    "id": "683e63a2.0a50dc",
-    "type": "function",
-    "z": "fecacf27.dc262",
-    "name": "Temperature set",
-    "func": "flow.set('limitTemp',msg.payload.value);\nmsg.payload = {\"result\":\"ok\"};\nreturn msg",
-    "outputs": 1,
-    "noerr": 0,
-    "x": 670,
-    "y": 240,
-    "wires": [
-      [
-        "3c171702.502688"
-      ]
-    ]
-  },
-  {
-    "id": "e97b9172.665",
-    "type": "function",
-    "z": "fecacf27.dc262",
-    "name": "Print Temp",
-    "func": "msg.payload = flow.get('limitTemp')\nreturn msg;",
-    "outputs": 1,
-    "noerr": 0,
-    "x": 670,
-    "y": 300,
-    "wires": [
-      [
-        "a56c4b42.27cfc8"
-      ]
-    ]
-  },
-  {
-    "id": "a56c4b42.27cfc8",
-    "type": "debug",
-    "z": "fecacf27.dc262",
-    "name": "",
-    "active": true,
-    "tosidebar": true,
-    "console": false,
-    "tostatus": false,
-    "complete": "false",
-    "x": 900,
-    "y": 300,
-    "wires": []
-  },
-  {
-    "id": "3c171702.502688",
-    "type": "http response",
-    "z": "fecacf27.dc262",
-    "name": "",
-    "statusCode": "200",
-    "headers": {},
-    "x": 920,
-    "y": 240,
-    "wires": []
-  },
-  {
-    "id": "f69c70ae.bbd51",
+    "id": "37f6bd32.94e182",
     "type": "mqtt in",
-    "z": "fecacf27.dc262",
+    "z": "687877f4.0d1578",
     "name": "Arduino",
     "topic": "v1/devices/me/telemetry",
     "qos": "2",
-    "broker": "394c16f4.8da80a",
-    "x": 350,
-    "y": 360,
+    "broker": "de6f5fa4.d6bae",
+    "x": 130,
+    "y": 260,
     "wires": [
       [
-        "bd15ef7d.1e28e"
+        "ab6115fe.7df6f8"
       ]
     ]
   },
   {
-    "id": "205f2f9c.36183",
+    "id": "352c53ac.fdd60c",
     "type": "http request",
-    "z": "fecacf27.dc262",
+    "z": "687877f4.0d1578",
     "name": "signal Empty Bowl",
     "method": "POST",
     "ret": "txt",
     "url": "http://localhost:5491/api/Domotic-items/bowl/empty",
     "tls": "",
-    "x": 750,
-    "y": 360,
+    "x": 530,
+    "y": 260,
     "wires": [
       [
-        "8baf26f9.8044f8"
+        "e713bfcc.fb5ec"
       ]
     ]
   },
   {
-    "id": "e1d95787.a69fc8",
-    "type": "http request",
-    "z": "fecacf27.dc262",
-    "name": "Login",
-    "method": "POST",
-    "ret": "obj",
-    "url": "https://galles.io/pns/shb/api/people/login",
-    "tls": "",
-    "x": 710,
-    "y": 780,
-    "wires": [
-      [
-        "47e85240.edd9ec"
-      ]
-    ]
-  },
-  {
-    "id": "9599c5f1.cfd108",
-    "type": "function",
-    "z": "fecacf27.dc262",
-    "name": "Login prep",
-    "func": "msg.payload = {\n    password :\"IOT\",\n    email: \"IOT@gmail.com\",\n};\nreturn msg;",
-    "outputs": 1,
-    "noerr": 0,
-    "x": 550,
-    "y": 780,
-    "wires": [
-      [
-        "e1d95787.a69fc8"
-      ]
-    ]
-  },
-  {
-    "id": "5bb7add4.a64bd4",
-    "type": "inject",
-    "z": "fecacf27.dc262",
-    "name": "",
-    "topic": "",
-    "payload": "",
-    "payloadType": "date",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "onceDelay": 0.1,
-    "x": 340,
-    "y": 780,
-    "wires": [
-      [
-        "9599c5f1.cfd108"
-      ]
-    ]
-  },
-  {
-    "id": "4f8f7d20.f2a654",
+    "id": "e713bfcc.fb5ec",
     "type": "debug",
-    "z": "fecacf27.dc262",
+    "z": "687877f4.0d1578",
     "name": "",
     "active": true,
     "tosidebar": true,
     "console": false,
     "tostatus": false,
     "complete": "false",
-    "x": 1050,
-    "y": 780,
+    "x": 790,
+    "y": 260,
     "wires": []
   },
   {
-    "id": "47e85240.edd9ec",
+    "id": "ab6115fe.7df6f8",
     "type": "function",
-    "z": "fecacf27.dc262",
-    "name": "Login prep",
-    "func": "msg.payload = {id:msg.payload.id}\nreturn msg;",
-    "outputs": 1,
-    "noerr": 0,
-    "x": 870,
-    "y": 780,
-    "wires": [
-      [
-        "4f8f7d20.f2a654"
-      ]
-    ]
-  },
-  {
-    "id": "f4dd7e2f.5f1ba",
-    "type": "http in",
-    "z": "b7f64f84.c4df2",
-    "name": "",
-    "url": "/parallel",
-    "method": "get",
-    "upload": false,
-    "swaggerDoc": "",
-    "x": 110,
-    "y": 320,
-    "wires": [
-      [
-        "3348395b.05c816"
-      ]
-    ]
-  },
-  {
-    "id": "3348395b.05c816",
-    "type": "change",
-    "z": "b7f64f84.c4df2",
-    "name": "",
-    "rules": [
-      {
-        "t": "set",
-        "p": "payload",
-        "pt": "msg",
-        "to": "{\"httpbin\":\"http://httpbin.org/get\",\"anything\":\"http://httpbin.org/anything/get\"}",
-        "tot": "json"
-      }
-    ],
-    "action": "",
-    "property": "",
-    "from": "",
-    "to": "",
-    "reg": false,
-    "x": 342,
-    "y": 319,
-    "wires": [
-      [
-        "b5ddc104.a3ce3"
-      ]
-    ]
-  },
-  {
-    "id": "b5ddc104.a3ce3",
-    "type": "split",
-    "z": "b7f64f84.c4df2",
-    "name": "",
-    "splt": "",
-    "spltType": "str",
-    "arraySplt": 1,
-    "arraySpltType": "len",
-    "stream": false,
-    "addname": "topic",
-    "x": 512,
-    "y": 319,
-    "wires": [
-      [
-        "566ecf9.f7ee43"
-      ]
-    ]
-  },
-  {
-    "id": "566ecf9.f7ee43",
-    "type": "switch",
-    "z": "b7f64f84.c4df2",
-    "name": "",
-    "property": "topic",
-    "propertyType": "msg",
-    "rules": [
-      {
-        "t": "eq",
-        "v": "httpbin",
-        "vt": "str"
-      },
-      {
-        "t": "eq",
-        "v": "anything",
-        "vt": "str"
-      }
-    ],
-    "checkall": "true",
-    "repair": false,
-    "outputs": 2,
-    "x": 641,
-    "y": 319,
-    "wires": [
-      [
-        "2809d833.1e9ea8"
-      ],
-      [
-        "7d411ebd.9fae3"
-      ]
-    ]
-  },
-  {
-    "id": "2809d833.1e9ea8",
-    "type": "http request",
-    "z": "b7f64f84.c4df2",
-    "name": "REST Service 1",
-    "method": "GET",
-    "ret": "obj",
-    "url": "{{{payload}}}",
-    "tls": "",
-    "x": 819,
-    "y": 278,
-    "wires": [
-      [
-        "dbba8ce9.eca81"
-      ]
-    ]
-  },
-  {
-    "id": "7d411ebd.9fae3",
-    "type": "http request",
-    "z": "b7f64f84.c4df2",
-    "name": "REST Service 2",
-    "method": "GET",
-    "ret": "obj",
-    "url": "http://httpbin.org/anything/get",
-    "tls": "",
-    "x": 819.5,
-    "y": 360,
-    "wires": [
-      [
-        "dbba8ce9.eca81"
-      ]
-    ]
-  },
-  {
-    "id": "dbba8ce9.eca81",
-    "type": "join",
-    "z": "b7f64f84.c4df2",
-    "name": "",
-    "mode": "auto",
-    "build": "string",
-    "property": "payload",
-    "propertyType": "msg",
-    "key": "topic",
-    "joiner": "\n",
-    "joinerType": "str",
-    "accumulate": "false",
-    "timeout": "",
-    "count": "",
-    "x": 1001,
-    "y": 314,
-    "wires": [
-      [
-        "173e658b.029b5a"
-      ]
-    ]
-  },
-  {
-    "id": "173e658b.029b5a",
-    "type": "http response",
-    "z": "b7f64f84.c4df2",
-    "name": "",
-    "statusCode": "",
-    "headers": {},
-    "x": 1147.5,
-    "y": 314,
-    "wires": []
-  },
-  {
-    "id": "8baf26f9.8044f8",
-    "type": "debug",
-    "z": "fecacf27.dc262",
-    "name": "",
-    "active": true,
-    "tosidebar": true,
-    "console": false,
-    "tostatus": false,
-    "complete": "false",
-    "x": 1010,
-    "y": 360,
-    "wires": []
-  },
-  {
-    "id": "bd15ef7d.1e28e",
-    "type": "function",
-    "z": "fecacf27.dc262",
+    "z": "687877f4.0d1578",
     "name": "Filter True",
     "func": "let json =JSON.parse(msg.payload);\nif(json.state===1)return msg;",
     "outputs": 1,
     "noerr": 0,
-    "x": 520,
-    "y": 360,
+    "x": 300,
+    "y": 260,
     "wires": [
       [
-        "205f2f9c.36183"
+        "352c53ac.fdd60c"
       ]
     ]
-  }
+    }
 ]
