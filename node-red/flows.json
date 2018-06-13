@@ -7,6 +7,35 @@
     "info": ""
   },
   {
+    "id": "b7f64f84.c4df2",
+    "type": "tab",
+    "label": "Flow 2",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "394c16f4.8da80a",
+    "type": "mqtt-broker",
+    "z": "",
+    "name": "MQTT Broquer",
+    "broker": "localhost",
+    "port": "1883",
+    "clientid": "",
+    "usetls": false,
+    "compatmode": true,
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": ""
+  },
+  {
     "id": "2a8f4ffa.acc7a",
     "type": "inject",
     "z": "fecacf27.dc262",
@@ -36,7 +65,7 @@
     "username": "",
     "password": "",
     "dburl": "",
-    "x": 630,
+    "x": 670,
     "y": 140,
     "wires": [
       []
@@ -64,7 +93,7 @@
     "type": "function",
     "z": "fecacf27.dc262",
     "name": "Temperature set",
-    "func": "flow.set('temp',msg.payload.value);\nmsg.payload = \"ok\";\nreturn msg",
+    "func": "flow.set('limitTemp',msg.payload.value);\nmsg.payload = {\"result\":\"ok\"};\nreturn msg",
     "outputs": 1,
     "noerr": 0,
     "x": 670,
@@ -80,7 +109,7 @@
     "type": "function",
     "z": "fecacf27.dc262",
     "name": "Print Temp",
-    "func": "msg.payload = flow.get('temp')\nreturn msg;",
+    "func": "msg.payload = flow.get('limitTemp')\nreturn msg;",
     "outputs": 1,
     "noerr": 0,
     "x": 670,
@@ -115,5 +144,315 @@
     "x": 920,
     "y": 240,
     "wires": []
+  },
+  {
+    "id": "f69c70ae.bbd51",
+    "type": "mqtt in",
+    "z": "fecacf27.dc262",
+    "name": "Arduino",
+    "topic": "v1/devices/me/telemetry",
+    "qos": "2",
+    "broker": "394c16f4.8da80a",
+    "x": 350,
+    "y": 360,
+    "wires": [
+      [
+        "bd15ef7d.1e28e"
+      ]
+    ]
+  },
+  {
+    "id": "205f2f9c.36183",
+    "type": "http request",
+    "z": "fecacf27.dc262",
+    "name": "signal Empty Bowl",
+    "method": "POST",
+    "ret": "txt",
+    "url": "http://localhost:5491/api/Domotic-items/bowl/empty",
+    "tls": "",
+    "x": 750,
+    "y": 360,
+    "wires": [
+      [
+        "8baf26f9.8044f8"
+      ]
+    ]
+  },
+  {
+    "id": "e1d95787.a69fc8",
+    "type": "http request",
+    "z": "fecacf27.dc262",
+    "name": "Login",
+    "method": "POST",
+    "ret": "obj",
+    "url": "https://galles.io/pns/shb/api/people/login",
+    "tls": "",
+    "x": 710,
+    "y": 780,
+    "wires": [
+      [
+        "47e85240.edd9ec"
+      ]
+    ]
+  },
+  {
+    "id": "9599c5f1.cfd108",
+    "type": "function",
+    "z": "fecacf27.dc262",
+    "name": "Login prep",
+    "func": "msg.payload = {\n    password :\"IOT\",\n    email: \"IOT@gmail.com\",\n};\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 550,
+    "y": 780,
+    "wires": [
+      [
+        "e1d95787.a69fc8"
+      ]
+    ]
+  },
+  {
+    "id": "5bb7add4.a64bd4",
+    "type": "inject",
+    "z": "fecacf27.dc262",
+    "name": "",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 340,
+    "y": 780,
+    "wires": [
+      [
+        "9599c5f1.cfd108"
+      ]
+    ]
+  },
+  {
+    "id": "4f8f7d20.f2a654",
+    "type": "debug",
+    "z": "fecacf27.dc262",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 1050,
+    "y": 780,
+    "wires": []
+  },
+  {
+    "id": "47e85240.edd9ec",
+    "type": "function",
+    "z": "fecacf27.dc262",
+    "name": "Login prep",
+    "func": "msg.payload = {id:msg.payload.id}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 870,
+    "y": 780,
+    "wires": [
+      [
+        "4f8f7d20.f2a654"
+      ]
+    ]
+  },
+  {
+    "id": "f4dd7e2f.5f1ba",
+    "type": "http in",
+    "z": "b7f64f84.c4df2",
+    "name": "",
+    "url": "/parallel",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 110,
+    "y": 320,
+    "wires": [
+      [
+        "3348395b.05c816"
+      ]
+    ]
+  },
+  {
+    "id": "3348395b.05c816",
+    "type": "change",
+    "z": "b7f64f84.c4df2",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "{\"httpbin\":\"http://httpbin.org/get\",\"anything\":\"http://httpbin.org/anything/get\"}",
+        "tot": "json"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 342,
+    "y": 319,
+    "wires": [
+      [
+        "b5ddc104.a3ce3"
+      ]
+    ]
+  },
+  {
+    "id": "b5ddc104.a3ce3",
+    "type": "split",
+    "z": "b7f64f84.c4df2",
+    "name": "",
+    "splt": "",
+    "spltType": "str",
+    "arraySplt": 1,
+    "arraySpltType": "len",
+    "stream": false,
+    "addname": "topic",
+    "x": 512,
+    "y": 319,
+    "wires": [
+      [
+        "566ecf9.f7ee43"
+      ]
+    ]
+  },
+  {
+    "id": "566ecf9.f7ee43",
+    "type": "switch",
+    "z": "b7f64f84.c4df2",
+    "name": "",
+    "property": "topic",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "httpbin",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "anything",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 2,
+    "x": 641,
+    "y": 319,
+    "wires": [
+      [
+        "2809d833.1e9ea8"
+      ],
+      [
+        "7d411ebd.9fae3"
+      ]
+    ]
+  },
+  {
+    "id": "2809d833.1e9ea8",
+    "type": "http request",
+    "z": "b7f64f84.c4df2",
+    "name": "REST Service 1",
+    "method": "GET",
+    "ret": "obj",
+    "url": "{{{payload}}}",
+    "tls": "",
+    "x": 819,
+    "y": 278,
+    "wires": [
+      [
+        "dbba8ce9.eca81"
+      ]
+    ]
+  },
+  {
+    "id": "7d411ebd.9fae3",
+    "type": "http request",
+    "z": "b7f64f84.c4df2",
+    "name": "REST Service 2",
+    "method": "GET",
+    "ret": "obj",
+    "url": "http://httpbin.org/anything/get",
+    "tls": "",
+    "x": 819.5,
+    "y": 360,
+    "wires": [
+      [
+        "dbba8ce9.eca81"
+      ]
+    ]
+  },
+  {
+    "id": "dbba8ce9.eca81",
+    "type": "join",
+    "z": "b7f64f84.c4df2",
+    "name": "",
+    "mode": "auto",
+    "build": "string",
+    "property": "payload",
+    "propertyType": "msg",
+    "key": "topic",
+    "joiner": "\n",
+    "joinerType": "str",
+    "accumulate": "false",
+    "timeout": "",
+    "count": "",
+    "x": 1001,
+    "y": 314,
+    "wires": [
+      [
+        "173e658b.029b5a"
+      ]
+    ]
+  },
+  {
+    "id": "173e658b.029b5a",
+    "type": "http response",
+    "z": "b7f64f84.c4df2",
+    "name": "",
+    "statusCode": "",
+    "headers": {},
+    "x": 1147.5,
+    "y": 314,
+    "wires": []
+  },
+  {
+    "id": "8baf26f9.8044f8",
+    "type": "debug",
+    "z": "fecacf27.dc262",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 1010,
+    "y": 360,
+    "wires": []
+  },
+  {
+    "id": "bd15ef7d.1e28e",
+    "type": "function",
+    "z": "fecacf27.dc262",
+    "name": "Filter True",
+    "func": "let json =JSON.parse(msg.payload);\nif(json.state===1)return msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 520,
+    "y": 360,
+    "wires": [
+      [
+        "205f2f9c.36183"
+      ]
+    ]
   }
 ]
