@@ -29,7 +29,7 @@ module.exports = function (Schedule) {
         },
         template: {
           method: 'POST',
-          url: 'http://localhost:1880/thermostat/activate',
+          url: 'http://localhost:1880/temperature/set',
           body: {
             value: '{value:int}'
           }
