@@ -35,6 +35,7 @@ export class DataDomoticComponent implements OnInit {
   endDate: Date;
 
   @Output() public updateList = new EventEmitter<void>();
+  automaticToggle: false;
 
   constructor(private scheduleService: ScheduleService,
               private domoticTemperatureService: DomoticTemperatureService) {
