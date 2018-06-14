@@ -23,6 +23,18 @@ module.exports = function (Schedule) {
           }
         }
       },
+      {
+        functions: {
+          'setTemp': ['value'],
+        },
+        template: {
+          method: 'POST',
+          url: 'http://localhost:1880/thermostat/activate',
+          body: {
+            value: '{value:int}'
+          }
+        }
+      }
     ],
   });
   let nodeRed = ds.createModel('node');
@@ -37,10 +49,16 @@ module.exports = function (Schedule) {
             Schedule.findOne(
               {
                 "order": "start ASC",
+                include: "temperature",
                 "where": {"itemId": item.id},
               },
               function (err, schedule) {
-                setTimeout(() => activate(true, types[type].name, schedule.end), schedule.start.getTime() - Date.now());
+                setTimeout(() => {
+                  activate(true, types[type].name, schedule.end);
+                  if (types[type].name === "thermostat") {
+                    nodeRed.setTemp(schedule.temperature.value);
+                  }
+                }, schedule.start.getTime() - Date.now());
                 setTimeout(() => activate(false, types[type].name, null), schedule.end.getTime() - Date.now());
               }
             )
@@ -48,13 +66,12 @@ module.exports = function (Schedule) {
       }
     });
   };
-  Schedule.remoteMethod(
-    'nextPing', {
-      http: {path: '/next', verb: 'get'},
-      returns: {arg: 'result', type: 'string'},
-    });
 
   function activate(value, item, end) {
+    if (item === "thermostat" && value) {
+      let Temp = Schedule.app.models["Domotic-item-temperature"];
+      Temp.findOne()
+    }
     nodeRed.setActive(end, value, item);
   }
 };
