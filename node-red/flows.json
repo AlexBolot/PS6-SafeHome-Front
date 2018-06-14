@@ -28,6 +28,13 @@
         "info": ""
     },
     {
+        "id": "8e47916a.42192",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "94eec742.d077e8",
         "type": "subflow",
         "name": "CheckingMove",
@@ -1689,29 +1696,36 @@
         "topic": "/home/O/Input/bool/Détecteur_de_mouvement",
         "qos": "2",
         "broker": "2d9f33d9.7e599c",
-        "x": 170,
-        "y": 1720,
+        "x": 190,
+        "y": 1700,
         "wires": [
             [
-                "8f02061.b3e11f8"
+                "c952021f.e908b"
             ]
         ]
     },
     {
-        "id": "8f02061.b3e11f8",
-        "type": "subflow:94eec742.d077e8",
+        "id": "c4313632.583ae8",
+        "type": "inject",
         "z": "e9474b73.28c278",
         "name": "",
-        "x": 400,
-        "y": 1720,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 530,
+        "y": 1740,
         "wires": [
             [
-                "df741a9b.5ac018"
+                "c8e2fd2e.2cb9e"
             ]
         ]
     },
     {
-        "id": "df741a9b.5ac018",
+        "id": "c8e2fd2e.2cb9e",
         "type": "mqtt out",
         "z": "e9474b73.28c278",
         "name": "Lumière O",
@@ -1720,26 +1734,61 @@
         "retain": "",
         "broker": "6778f509.69879c",
         "x": 790,
-        "y": 1720,
+        "y": 1700,
         "wires": []
     },
     {
-        "id": "c4313632.583ae8",
-        "type": "inject",
+        "id": "7887a9b9.302428",
+        "type": "delay",
         "z": "e9474b73.28c278",
         "name": "",
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 410,
-        "y": 1780,
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 520,
+        "y": 1700,
         "wires": [
             [
-                "df741a9b.5ac018"
+                "317fc099.2114a"
+            ]
+        ]
+    },
+    {
+        "id": "317fc099.2114a",
+        "type": "function",
+        "z": "e9474b73.28c278",
+        "name": "check",
+        "func": "var temps = flow.get(\"turnOn\");\nconsole.log( Date.now() -temps);\nconsole.log( flow.get(\"someHere\"));\nif(Date.now() - temps >10000 && !flow.get(\"someHere\")){\n    msg.payload=0;\n    return msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 650,
+        "y": 1700,
+        "wires": [
+            [
+                "c8e2fd2e.2cb9e"
+            ]
+        ]
+    },
+    {
+        "id": "c952021f.e908b",
+        "type": "function",
+        "z": "e9474b73.28c278",
+        "name": "moveA",
+        "func": "console.log(msg.payload+\"MoveA\");\n\nif(msg.payload==\"False\"){\n    flow.set(\"turnOn\",Date.now());\n    flow.set(\"someHere\",false);\n}else{\n     flow.set(\"someHere\",true);\n}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 380,
+        "y": 1700,
+        "wires": [
+            [
+                "7887a9b9.302428"
             ]
         ]
     }
