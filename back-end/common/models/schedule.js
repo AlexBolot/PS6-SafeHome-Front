@@ -40,8 +40,8 @@ module.exports = function (Schedule) {
                 "where": {"itemId": item.id},
               },
               function (err, schedule) {
-                setTimeout(() => activate(true, types[type].name, schedule.end), Date.now() - schedule.start.getTime());
-                setTimeout(() => activate(false, types[type].name, null), Date.now() - schedule.end.getTime());
+                setTimeout(() => activate(true, types[type].name, schedule.end), schedule.start.getTime() - Date.now());
+                setTimeout(() => activate(false, types[type].name, null), schedule.end.getTime() - Date.end());
               }
             )
           });
