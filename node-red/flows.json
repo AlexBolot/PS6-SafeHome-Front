@@ -286,7 +286,7 @@
         "y": 280,
         "wires": [
             [
-                "7497439c.e78a3c"
+                "cd55078b.926eb8"
             ]
         ]
     },
@@ -298,7 +298,7 @@
         "func": "var alarm = flow.get(\"alarm\")|| \"False\";\nif(msg.payload==\"True\" && alarm==\"True\"){\n    msg.payload = true;\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 480,
+        "x": 570,
         "y": 280,
         "wires": [
             [
@@ -359,8 +359,8 @@
         "qos": "",
         "retain": "",
         "broker": "83ff25ee.98c6c8",
-        "x": 730,
-        "y": 340,
+        "x": 930,
+        "y": 320,
         "wires": []
     },
     {
@@ -389,7 +389,7 @@
         "z": "adbd2cd3.b4f08",
         "name": "",
         "topic": "",
-        "payload": "true",
+        "payload": "false",
         "payloadType": "bool",
         "repeat": "",
         "crontab": "",
@@ -431,7 +431,7 @@
         "type": "function",
         "z": "94eec742.d077e8",
         "name": "check",
-        "func": "var temps = flow.get(\"turnOn\");\nconsole.log( Date.now() -temps);\nconsole.log( flow.get(\"someHere\"));\nif(Date.now() - temps >10000 && !flow.get(\"someHere\")){\n    msg.payload=false;\n    return msg;\n}\n\n",
+        "func": "var temps = flow.get(\"turnOn\");\nif(Date.now() - temps >10000 && !flow.get(\"someHere\")){\n    msg.payload=false;\n    return msg;\n}\n\n",
         "outputs": 1,
         "noerr": 0,
         "x": 650,
@@ -445,7 +445,7 @@
         "type": "function",
         "z": "94eec742.d077e8",
         "name": "moveA",
-        "func": "console.log(msg.payload+\"MoveA\");\n\nif(msg.payload==\"False\"){\n    flow.set(\"turnOn\",Date.now());\n    flow.set(\"someHere\",false);\n}else{\n     flow.set(\"someHere\",true);\n}\nreturn msg;\n\n",
+        "func": "if(msg.payload==\"False\"){\n    flow.set(\"turnOn\",Date.now());\n    flow.set(\"someHere\",false);\n}else{\n     flow.set(\"someHere\",true);\n}\nreturn msg;\n\n",
         "outputs": 1,
         "noerr": 0,
         "x": 340,
@@ -2309,7 +2309,7 @@
         "topic": "/home/E/Input/bool/Alarme_Digicode_(Activée)",
         "qos": "2",
         "broker": "de6f5fa4.d6bae",
-        "x": 190,
+        "x": 180,
         "y": 220,
         "wires": [
             [
@@ -2322,10 +2322,10 @@
         "type": "function",
         "z": "adbd2cd3.b4f08",
         "name": "alarmOnByDigicode",
-        "func": "if(msg.payload){\n    flow.set('alarm', \"True\");\n}else{\n    flow.set('alarm', \"False\");\n}\nreturn msg;\n",
+        "func": "\nif(msg.payload){\n    flow.set('alarm', \"True\");\n}else{\n    flow.set('alarm', \"False\");\n}\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 460,
+        "x": 520,
         "y": 180,
         "wires": [
             []
@@ -2348,6 +2348,29 @@
         "wires": [
             [
                 "b86f57f4.f84128"
+            ]
+        ]
+    },
+    {
+        "id": "cd55078b.926eb8",
+        "type": "delay",
+        "z": "adbd2cd3.b4f08",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 400,
+        "y": 280,
+        "wires": [
+            [
+                "7497439c.e78a3c"
             ]
         ]
     }
