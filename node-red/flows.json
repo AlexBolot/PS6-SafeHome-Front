@@ -290,7 +290,7 @@
         "qos": "2",
         "broker": "83ff25ee.98c6c8",
         "x": 170,
-        "y": 240,
+        "y": 280,
         "wires": [
             [
                 "7497439c.e78a3c"
@@ -306,7 +306,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 480,
-        "y": 240,
+        "y": 280,
         "wires": [
             [
                 "1b9c91f5.48741e"
@@ -323,7 +323,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 190,
-        "y": 160,
+        "y": 100,
         "wires": [
             [
                 "c467e6d8.c10d58"
@@ -334,15 +334,15 @@
         "id": "c467e6d8.c10d58",
         "type": "function",
         "z": "adbd2cd3.b4f08",
-        "name": "alarmOn",
+        "name": "alarmOnByRequette",
         "func": "var data = msg.payload;\nflow.set('alarm', data.active);\nif(data.active){\n    var stopDate = new Date(data.date);\n    setTimeout(deActivate, stopDate.getTime()-Date.now());\n}\nelse{\n    deActivate();\n}\nmsg.payload = data;\nreturn msg\n\nfunction deActivate(){\n    flow.set('alarm',false)\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 450,
-        "y": 160,
+        "x": 490,
+        "y": 100,
         "wires": [
             [
-                "bb2807ef.9687c8"
+                "e47b24da.2a74b8"
             ]
         ]
     },
@@ -353,32 +353,8 @@
         "name": "",
         "statusCode": "200",
         "headers": {},
-        "x": 760,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "9ac84d00.c4091",
-        "type": "link in",
-        "z": "adbd2cd3.b4f08",
-        "name": "",
-        "links": [],
-        "x": 575,
-        "y": 120,
-        "wires": [
-            [
-                "e47b24da.2a74b8"
-            ]
-        ]
-    },
-    {
-        "id": "bb2807ef.9687c8",
-        "type": "link out",
-        "z": "adbd2cd3.b4f08",
-        "name": "",
-        "links": [],
-        "x": 680,
-        "y": 160,
+        "x": 740,
+        "y": 100,
         "wires": []
     },
     {
@@ -391,7 +367,7 @@
         "retain": "",
         "broker": "83ff25ee.98c6c8",
         "x": 730,
-        "y": 300,
+        "y": 340,
         "wires": []
     },
     {
@@ -407,7 +383,7 @@
         "once": false,
         "onceDelay": 0.1,
         "x": 470,
-        "y": 320,
+        "y": 360,
         "wires": [
             [
                 "1b9c91f5.48741e"
@@ -420,17 +396,17 @@
         "z": "adbd2cd3.b4f08",
         "name": "",
         "topic": "",
-        "payload": "False",
-        "payloadType": "str",
+        "payload": "true",
+        "payloadType": "bool",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 170,
-        "y": 80,
+        "x": 210,
+        "y": 160,
         "wires": [
             [
-                "c467e6d8.c10d58"
+                "4b3cefd1.36d52"
             ]
         ]
     },
@@ -2331,5 +2307,35 @@
         "x": 875,
         "y": 620,
         "wires": []
+    },
+    {
+        "id": "7598ef31.c4f04",
+        "type": "mqtt in",
+        "z": "adbd2cd3.b4f08",
+        "name": "Digicode",
+        "topic": "/home/E/Input/bool/Alarme_Digicode_(Activée)",
+        "qos": "2",
+        "broker": "de6f5fa4.d6bae",
+        "x": 190,
+        "y": 220,
+        "wires": [
+            [
+                "4b3cefd1.36d52"
+            ]
+        ]
+    },
+    {
+        "id": "4b3cefd1.36d52",
+        "type": "function",
+        "z": "adbd2cd3.b4f08",
+        "name": "alarmOnByDigicode",
+        "func": "if(msg.payload){\n    flow.set('alarm', \"True\");\n}else{\n    flow.set('alarm', \"False\");\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 460,
+        "y": 180,
+        "wires": [
+            []
+        ]
     }
 ]
