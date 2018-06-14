@@ -25,6 +25,11 @@
       "type": "belongsTo",
       "model": "Domotic-item",
       "foreignKey": ""
+    },
+    "temperature": {
+      "type": "hasOne",
+      "model": "Domotic-item-temperature",
+      "foreignKey": ""
     }
   },
   "acls": [],
