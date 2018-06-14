@@ -311,7 +311,7 @@
         "type": "http in",
         "z": "adbd2cd3.b4f08",
         "name": "alarm HTTP",
-        "url": "/alarm/on",
+        "url": "/alarm/activate",
         "method": "post",
         "upload": false,
         "swaggerDoc": "",
@@ -328,7 +328,7 @@
         "type": "function",
         "z": "adbd2cd3.b4f08",
         "name": "alarmOn",
-        "func": "flow.set('alarm',msg.payload);\nmsg.payload = \"ok\";\nreturn msg",
+        "func": "var data = msg.payload;\nflow.set('alarm', data.active);\nif(data.active){\n    var stopDate = new Date(data.date);\n    setTimeout(deActivate, stopDate.getTime()-Date.now());\n}\nelse{\n    deActivate();\n}\nmsg.payload = data;\nreturn msg\n\nfunction deActivate(){\n    flow.set('alarm',false)\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 450,
@@ -1523,7 +1523,7 @@
         "func": "var actionAuto = global.get(\"actionAuto\") || false;\nconsole.log(\"Check actionAuto\"+actionAuto)\nif(actionAuto && parseInt(msg.payload)<293){\n    msg.payload=true;\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 450,
+        "x": 550,
         "y": 200,
         "wires": [
             []
@@ -1610,11 +1610,11 @@
         "id": "ce787ac7.1b2108",
         "type": "link in",
         "z": "fecacf27.dc262",
-        "name": "",
+        "name": "Http200",
         "links": [
-            "69cf9074.8679b",
-            "e5b9a94b.f90708",
-            "5c596f55.2c5c8"
+            "ce55ba2a.4629d8",
+            "ca179bd2.b624b8",
+            "9ee2d4f8.46f3c8"
         ],
         "x": 495,
         "y": 840,
@@ -1629,7 +1629,9 @@
         "type": "link out",
         "z": "fecacf27.dc262",
         "name": "",
-        "links": [],
+        "links": [
+            "ce787ac7.1b2108"
+        ],
         "x": 720,
         "y": 880,
         "wires": []
@@ -2235,5 +2237,50 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "c64a9d3a.df7dc",
+        "type": "function",
+        "z": "fecacf27.dc262",
+        "name": "SetActive",
+        "func": "var data = msg.payload;\nglobal.set('actionAuto', data.active);\nif(data.active){\n    var stopDate = new Date(data.date);\n    setTimeout(deActivate, stopDate.getTime()-Date.now());\n}\nelse{\n    deActivate();\n}\nmsg.payload = data;\nreturn msg\n\nfunction deActivate(){\n    glabal.set('actionAuto',false)\n    return msg\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 580,
+        "y": 620,
+        "wires": [
+            [
+                "ce55ba2a.4629d8"
+            ]
+        ]
+    },
+    {
+        "id": "a68c123f.b7968",
+        "type": "http in",
+        "z": "fecacf27.dc262",
+        "name": "Activate",
+        "url": "/thermostat/activate",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 310,
+        "y": 620,
+        "wires": [
+            [
+                "c64a9d3a.df7dc"
+            ]
+        ]
+    },
+    {
+        "id": "ce55ba2a.4629d8",
+        "type": "link out",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "links": [
+            "ce787ac7.1b2108"
+        ],
+        "x": 875,
+        "y": 620,
+        "wires": []
     }
 ]
