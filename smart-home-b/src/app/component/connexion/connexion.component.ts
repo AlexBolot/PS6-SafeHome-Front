@@ -1,8 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, IterableDiffers, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
 import {User} from '../../model/user';
 import {animate, keyframes, state, style, transition, trigger} from '@angular/animations';
+import {LocationService} from '../../service/location/location.service';
+import {CategoryService} from '../../service/category/category.service';
+import {UrgencyService} from '../../service/urgency/urgency.service';
+import {StatusService} from '../../service/status/status.service';
 
 @Component({
   selector: 'app-connexion',
@@ -41,10 +45,13 @@ export class ConnexionComponent implements OnInit {
   animationRedPassword = false;
 
   constructor(private router: Router,
-              private authentication: AuthenticationService) {
+              private authentication: AuthenticationService, private statusService: StatusService,
+              private locationService: LocationService, private categoryService: CategoryService,
+              private urgencyService: UrgencyService) {
   }
 
   ngOnInit() {
+    this.refreshCache();
     this.user = new User();
     this.erreurLogin = 'cover';
     this.authentication.isLogged().subscribe(value => {
@@ -52,6 +59,13 @@ export class ConnexionComponent implements OnInit {
         return this.router.navigate(['/issueView']);
       }
     });
+  }
+
+  refreshCache() {
+    this.locationService.refreshCache();
+    this.categoryService.refreshCache();
+    this.statusService.refreshCache();
+    this.urgencyService.refreshCache();
   }
 
   setBackToUnchecked() {

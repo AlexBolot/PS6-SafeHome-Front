@@ -6,21 +6,28 @@ import {AppSettings} from '../../model/app-settings';
 
 @Injectable()
 export class CategoryService {
+
+  cacheValues: Map<number, string> = new Map<number, string>();
+
   API_url = AppSettings.API_ROOT + '/categories';
+
   constructor(private httpClient: HttpClient) {
   }
 
-  getAll(): Observable<Map<Number, String>> {
+  refreshCache() {
+    this.getAll().subscribe(categories => this.cacheValues = categories);
+  }
+
+  getAll(): Observable<Map<number, string>> {
     return this.httpClient.get<JSON[]>(this.API_url).map(json => {
-        const map: Map<Number, String> = new Map<Number, String>();
+        const map: Map<number, string> = new Map<number, string>();
         json.forEach(field => map.set(field['id'], field['name']));
         return map;
       }
     );
   }
 
-  getByID(id: number): Observable<String> {
-    return this.httpClient.get<JSON>(this.API_url + '/' + id)
-      .map(res => res['name']);
+  getByID(id: number): string {
+    return this.cacheValues.get(id);
   }
 }

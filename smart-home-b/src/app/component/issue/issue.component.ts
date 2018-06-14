@@ -17,20 +17,19 @@ import {IssueService} from '../../service/issue/issue.service';
 })
 export class IssueComponent implements OnInit {
 
-  buttonDetailsIcon: String = 'glyphicon glyphicon-menu-down';
-  buttonTasksIcon: String = 'glyphicon glyphicon-menu-down';
+  buttonDetailsIcon = 'glyphicon glyphicon-menu-down';
+  buttonTasksIcon = 'glyphicon glyphicon-menu-down';
 
   tasks: Task[] = [];
   visibleTasks = false;
   visibleDetails = false;
-  categoryLabel: String;
-  statusLabel: String;
-  urgencyLabel: String;
-  locationLabel: String;
-  authorName: String;
-  countTask: number;
+  urgencyLabel: string;
+  locationLabel: string;
+  statusLabel: string;
+  categoryLabel: string;
+
   @Input() issue: Issue;
-  @Output() fullIssuesUpdate = new EventEmitter<boolean>();
+  @Output() fullIssuesUpdate = new EventEmitter<void>();
 
   constructor(private categoryService: CategoryService,
               private urgencyService: UrgencyService,
@@ -41,21 +40,12 @@ export class IssueComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.urgencyService.getByID(this.issue.IDUrgency).subscribe(value => this.urgencyLabel = value);
-    this.statusService.getByID(this.issue.IDStatus).subscribe(value => {
-      this.statusLabel = value;
-      this.issue.statusName = value;
-    });
-    this.taskService.getAllByIssueID(this.issue.id).subscribe(value => this.tasks = value);
-    this.categoryService.getByID(this.issue.categoryId).subscribe(value => {
-      this.categoryLabel = value;
-      this.issue.category = value;
-    });
-    this.taskService.getNbByIdIssue(this.issue.id).subscribe(value => this.countTask = value['count']);
-    this.locationService.getByID(this.issue.IDLocation).subscribe(value => {
-      this.locationLabel = value;
-      this.issue.locationName = value;
-    });
+    this.issueService.getTasks(this.issue.id).subscribe(tasks => this.tasks = tasks);
+
+    this.urgencyLabel = this.urgencyService.getByID(this.issue.IDUrgency);
+    this.statusLabel = this.statusService.getByID(this.issue.IDStatus);
+    this.categoryLabel = this.categoryService.getByID(this.issue.categoryId);
+    this.locationLabel = this.locationService.getByID(this.issue.IDLocation);
   }
 
   showMore() {
@@ -98,7 +88,7 @@ export class IssueComponent implements OnInit {
     this.issueService.getByID(this.issue.id).subscribe(value => {
       this.issue = value;
       this.ngOnInit();
-      this.fullIssuesUpdate.emit(true);
+      this.fullIssuesUpdate.emit();
     });
   }
 }

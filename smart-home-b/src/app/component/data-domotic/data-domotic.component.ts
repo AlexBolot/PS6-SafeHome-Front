@@ -18,6 +18,7 @@ export class DataDomoticComponent implements OnInit {
   domoticThermostatId = Domotic.thermostatId;
   @Input() currentSchedule: Schedule;
   @Input() domoticItemID;
+  @Output() updateList = new EventEmitter<void>();
 
   minHours = 0;
   maxHours = 23;
@@ -34,7 +35,6 @@ export class DataDomoticComponent implements OnInit {
   startDate: Date;
   endDate: Date;
 
-  @Output() public updateList = new EventEmitter<void>();
   automaticToggle = false;
 
   constructor(private scheduleService: ScheduleService,
@@ -105,7 +105,9 @@ export class DataDomoticComponent implements OnInit {
 
     this.chooseDay();
     const schedule = new Schedule(undefined, this.startDate, this.endDate, this.domoticItemID, this.automaticToggle);
-    if (this.domoticItemID == Domotic.alarmId) schedule.auto = true;
+    if (this.domoticItemID === Domotic.alarmId) {
+      schedule.auto = true;
+    }
     this.scheduleValidatorService.isScheduleValid(schedule, this.domoticItemID).subscribe(answer => {
       if (answer) {
         this.scheduleService.add(schedule).subscribe(value => {
@@ -179,8 +181,8 @@ export class DataDomoticComponent implements OnInit {
   }
 
   deleteSchedule() {
-    this.scheduleService.delete(this.currentSchedule.id).subscribe(value => {
-      console.log("deleted");
+    this.scheduleService.delete(this.currentSchedule.id).subscribe(() => {
+      console.log('deleted');
       this.updateList.emit();
     });
   }

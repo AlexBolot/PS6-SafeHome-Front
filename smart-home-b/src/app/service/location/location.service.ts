@@ -1,25 +1,33 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AppSettings} from '../../model/app-settings';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class LocationService {
 
-  API_url = AppSettings.API_ROOT + '/Locations';
-  constructor(private httpClient: HttpClient) { }
+  cacheValues: Map<number, string> = new Map<number, string>();
 
-  getAll() {
+  API_url = AppSettings.API_ROOT + '/Locations';
+
+  constructor(private httpClient: HttpClient) {
+  }
+
+  refreshCache() {
+    this.getAll().subscribe(locations => this.cacheValues = locations);
+  }
+
+  getAll(): Observable<Map<number, string>> {
     return this.httpClient.get<JSON[]>(this.API_url).map(json => {
-        const map: Map<Number, String> = new Map<Number, String>();
+        const map: Map<number, string> = new Map<number, string>();
         json.forEach(field => map.set(field['id'], field['Name']));
         return map;
       }
     );
   }
 
-  getByID(id: number): Observable<String> {
-    return this.httpClient.get<JSON>(this.API_url + '/' + id)
-      .map(res => res['Name']);
+  getByID(id: number): string {
+    return this.cacheValues.get(id);
   }
 }
