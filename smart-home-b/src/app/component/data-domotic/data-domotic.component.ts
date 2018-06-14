@@ -14,9 +14,9 @@ import {ScheduleValidatorService} from '../../service/schedule-validator/schedul
 export class DataDomoticComponent implements OnInit {
   dayOfWeek: string[] = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
   temperature: DomoticTemperature;
-
+  domoticAlarmId = Domotic.alarmId;
+  domoticThermostatId = Domotic.thermostatId;
   @Input() currentSchedule: Schedule;
-  @Input() showTemperature;
   @Input() domoticItemID;
 
   minHours = 0;
@@ -48,7 +48,6 @@ export class DataDomoticComponent implements OnInit {
       if (this.domoticItemID === Domotic.thermostatId) {
         this.domoticTemperatureService.getByScheduleID(this.currentSchedule.id).subscribe(temperatures => {
           this.temperature = temperatures[0];
-          this.showTemperature = true;
           console.log(temperatures[0]);
           this.minTemperature = temperatures[0].value;
         });

@@ -9,7 +9,6 @@ import {DomoticService} from '../../service/domotic/domotic.service';
 })
 export class DataDomoticListComponent implements OnChanges {
   showData = true;
-  @Input() showTemperature;
   @Input() domoticItemID;
   schedules: Schedule[];
 

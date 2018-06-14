@@ -8,14 +8,14 @@
       </select>
     </div>
 
-    <div *ngIf="showTemperature" class="input-group col-md-3">
+    <div *ngIf="domoticThermostatId==domoticItemID" class="input-group col-md-3">
       <span class="input-group-addon front-addon">Mini : </span>
       <input type="number" class="form-control input-number"
              [(ngModel)]="minTemperature" min="0" max="59">
       <span class="input-group-addon">°C</span>
     </div>
 
-    <div class="input-group col-md-3">
+    <div class="input-group col-md-3" *ngIf="domoticAlarmId!=domoticItemID">
       <label class="switch form-control">
         <input type="checkbox" [(ngModel)]="automaticToggle">
         <span class="slider round"></span>
