@@ -22,7 +22,7 @@ export class DataDomoticListComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    this.domoticService.getSchedulesByDomoticID(this.domoticItemID).subscribe(value => {
+    this.domoticService.getSchedules(this.domoticItemID).subscribe(value => {
       this.schedules = value;
     });
 

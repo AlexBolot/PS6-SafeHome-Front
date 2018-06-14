@@ -5,6 +5,7 @@ import {ScheduleService} from '../../service/schedules/schedule.service';
 import {Domotic} from '../../model/domotic';
 import {DomoticTemperatureService} from '../../service/domoticTemperature/domotic-temperature.service';
 import {DomoticTemperature} from '../../model/domotic-Temperature';
+import {ScheduleValidatorService} from '../../service/schedule-validator/schedule-validator.service';
 
 @Component({
   selector: 'app-data-domotic',
@@ -38,17 +39,19 @@ export class DataDomoticComponent implements OnInit {
   automaticToggle = false;
 
   constructor(private scheduleService: ScheduleService,
-              private domoticTemperatureService: DomoticTemperatureService) {
+              private domoticTemperatureService: DomoticTemperatureService,
+              private scheduleValidatorService: ScheduleValidatorService) {
   }
 
   ngOnInit() {
 
     if (this.currentSchedule) {
       if (this.domoticItemID === Domotic.thermostatId) {
-        this.domoticTemperatureService.getByScheduleID(this.currentSchedule.id).subscribe(value => {
-          this.temperature = value[0];
+        this.domoticTemperatureService.getByScheduleID(this.currentSchedule.id).subscribe(temperatures => {
+          this.temperature = temperatures[0];
           this.showTemperature = true;
-          this.minTemperature = value[0].value;
+          console.log(temperatures[0]);
+          this.minTemperature = temperatures[0].value;
         });
       }
       this.automaticToggle = this.currentSchedule.auto;
@@ -101,28 +104,47 @@ export class DataDomoticComponent implements OnInit {
   }
 
   addSchedule() {
+
     this.chooseDay();
-    const schedule = new Schedule(undefined, this.startDate, this.endDate, this.domoticItemID,this.automaticToggle);
-    this.scheduleService.add(schedule).subscribe(value => {
-      if (this.domoticItemID === Domotic.thermostatId) {
-        this.temperature = new DomoticTemperature(undefined, this.minTemperature, value['id']);
-        this.domoticTemperatureService.add(this.temperature).subscribe();
+    const schedule = new Schedule(undefined, this.startDate, this.endDate, this.domoticItemID, this.automaticToggle);
+
+    this.scheduleValidatorService.isScheduleValid(schedule, this.domoticItemID).subscribe(answer => {
+      if (answer) {
+        this.scheduleService.add(schedule).subscribe(value => {
+          if (this.domoticItemID === Domotic.thermostatId) {
+            this.temperature = new DomoticTemperature(undefined, this.minTemperature, value['id']);
+            this.domoticTemperatureService.add(this.temperature).subscribe();
+          }
+          this.updateList.emit();
+          console.log('added schedule');
+        });
+      } else if (answer === null) {
+        console.log('no reply yet');
+      } else {
+        console.log('update refused');
       }
-      this.updateList.emit();
-      console.log('added schedule');
     });
   }
 
   updateSchedule() {
     this.chooseDay();
-    const schedule = new Schedule(this.currentSchedule.id, this.startDate, this.endDate, this.domoticItemID,this.automaticToggle);
-    this.scheduleService.put(schedule).subscribe(value => {
-      if (this.domoticItemID === Domotic.thermostatId) {
-        this.temperature = new DomoticTemperature(this.temperature.id, this.minTemperature, value['id']);
-        this.domoticTemperatureService.put(this.temperature).subscribe(() => console.log('valueTempUpdated'));
+    const schedule = new Schedule(this.currentSchedule.id, this.startDate, this.endDate, this.domoticItemID, this.automaticToggle);
+
+    this.scheduleValidatorService.isScheduleValid(schedule, this.domoticItemID).subscribe(answer => {
+      if (answer) {
+        this.scheduleService.put(schedule).subscribe(value => {
+          if (this.domoticItemID === Domotic.thermostatId) {
+            this.temperature = new DomoticTemperature(this.temperature.id, this.minTemperature, value['id']);
+            this.domoticTemperatureService.put(this.temperature).subscribe(() => console.log('valueTempUpdated'));
+          }
+          console.log('updated schedule');
+          this.updateList.emit();
+        });
+      } else if (answer === null) {
+        console.log('no reply yet');
+      } else {
+        console.log('update refused');
       }
-      console.log('modified schedule');
-      this.updateList.emit();
     });
   }
 

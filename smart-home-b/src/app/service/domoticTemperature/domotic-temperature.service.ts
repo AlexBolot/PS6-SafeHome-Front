@@ -13,8 +13,8 @@ export class DomoticTemperatureService {
   }
 
 
-  getByScheduleID(id: number): Observable<DomoticTemperature> {
-    return this.httpClient.get<DomoticTemperature>(this.API_url + '?filter=' + '{"where":{"scheduleId":' + id + '}}');
+  getByScheduleID(id: number): Observable<DomoticTemperature[]> {
+    return this.httpClient.get<DomoticTemperature[]>(this.API_url + '?filter=' + '{"where":{"scheduleId":' + id + '}}');
   }
 
   add(domoticTemperature: DomoticTemperature) {
