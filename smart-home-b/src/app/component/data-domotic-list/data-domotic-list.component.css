@@ -1,8 +1,8 @@
 .container-background {
   min-height: 70vh;
-  border-radius: 10px;
   padding-right: 2vw;
   padding-left: 2vw;
+  border-left: 1px solid grey;
 }
 
 
