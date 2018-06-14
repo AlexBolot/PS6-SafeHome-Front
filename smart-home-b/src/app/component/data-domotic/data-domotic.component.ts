@@ -35,7 +35,7 @@ export class DataDomoticComponent implements OnInit {
   endDate: Date;
 
   @Output() public updateList = new EventEmitter<void>();
-  automaticToggle: false;
+  automaticToggle= false;
 
   constructor(private scheduleService: ScheduleService,
               private domoticTemperatureService: DomoticTemperatureService) {
@@ -51,6 +51,7 @@ export class DataDomoticComponent implements OnInit {
           this.minTemperature = value[0].value;
         });
       }
+      this.automaticToggle = this.currentSchedule.auto;
       this.startDate = new Date(this.currentSchedule.start);
       this.endDate = new Date(this.currentSchedule.end);
       this.startHour = this.startDate.getHours();
@@ -101,7 +102,7 @@ export class DataDomoticComponent implements OnInit {
 
   addSchedule() {
     this.chooseDay();
-    const schedule = new Schedule(undefined, this.startDate, this.endDate, this.domoticItemID);
+    const schedule = new Schedule(undefined, this.startDate, this.endDate, this.domoticItemID,this.automaticToggle);
     this.scheduleService.add(schedule).subscribe(value => {
       if (this.domoticItemID === Domotic.thermostatId) {
         this.temperature = new DomoticTemperature(undefined, this.minTemperature, value['id']);
@@ -114,7 +115,7 @@ export class DataDomoticComponent implements OnInit {
 
   updateSchedule() {
     this.chooseDay();
-    const schedule = new Schedule(this.currentSchedule.id, this.startDate, this.endDate, this.domoticItemID);
+    const schedule = new Schedule(this.currentSchedule.id, this.startDate, this.endDate, this.domoticItemID,this.automaticToggle);
     this.scheduleService.put(schedule).subscribe(value => {
       if (this.domoticItemID === Domotic.thermostatId) {
         this.temperature = new DomoticTemperature(this.temperature.id, this.minTemperature, value['id']);
