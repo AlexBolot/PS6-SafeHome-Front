@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {Issue} from '../../model/issue';
 import {AppSettings} from '../../model/app-settings';
-import {Schedule} from "../../model/schedule";
+import {Schedule} from '../../model/schedule';
 
 @Injectable()
 export class DomoticService {
@@ -13,23 +13,12 @@ export class DomoticService {
   constructor(private httpClient: HttpClient,) {
   }
 
-
   getAll(): Observable<Domotic[]> {
     return this.httpClient.get<Domotic[]>(this.API_url);
   }
 
-  getByID(id: number): Observable<Domotic> {
-    return this.httpClient.get<Domotic>(this.API_url + '/' + id);
-  }
-  getSchedulesByDomoticID(id:number): Observable<Schedule[]>{
-    return this.httpClient.get<Schedule[]>(this.API_url +'/' +id +'/schedules');
-  }
-  add(domoticItem: Domotic) {
-    return this.httpClient.post<JSON>(this.API_url, domoticItem);
-  }
-
-  put(domoticItem: Domotic) {
-    return this.httpClient.put<Issue>(this.API_url, domoticItem);
+  getSchedules(id: number): Observable<Schedule[]> {
+    return this.httpClient.get<Schedule[]>(this.API_url + '/' + id + '/schedules');
   }
 
 }

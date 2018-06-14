@@ -20,7 +20,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "domotic-item": {
+      "type": "belongsTo",
+      "model": "Domotic-item",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }

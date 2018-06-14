@@ -64,6 +64,35 @@
         ]
     },
     {
+        "id": "b7b0772e.6609a8",
+        "type": "subflow",
+        "name": "check actionAuto",
+        "info": "",
+        "in": [
+            {
+                "x": 160,
+                "y": 200,
+                "wires": [
+                    {
+                        "id": "e832142a.298c98"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 760,
+                "y": 200,
+                "wires": [
+                    {
+                        "id": "e832142a.298c98",
+                        "port": 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "id": "6778f509.69879c",
         "type": "mqtt-broker",
         "z": "",
@@ -150,263 +179,6 @@
         "willTopic": "",
         "willQos": "0",
         "willPayload": ""
-    },
-    {
-        "id": "11292d98.701a82",
-        "type": "inject",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 402,
-        "y": 541,
-        "wires": [
-            [
-                "756e7e50.59fe2"
-            ]
-        ]
-    },
-    {
-        "id": "76dca8a1.f5a828",
-        "type": "mosca in",
-        "z": "fecacf27.dc262",
-        "mqtt_port": 1883,
-        "mqtt_ws_port": 8080,
-        "name": "",
-        "username": "",
-        "password": "",
-        "dburl": "",
-        "x": 612,
-        "y": 381,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "6aadca24.d3a654",
-        "type": "http in",
-        "z": "fecacf27.dc262",
-        "name": "Temperature http",
-        "url": "/temperature/set",
-        "method": "post",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 382,
-        "y": 481,
-        "wires": [
-            [
-                "1643a10.20b925f"
-            ]
-        ]
-    },
-    {
-        "id": "1643a10.20b925f",
-        "type": "function",
-        "z": "fecacf27.dc262",
-        "name": "Temperature set",
-        "func": "flow.set('temp',msg.payload.value);\nmsg.payload = \"ok\";\nreturn msg",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 652,
-        "y": 481,
-        "wires": [
-            [
-                "357224c2.927b9c"
-            ]
-        ]
-    },
-    {
-        "id": "756e7e50.59fe2",
-        "type": "function",
-        "z": "fecacf27.dc262",
-        "name": "Print Temp",
-        "func": "msg.payload = flow.get('temp')\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 652,
-        "y": 541,
-        "wires": [
-            [
-                "b1f3977d.d46c18"
-            ]
-        ]
-    },
-    {
-        "id": "b1f3977d.d46c18",
-        "type": "debug",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 882,
-        "y": 541,
-        "wires": []
-    },
-    {
-        "id": "6edada65.b560a4",
-        "type": "http response",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "statusCode": "200",
-        "headers": {},
-        "x": 942,
-        "y": 441,
-        "wires": []
-    },
-    {
-        "id": "abefb9f5.5a4838",
-        "type": "function",
-        "z": "fecacf27.dc262",
-        "name": "check temp",
-        "func": "var date = flow.get(\"date\") || 0;\nconsole.log(msg.payload);\ntemps = Date.now() - date;\nif(parseInt(msg.payload) < 293 && temps>60000){\n    console.log(\"pass heraz\");\n    flow.set(\"date\",Date.now());\n\n    msg.payload = \"{value:\"+msg.payload+\"}\";\nreturn msg;\n}\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 532,
-        "y": 621,
-        "wires": [
-            [
-                "b64c2736.545de8"
-            ]
-        ]
-    },
-    {
-        "id": "8253fe90.32e62",
-        "type": "mqtt in",
-        "z": "fecacf27.dc262",
-        "name": "thermo E",
-        "topic": "/home/general/Memory/float/Température_Zone_E_[K]",
-        "qos": "2",
-        "broker": "6778f509.69879c",
-        "x": 382,
-        "y": 621,
-        "wires": [
-            [
-                "abefb9f5.5a4838"
-            ]
-        ]
-    },
-    {
-        "id": "1607fd7d.e0c9a3",
-        "type": "link in",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "links": [
-            "69cf9074.8679b"
-        ],
-        "x": 757,
-        "y": 441,
-        "wires": [
-            [
-                "6edada65.b560a4"
-            ]
-        ]
-    },
-    {
-        "id": "357224c2.927b9c",
-        "type": "link out",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "links": [],
-        "x": 862,
-        "y": 481,
-        "wires": []
-    },
-    {
-        "id": "b64c2736.545de8",
-        "type": "http request",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "method": "POST",
-        "ret": "txt",
-        "url": "https://galles.io/pns/shb/api/Domotic-items/thermometer/declare",
-        "tls": "",
-        "x": 692,
-        "y": 621,
-        "wires": [
-            [
-                "92dc6e1f.de3bf"
-            ]
-        ]
-    },
-    {
-        "id": "92dc6e1f.de3bf",
-        "type": "debug",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "x": 852,
-        "y": 621,
-        "wires": []
-    },
-    {
-        "id": "e489d7ef.82f648",
-        "type": "mqtt out",
-        "z": "fecacf27.dc262",
-        "name": "radiateur E",
-        "topic": "/home/E/Output/bool/Radiateur",
-        "qos": "",
-        "retain": "",
-        "broker": "6778f509.69879c",
-        "x": 652,
-        "y": 721,
-        "wires": []
-    },
-    {
-        "id": "69cf9074.8679b",
-        "type": "link out",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "links": [
-            "1607fd7d.e0c9a3"
-        ],
-        "x": 617,
-        "y": 781,
-        "wires": []
-    },
-    {
-        "id": "2f6d9b85.587064",
-        "type": "http in",
-        "z": "fecacf27.dc262",
-        "name": "Turn Heater",
-        "url": "/TurnHeater/",
-        "method": "post",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 382,
-        "y": 721,
-        "wires": [
-            [
-                "e489d7ef.82f648",
-                "69cf9074.8679b",
-                "c72092d4.df691"
-            ]
-        ]
-    },
-    {
-        "id": "c72092d4.df691",
-        "type": "debug",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "x": 654,
-        "y": 677,
-        "wires": []
     },
     {
         "id": "37f6bd32.94e182",
@@ -546,7 +318,7 @@
         "type": "http in",
         "z": "adbd2cd3.b4f08",
         "name": "alarm HTTP",
-        "url": "/alarm/on",
+        "url": "/alarm/activate",
         "method": "post",
         "upload": false,
         "swaggerDoc": "",
@@ -563,7 +335,7 @@
         "type": "function",
         "z": "adbd2cd3.b4f08",
         "name": "alarmOn",
-        "func": "flow.set('alarm',msg.payload);\nmsg.payload = \"ok\";\nreturn msg",
+        "func": "var data = msg.payload;\nflow.set('alarm', data.active);\nif(data.active){\n    var stopDate = new Date(data.date);\n    setTimeout(deActivate, stopDate.getTime()-Date.now());\n}\nelse{\n    deActivate();\n}\nmsg.payload = data;\nreturn msg\n\nfunction deActivate(){\n    flow.set('alarm',false)\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 450,
@@ -1791,5 +1563,773 @@
                 "7887a9b9.302428"
             ]
         ]
+    },
+    {
+        "id": "e832142a.298c98",
+        "type": "function",
+        "z": "b7b0772e.6609a8",
+        "name": "check actionAuto",
+        "func": "var actionAuto = global.get(\"actionAuto\") || false;\nconsole.log(\"Check actionAuto\"+actionAuto)\nif(actionAuto && parseInt(msg.payload)<293){\n    msg.payload=true;\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 550,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "56961099.b264e",
+        "type": "mosca in",
+        "z": "fecacf27.dc262",
+        "mqtt_port": 1883,
+        "mqtt_ws_port": 8080,
+        "name": "",
+        "username": "",
+        "password": "",
+        "dburl": "",
+        "x": 490,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1a7475dc.4b139a",
+        "type": "http in",
+        "z": "fecacf27.dc262",
+        "name": "Temperature http",
+        "url": "/temperature/set",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 240,
+        "y": 880,
+        "wires": [
+            [
+                "b86f57f4.f84128"
+            ]
+        ]
+    },
+    {
+        "id": "b86f57f4.f84128",
+        "type": "function",
+        "z": "fecacf27.dc262",
+        "name": "Temperature set",
+        "func": "flow.set('temp',msg.payload.value);\nmsg.payload = \"ok\";\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 510,
+        "y": 880,
+        "wires": [
+            [
+                "ca179bd2.b624b8"
+            ]
+        ]
+    },
+    {
+        "id": "cae35847.b9aa18",
+        "type": "http response",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 680,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "2e3cb70b.b47f88",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo E",
+        "topic": "/home/general/Memory/float/Température_Zone_E_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1080,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "fbe6a411.19ac88"
+            ]
+        ]
+    },
+    {
+        "id": "ce787ac7.1b2108",
+        "type": "link in",
+        "z": "fecacf27.dc262",
+        "name": "Http200",
+        "links": [
+            "ce55ba2a.4629d8",
+            "ca179bd2.b624b8",
+            "9ee2d4f8.46f3c8"
+        ],
+        "x": 495,
+        "y": 840,
+        "wires": [
+            [
+                "cae35847.b9aa18"
+            ]
+        ]
+    },
+    {
+        "id": "ca179bd2.b624b8",
+        "type": "link out",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "links": [
+            "ce787ac7.1b2108"
+        ],
+        "x": 720,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "c08ac584.009a38",
+        "type": "http request",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "url": "https://galles.io/pns/shb/api/Domotic-items/thermometer/declare",
+        "tls": "",
+        "x": 870,
+        "y": 960,
+        "wires": [
+            [
+                "eae37e24.88753"
+            ]
+        ]
+    },
+    {
+        "id": "eae37e24.88753",
+        "type": "debug",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1050,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "b55fd72f.6918f8",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo A",
+        "topic": "/home/general/Memory/float/Température_Zone_A_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1000,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "ab850794.4a9e58"
+            ]
+        ]
+    },
+    {
+        "id": "5223fed3.8c6be",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo D",
+        "topic": "/home/general/Memory/float/Température_Zone_D_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1040,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "f0a6162e.bfcb08"
+            ]
+        ]
+    },
+    {
+        "id": "c4cbfa13.b260f8",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo G",
+        "topic": "/home/general/Memory/float/Température_Zone_G_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1160,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "1d9beccb.dbad43"
+            ]
+        ]
+    },
+    {
+        "id": "314f9189.70105e",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo H",
+        "topic": "/home/general/Memory/float/Température_Zone_H_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1120,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "60e1151e.897bcc"
+            ]
+        ]
+    },
+    {
+        "id": "771c141d.f064fc",
+        "type": "function",
+        "z": "fecacf27.dc262",
+        "name": "check temp",
+        "func": "if(parseInt(msg.payload) < 293){\n    msg.payload = \"{value:\"+msg.payload+\"}\";\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 510,
+        "y": 960,
+        "wires": [
+            [
+                "4cd46105.52428"
+            ]
+        ]
+    },
+    {
+        "id": "2604d5b9.ebb12a",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo I",
+        "topic": "/home/general/Memory/float/Température_Zone_I_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1200,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "aaadab0b.4e5a68"
+            ]
+        ]
+    },
+    {
+        "id": "f0aeb077.a2541",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo J",
+        "topic": "/home/general/Memory/float/Température_Zone_J_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1240,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "fd77108c.d5671"
+            ]
+        ]
+    },
+    {
+        "id": "ec3c77a9.e63ee8",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo K",
+        "topic": "/home/general/Memory/float/Température_Zone_K_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1280,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "d27d891.5fa6278"
+            ]
+        ]
+    },
+    {
+        "id": "f7b3c9d4.b10af8",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo L",
+        "topic": "/home/general/Memory/float/Température_Zone_L_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1320,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "2671518e.cbaabe"
+            ]
+        ]
+    },
+    {
+        "id": "10a9df94.8e203",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo M",
+        "topic": "/home/general/Memory/float/Température_Zone_M_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1360,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "fb6a818d.c47c2"
+            ]
+        ]
+    },
+    {
+        "id": "8f6d36d1.4de138",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo N",
+        "topic": "/home/general/Memory/float/Température_Zone_N_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1400,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "f36049c0.715f88"
+            ]
+        ]
+    },
+    {
+        "id": "6515c6bf.2834c8",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur E",
+        "topic": "/home/E/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "4cd46105.52428",
+        "type": "delay",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "1",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "10",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 700,
+        "y": 960,
+        "wires": [
+            [
+                "c08ac584.009a38"
+            ]
+        ]
+    },
+    {
+        "id": "8c09cab9.97a3f8",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur A",
+        "topic": "/home/A/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "f2ef62e4.e0e14",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur D",
+        "topic": "/home/D/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "d395f6f0.c632c8",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur H",
+        "topic": "/home/H/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "1bfd2889.28a127",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur G",
+        "topic": "/home/G/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "378bdda1.bc2002",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur I",
+        "topic": "/home/I/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 840,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "157d51f7.22af5e",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur J",
+        "topic": "/home/J/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "d1410028.078d5",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur K",
+        "topic": "/home/K/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "8e21fba9.c51ae8",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur L",
+        "topic": "/home/L/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "f43c1d77.2c03a",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur M",
+        "topic": "/home/M/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "9f068553.d14cd8",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur N",
+        "topic": "/home/N/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1400,
+        "wires": []
+    },
+    {
+        "id": "60e1151e.897bcc",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1120,
+        "wires": [
+            [
+                "d395f6f0.c632c8"
+            ]
+        ]
+    },
+    {
+        "id": "1d9beccb.dbad43",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1160,
+        "wires": [
+            [
+                "1bfd2889.28a127"
+            ]
+        ]
+    },
+    {
+        "id": "aaadab0b.4e5a68",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1200,
+        "wires": [
+            [
+                "378bdda1.bc2002"
+            ]
+        ]
+    },
+    {
+        "id": "fd77108c.d5671",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1240,
+        "wires": [
+            [
+                "157d51f7.22af5e"
+            ]
+        ]
+    },
+    {
+        "id": "d27d891.5fa6278",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1280,
+        "wires": [
+            [
+                "d1410028.078d5"
+            ]
+        ]
+    },
+    {
+        "id": "2671518e.cbaabe",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1320,
+        "wires": [
+            [
+                "8e21fba9.c51ae8"
+            ]
+        ]
+    },
+    {
+        "id": "fb6a818d.c47c2",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1360,
+        "wires": [
+            [
+                "f43c1d77.2c03a"
+            ]
+        ]
+    },
+    {
+        "id": "f36049c0.715f88",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1400,
+        "wires": [
+            [
+                "9f068553.d14cd8"
+            ]
+        ]
+    },
+    {
+        "id": "fbe6a411.19ac88",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1080,
+        "wires": [
+            [
+                "6515c6bf.2834c8"
+            ]
+        ]
+    },
+    {
+        "id": "f0a6162e.bfcb08",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1040,
+        "wires": [
+            [
+                "f2ef62e4.e0e14"
+            ]
+        ]
+    },
+    {
+        "id": "ab850794.4a9e58",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1000,
+        "wires": [
+            [
+                "8c09cab9.97a3f8"
+            ]
+        ]
+    },
+    {
+        "id": "cc80ec2f.74d9b",
+        "type": "http in",
+        "z": "fecacf27.dc262",
+        "name": "Turn Heater",
+        "url": "/TurnHeater",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 390,
+        "y": 1500,
+        "wires": [
+            [
+                "b36a82de.f20b6"
+            ]
+        ]
+    },
+    {
+        "id": "ccc7aee7.44227",
+        "type": "inject",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 410,
+        "y": 1460,
+        "wires": [
+            [
+                "bc80a89c.c51de8",
+                "8c09cab9.97a3f8",
+                "f2ef62e4.e0e14",
+                "6515c6bf.2834c8",
+                "d395f6f0.c632c8",
+                "1bfd2889.28a127",
+                "378bdda1.bc2002",
+                "157d51f7.22af5e",
+                "d1410028.078d5",
+                "8e21fba9.c51ae8",
+                "f43c1d77.2c03a",
+                "9f068553.d14cd8"
+            ]
+        ]
+    },
+    {
+        "id": "b36a82de.f20b6",
+        "type": "function",
+        "z": "fecacf27.dc262",
+        "name": "set true",
+        "func": "console.log(\"passe HERE\");\nglobal.set(\"ationAuto\",true);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 558,
+        "y": 1499,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bc80a89c.c51de8",
+        "type": "function",
+        "z": "fecacf27.dc262",
+        "name": "set false",
+        "func": "global.set(\"actionAuto\",false);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 1460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c64a9d3a.df7dc",
+        "type": "function",
+        "z": "fecacf27.dc262",
+        "name": "SetActive",
+        "func": "var data = msg.payload;\nglobal.set('actionAuto', data.active);\nif(data.active){\n    var stopDate = new Date(data.date);\n    setTimeout(deActivate, stopDate.getTime()-Date.now());\n}\nelse{\n    deActivate();\n}\nmsg.payload = data;\nreturn msg\n\nfunction deActivate(){\n    glabal.set('actionAuto',false)\n    return msg\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 580,
+        "y": 620,
+        "wires": [
+            [
+                "ce55ba2a.4629d8"
+            ]
+        ]
+    },
+    {
+        "id": "a68c123f.b7968",
+        "type": "http in",
+        "z": "fecacf27.dc262",
+        "name": "Activate",
+        "url": "/thermostat/activate",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 310,
+        "y": 620,
+        "wires": [
+            [
+                "c64a9d3a.df7dc"
+            ]
+        ]
+    },
+    {
+        "id": "ce55ba2a.4629d8",
+        "type": "link out",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "links": [
+            "ce787ac7.1b2108"
+        ],
+        "x": 875,
+        "y": 620,
+        "wires": []
     }
 ]

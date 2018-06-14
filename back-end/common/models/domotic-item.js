@@ -18,6 +18,19 @@ module.exports = function(Item) {
           'body': {'value': '{value:boolean}'},
         },
       },
+      {
+        functions: {
+          'setActive': ['date', 'active', 'object'],
+        },
+        'template': {
+          'method': 'POST',
+          'url': 'http://localhost:1880/{object:string}/active',
+          'body': {
+            'active': '{active:boolean}',
+            'date': '{date:string}',
+          }
+        }
+      }
     ],
   });
 

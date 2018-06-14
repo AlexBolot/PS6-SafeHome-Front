@@ -36,6 +36,7 @@ import {DomoticService} from './service/domotic/domotic.service';
 import {DataDomoticListComponent} from './component/data-domotic-list/data-domotic-list.component';
 import {ScheduleService} from './service/schedules/schedule.service';
 import {DomoticTemperatureService} from './service/domoticTemperature/domotic-temperature.service';
+import {ScheduleValidatorService} from './service/schedule-validator/schedule-validator.service';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import {DomoticTemperatureService} from './service/domoticTemperature/domotic-te
     StatusService,
     DomoticService,
     ScheduleService,
+    ScheduleValidatorService,
     DomoticTemperatureService,
     LocationService,
     HttpClient,
