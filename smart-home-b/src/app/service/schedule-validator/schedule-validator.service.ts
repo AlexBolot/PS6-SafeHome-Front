@@ -12,7 +12,7 @@ export class ScheduleValidatorService {
 
   public isScheduleValid(schedule: Schedule, domoticItemID: number): Observable<Boolean> {
 
-    const isValid: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    const isValid: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
     this.scheduleService.getByDomoticID(domoticItemID).subscribe(schedules => {
       for (const compareItem of schedules) {

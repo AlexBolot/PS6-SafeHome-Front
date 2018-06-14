@@ -42,4 +42,8 @@ export class ScheduleService {
     return this.httpClient.put<JSON>(this.API_url, this.jsonObject);
   }
 
+  delete(scheduleId: number) {
+    return this.httpClient.delete<JSON>(this.API_url + "/" + scheduleId);
+
+  }
 }

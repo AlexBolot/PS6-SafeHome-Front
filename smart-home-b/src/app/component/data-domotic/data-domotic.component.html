@@ -63,6 +63,11 @@
                [(ngModel)]="endMinutes" min="0" max="59">
       </div>
     </div>
+    <div class="input-group col-md-1" *ngIf="currentSchedule">
+      <button class="btn btn-danger" (click)="deleteSchedule()">
+        Supprimer
+      </button>
+    </div>
 
   </div>
 </div>

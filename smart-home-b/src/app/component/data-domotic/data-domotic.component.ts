@@ -1,5 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
-import {EventEmitter} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Schedule} from '../../model/schedule';
 import {ScheduleService} from '../../service/schedules/schedule.service';
 import {Domotic} from '../../model/domotic';
@@ -178,5 +177,12 @@ export class DataDomoticComponent implements OnInit {
 
     this.startDate = new Date(dateValue + this.startHour.toString() + ':' + this.startMinutes.toString());
     this.endDate = new Date(dateValue + this.endHour.toString() + ':' + this.endMinutes.toString());
+  }
+
+  deleteSchedule() {
+    this.scheduleService.delete(this.currentSchedule.id).subscribe(value => {
+      console.log("deleted");
+      this.updateList.emit();
+    });
   }
 }
