@@ -1,12 +1,15 @@
 <div class="container-fluid">
-  <div class="row padding">
+  <div class="row padding-sides-35">
     <div class="col-sm-2">
-      <div *ngFor="let domoticItem of domoticItems" (click)="onDomoticItemClick(domoticItem)">
-          <app-domotic-item [domoticItem]="domoticItem"></app-domotic-item>
+      <div *ngFor="let item of items" class="margin-bottom-20">
+        <div [ngClass]="item === selectedItem ? btnPrimary: btnDefault"
+             (click)="onDomoticItemClick(item)">
+          {{item.name}}
+        </div>
       </div>
     </div>
-    <div *ngIf="clickOnItem" class="col-sm-10 paddingleft">
-      <app-data-domotic-list [displayingTemperature]="displayingTemperature" [idDomoticItem]="lastDomoticIdClicked">
+    <div *ngIf="selectedItem" class="col-sm-10 padding-left-35">
+      <app-data-domotic-list [showTemperature]="showTemperature" [domoticItemID]="selectedItem.id">
       </app-data-domotic-list>
     </div>
   </div>

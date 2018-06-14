@@ -13,6 +13,10 @@
     "end": {
       "type": "date",
       "required": true
+    },
+    "auto": {
+      "type": "boolean",
+      "required": true
     }
   },
   "validations": [],

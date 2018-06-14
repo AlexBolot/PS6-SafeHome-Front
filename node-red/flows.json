@@ -28,6 +28,64 @@
         "info": ""
     },
     {
+        "id": "94eec742.d077e8",
+        "type": "subflow",
+        "name": "CheckingMove",
+        "info": "",
+        "in": [
+            {
+                "x": 260,
+                "y": 180,
+                "wires": [
+                    {
+                        "id": "1db9789.08f6287"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 780,
+                "y": 180,
+                "wires": [
+                    {
+                        "id": "23eae1cf.b90bfe",
+                        "port": 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "b7b0772e.6609a8",
+        "type": "subflow",
+        "name": "check actionAuto",
+        "info": "",
+        "in": [
+            {
+                "x": 160,
+                "y": 200,
+                "wires": [
+                    {
+                        "id": "e832142a.298c98"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 760,
+                "y": 200,
+                "wires": [
+                    {
+                        "id": "e832142a.298c98",
+                        "port": 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "id": "6778f509.69879c",
         "type": "mqtt-broker",
         "z": "",
@@ -114,263 +172,6 @@
         "willTopic": "",
         "willQos": "0",
         "willPayload": ""
-    },
-    {
-        "id": "11292d98.701a82",
-        "type": "inject",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 402,
-        "y": 541,
-        "wires": [
-            [
-                "756e7e50.59fe2"
-            ]
-        ]
-    },
-    {
-        "id": "76dca8a1.f5a828",
-        "type": "mosca in",
-        "z": "fecacf27.dc262",
-        "mqtt_port": 1883,
-        "mqtt_ws_port": 8080,
-        "name": "",
-        "username": "",
-        "password": "",
-        "dburl": "",
-        "x": 612,
-        "y": 381,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "6aadca24.d3a654",
-        "type": "http in",
-        "z": "fecacf27.dc262",
-        "name": "Temperature http",
-        "url": "/temperature/set",
-        "method": "post",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 382,
-        "y": 481,
-        "wires": [
-            [
-                "1643a10.20b925f"
-            ]
-        ]
-    },
-    {
-        "id": "1643a10.20b925f",
-        "type": "function",
-        "z": "fecacf27.dc262",
-        "name": "Temperature set",
-        "func": "flow.set('temp',msg.payload.value);\nmsg.payload = \"ok\";\nreturn msg",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 652,
-        "y": 481,
-        "wires": [
-            [
-                "357224c2.927b9c"
-            ]
-        ]
-    },
-    {
-        "id": "756e7e50.59fe2",
-        "type": "function",
-        "z": "fecacf27.dc262",
-        "name": "Print Temp",
-        "func": "msg.payload = flow.get('temp')\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 652,
-        "y": 541,
-        "wires": [
-            [
-                "b1f3977d.d46c18"
-            ]
-        ]
-    },
-    {
-        "id": "b1f3977d.d46c18",
-        "type": "debug",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 882,
-        "y": 541,
-        "wires": []
-    },
-    {
-        "id": "6edada65.b560a4",
-        "type": "http response",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "statusCode": "200",
-        "headers": {},
-        "x": 942,
-        "y": 441,
-        "wires": []
-    },
-    {
-        "id": "abefb9f5.5a4838",
-        "type": "function",
-        "z": "fecacf27.dc262",
-        "name": "check temp",
-        "func": "var date = flow.get(\"date\") || 0;\nconsole.log(msg.payload);\ntemps = Date.now() - date;\nif(parseInt(msg.payload) < 293 && temps>60000){\n    console.log(\"pass heraz\");\n    flow.set(\"date\",Date.now());\n\n    msg.payload = \"{value:\"+msg.payload+\"}\";\nreturn msg;\n}\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 532,
-        "y": 621,
-        "wires": [
-            [
-                "b64c2736.545de8"
-            ]
-        ]
-    },
-    {
-        "id": "8253fe90.32e62",
-        "type": "mqtt in",
-        "z": "fecacf27.dc262",
-        "name": "thermo E",
-        "topic": "/home/general/Memory/float/Température_Zone_E_[K]",
-        "qos": "2",
-        "broker": "6778f509.69879c",
-        "x": 382,
-        "y": 621,
-        "wires": [
-            [
-                "abefb9f5.5a4838"
-            ]
-        ]
-    },
-    {
-        "id": "1607fd7d.e0c9a3",
-        "type": "link in",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "links": [
-            "69cf9074.8679b"
-        ],
-        "x": 757,
-        "y": 441,
-        "wires": [
-            [
-                "6edada65.b560a4"
-            ]
-        ]
-    },
-    {
-        "id": "357224c2.927b9c",
-        "type": "link out",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "links": [],
-        "x": 862,
-        "y": 481,
-        "wires": []
-    },
-    {
-        "id": "b64c2736.545de8",
-        "type": "http request",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "method": "POST",
-        "ret": "txt",
-        "url": "https://galles.io/pns/shb/api/Domotic-items/thermometer/declare",
-        "tls": "",
-        "x": 692,
-        "y": 621,
-        "wires": [
-            [
-                "92dc6e1f.de3bf"
-            ]
-        ]
-    },
-    {
-        "id": "92dc6e1f.de3bf",
-        "type": "debug",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "x": 852,
-        "y": 621,
-        "wires": []
-    },
-    {
-        "id": "e489d7ef.82f648",
-        "type": "mqtt out",
-        "z": "fecacf27.dc262",
-        "name": "radiateur E",
-        "topic": "/home/E/Output/bool/Radiateur",
-        "qos": "",
-        "retain": "",
-        "broker": "6778f509.69879c",
-        "x": 652,
-        "y": 721,
-        "wires": []
-    },
-    {
-        "id": "69cf9074.8679b",
-        "type": "link out",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "links": [
-            "1607fd7d.e0c9a3"
-        ],
-        "x": 617,
-        "y": 781,
-        "wires": []
-    },
-    {
-        "id": "2f6d9b85.587064",
-        "type": "http in",
-        "z": "fecacf27.dc262",
-        "name": "Turn Heater",
-        "url": "/TurnHeater/",
-        "method": "post",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 382,
-        "y": 721,
-        "wires": [
-            [
-                "e489d7ef.82f648",
-                "69cf9074.8679b",
-                "c72092d4.df691"
-            ]
-        ]
-    },
-    {
-        "id": "c72092d4.df691",
-        "type": "debug",
-        "z": "fecacf27.dc262",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "x": 654,
-        "y": 677,
-        "wires": []
     },
     {
         "id": "37f6bd32.94e182",
@@ -627,41 +428,9 @@
         ]
     },
     {
-        "id": "d7cd9390.65cbf",
-        "type": "mqtt in",
-        "z": "e9474b73.28c278",
-        "name": "lumiere A",
-        "topic": "/home/A/Input/bool/Interrupteur_Lumière_1",
-        "qos": "2",
-        "broker": "2d9f33d9.7e599c",
-        "x": 160,
-        "y": 200,
-        "wires": [
-            [
-                "8c3c394d.f98178"
-            ]
-        ]
-    },
-    {
-        "id": "8c3c394d.f98178",
-        "type": "function",
-        "z": "e9474b73.28c278",
-        "name": "lightOn",
-        "func": "console.log(msg.payload+\"lightOn\");\nif(msg.payload){\n    flow.set(\"turnOn\",Date.now());\n}\nreturn msg;\n\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 350,
-        "y": 200,
-        "wires": [
-            [
-                "7b2d9e63.d46a1"
-            ]
-        ]
-    },
-    {
-        "id": "7b2d9e63.d46a1",
+        "id": "6751893f.4fc598",
         "type": "delay",
-        "z": "e9474b73.28c278",
+        "z": "94eec742.d077e8",
         "name": "",
         "pauseType": "delay",
         "timeout": "10",
@@ -673,48 +442,62 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
-        "x": 510,
-        "y": 200,
+        "x": 500,
+        "y": 180,
         "wires": [
             [
-                "e6d49346.93395"
+                "23eae1cf.b90bfe"
             ]
         ]
     },
     {
-        "id": "41457d2.8467d84",
+        "id": "23eae1cf.b90bfe",
+        "type": "function",
+        "z": "94eec742.d077e8",
+        "name": "check",
+        "func": "var temps = flow.get(\"turnOn\");\nconsole.log( Date.now() -temps);\nconsole.log( flow.get(\"someHere\"));\nif(Date.now() - temps >10000 && !flow.get(\"someHere\")){\n    msg.payload=false;\n    return msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 650,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1db9789.08f6287",
+        "type": "function",
+        "z": "94eec742.d077e8",
+        "name": "moveA",
+        "func": "console.log(msg.payload+\"MoveA\");\n\nif(msg.payload==\"False\"){\n    flow.set(\"turnOn\",Date.now());\n    flow.set(\"someHere\",false);\n}else{\n     flow.set(\"someHere\",true);\n}\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 340,
+        "y": 240,
+        "wires": [
+            [
+                "6751893f.4fc598"
+            ]
+        ]
+    },
+    {
+        "id": "dbeeb3ef.ed03c",
         "type": "mqtt in",
         "z": "e9474b73.28c278",
         "name": "detecteur de movement A",
         "topic": "/home/A/Input/bool/Détecteur_de_mouvement",
         "qos": "2",
         "broker": "2d9f33d9.7e599c",
-        "x": 120,
-        "y": 260,
+        "x": 190,
+        "y": 80,
         "wires": [
             [
-                "2ef78f10.e479c"
+                "5cb09b3f.5faf74"
             ]
         ]
     },
     {
-        "id": "e6d49346.93395",
-        "type": "function",
-        "z": "e9474b73.28c278",
-        "name": "check",
-        "func": "var temps = flow.get(\"turnOn\");\nconsole.log( Date.now() -temps);\nconsole.log( flow.get(\"someHere\"));\nif(Date.now() - temps >10000 && !flow.get(\"someHere\")){\n    msg.payload=false;\n    return msg;\n}\n\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 660,
-        "y": 200,
-        "wires": [
-            [
-                "63c24cfc.431d64"
-            ]
-        ]
-    },
-    {
-        "id": "63c24cfc.431d64",
+        "id": "af747406.ab6ce8",
         "type": "mqtt out",
         "z": "e9474b73.28c278",
         "name": "lumiere A",
@@ -722,12 +505,12 @@
         "qos": "",
         "retain": "",
         "broker": "2d9f33d9.7e599c",
-        "x": 820,
-        "y": 199,
+        "x": 780,
+        "y": 80,
         "wires": []
     },
     {
-        "id": "77c76ffb.0e3a8",
+        "id": "6cb32d0b.943714",
         "type": "inject",
         "z": "e9474b73.28c278",
         "name": "",
@@ -738,16 +521,58 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 560,
-        "y": 300,
+        "x": 450,
+        "y": 40,
         "wires": [
             [
-                "63c24cfc.431d64"
+                "af747406.ab6ce8"
             ]
         ]
     },
     {
-        "id": "b800f6c6.3dc4b8",
+        "id": "5cb09b3f.5faf74",
+        "type": "subflow:94eec742.d077e8",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "x": 440,
+        "y": 80,
+        "wires": [
+            [
+                "af747406.ab6ce8"
+            ]
+        ]
+    },
+    {
+        "id": "5a4f9f5.806dd6",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "detecteur de movement B",
+        "topic": "/home/B/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 190,
+        "y": 140,
+        "wires": [
+            [
+                "5a5377a8.937498"
+            ]
+        ]
+    },
+    {
+        "id": "55bea971.ea8f98",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "lumiere B1",
+        "topic": "/home/B/Output/bool/Lumières_1",
+        "qos": "",
+        "retain": "",
+        "broker": "2d9f33d9.7e599c",
+        "x": 790,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "a9fd550.b4467a8",
         "type": "inject",
         "z": "e9474b73.28c278",
         "name": "",
@@ -758,28 +583,1657 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 160,
-        "y": 120,
+        "x": 430,
+        "y": 180,
         "wires": [
             [
-                "8c3c394d.f98178"
+                "55bea971.ea8f98",
+                "dc45fe1f.41ed6"
             ]
         ]
     },
     {
-        "id": "2ef78f10.e479c",
+        "id": "5a5377a8.937498",
+        "type": "subflow:94eec742.d077e8",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "x": 420,
+        "y": 140,
+        "wires": [
+            [
+                "55bea971.ea8f98",
+                "dc45fe1f.41ed6"
+            ]
+        ]
+    },
+    {
+        "id": "dc45fe1f.41ed6",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière B2",
+        "topic": "/home/B/Output/bool/Lumières_2",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "83d75d9e.797d2",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "detecteur de movement D",
+        "topic": "/home/D/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 190,
+        "y": 240,
+        "wires": [
+            [
+                "a618d551.32b798"
+            ]
+        ]
+    },
+    {
+        "id": "e8ea4d35.afb2f",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "lumiere D1",
+        "topic": "/home/D/Output/bool/Lumières_1",
+        "qos": "",
+        "retain": "",
+        "broker": "2d9f33d9.7e599c",
+        "x": 790,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "652395f7.36a62c",
+        "type": "inject",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 430,
+        "y": 280,
+        "wires": [
+            [
+                "e8ea4d35.afb2f",
+                "393821ee.6fc3be",
+                "12832d01.3de3a3"
+            ]
+        ]
+    },
+    {
+        "id": "a618d551.32b798",
+        "type": "subflow:94eec742.d077e8",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "x": 420,
+        "y": 240,
+        "wires": [
+            [
+                "e8ea4d35.afb2f",
+                "393821ee.6fc3be",
+                "12832d01.3de3a3"
+            ]
+        ]
+    },
+    {
+        "id": "393821ee.6fc3be",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière D2",
+        "topic": "/home/D/Output/bool/Lumières_2",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "9b0f4686.74cbe8",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "detecteur de movement E",
+        "topic": "/home/E/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 190,
+        "y": 400,
+        "wires": [
+            [
+                "7343a83.cda2458"
+            ]
+        ]
+    },
+    {
+        "id": "3d511769.8587a8",
+        "type": "inject",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 430,
+        "y": 440,
+        "wires": [
+            [
+                "f39ce55c.ff5d48"
+            ]
+        ]
+    },
+    {
+        "id": "7343a83.cda2458",
+        "type": "subflow:94eec742.d077e8",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "x": 420,
+        "y": 400,
+        "wires": [
+            [
+                "f39ce55c.ff5d48"
+            ]
+        ]
+    },
+    {
+        "id": "f39ce55c.ff5d48",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière E",
+        "topic": "/home/E/Output/bool/Lumières",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "5eb36a78.ae11d4",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "detecteur de movement F",
+        "topic": "/home/F/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 190,
+        "y": 500,
+        "wires": [
+            [
+                "2dcddcb6.932224"
+            ]
+        ]
+    },
+    {
+        "id": "a5788060.3886e",
+        "type": "inject",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 430,
+        "y": 560,
+        "wires": [
+            [
+                "df2cb336.54ac7",
+                "ef740316.60a7a"
+            ]
+        ]
+    },
+    {
+        "id": "2dcddcb6.932224",
+        "type": "subflow:94eec742.d077e8",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "x": 420,
+        "y": 500,
+        "wires": [
+            [
+                "df2cb336.54ac7",
+                "ef740316.60a7a"
+            ]
+        ]
+    },
+    {
+        "id": "df2cb336.54ac7",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière F2",
+        "topic": "/home/F/Output/bool/Lumières_2",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "ef740316.60a7a",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière F1",
+        "topic": "/home/F/Output/bool/Lumières_1",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "f237f311.12732",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "detecteur de movement G",
+        "topic": "/home/G/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 190,
+        "y": 620,
+        "wires": [
+            [
+                "131e4f99.71554"
+            ]
+        ]
+    },
+    {
+        "id": "b9ea906e.898fb",
+        "type": "inject",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 430,
+        "y": 680,
+        "wires": [
+            [
+                "568ba403.80c33c"
+            ]
+        ]
+    },
+    {
+        "id": "131e4f99.71554",
+        "type": "subflow:94eec742.d077e8",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "x": 420,
+        "y": 620,
+        "wires": [
+            [
+                "568ba403.80c33c"
+            ]
+        ]
+    },
+    {
+        "id": "568ba403.80c33c",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière G",
+        "topic": "/home/G/Output/bool/Lumières",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "7c42151c.de7e7c",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "detecteur de movement H",
+        "topic": "/home/H/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 190,
+        "y": 740,
+        "wires": [
+            [
+                "91854b86.6b2cb8"
+            ]
+        ]
+    },
+    {
+        "id": "48d860d5.3e403",
+        "type": "inject",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 430,
+        "y": 780,
+        "wires": [
+            [
+                "e294ea7.4c1b718"
+            ]
+        ]
+    },
+    {
+        "id": "91854b86.6b2cb8",
+        "type": "subflow:94eec742.d077e8",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "x": 420,
+        "y": 740,
+        "wires": [
+            [
+                "e294ea7.4c1b718"
+            ]
+        ]
+    },
+    {
+        "id": "e294ea7.4c1b718",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière H",
+        "topic": "/home/H/Output/bool/Lumières",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "bd7545cd.95bc58",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "detecteur de movement G",
+        "topic": "/home/G/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 190,
+        "y": 840,
+        "wires": [
+            [
+                "100f9af2.e6db45"
+            ]
+        ]
+    },
+    {
+        "id": "42b27e99.08a15",
+        "type": "inject",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 430,
+        "y": 880,
+        "wires": [
+            [
+                "3c3d9ae5.6116a6"
+            ]
+        ]
+    },
+    {
+        "id": "100f9af2.e6db45",
+        "type": "subflow:94eec742.d077e8",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "x": 420,
+        "y": 840,
+        "wires": [
+            [
+                "3c3d9ae5.6116a6"
+            ]
+        ]
+    },
+    {
+        "id": "3c3d9ae5.6116a6",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière G",
+        "topic": "/home/G/Output/bool/Lumières",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "51af108f.5f12d",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "detecteur de movement I",
+        "topic": "/home/I/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 190,
+        "y": 940,
+        "wires": [
+            [
+                "8f1e6e36.57f2"
+            ]
+        ]
+    },
+    {
+        "id": "cb044c2a.8773c",
+        "type": "inject",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 430,
+        "y": 1000,
+        "wires": [
+            [
+                "b45033e4.a0dda",
+                "c7dc1553.f5d4d8"
+            ]
+        ]
+    },
+    {
+        "id": "8f1e6e36.57f2",
+        "type": "subflow:94eec742.d077e8",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "x": 420,
+        "y": 940,
+        "wires": [
+            [
+                "b45033e4.a0dda",
+                "c7dc1553.f5d4d8"
+            ]
+        ]
+    },
+    {
+        "id": "b45033e4.a0dda",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière L1",
+        "topic": "/home/I/Output/bool/Lumières_1",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "c7dc1553.f5d4d8",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière L2",
+        "topic": "/home/I/Output/bool/Lumières_2",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "ba689c10.ff0da",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "detecteur de movement J",
+        "topic": "/home/J/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 190,
+        "y": 1060,
+        "wires": [
+            [
+                "f598ef07.cc1e3"
+            ]
+        ]
+    },
+    {
+        "id": "f681883a.9d6548",
+        "type": "inject",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 430,
+        "y": 1120,
+        "wires": [
+            [
+                "8f92ccaa.1cbd4"
+            ]
+        ]
+    },
+    {
+        "id": "f598ef07.cc1e3",
+        "type": "subflow:94eec742.d077e8",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "x": 420,
+        "y": 1060,
+        "wires": [
+            [
+                "8f92ccaa.1cbd4"
+            ]
+        ]
+    },
+    {
+        "id": "8f92ccaa.1cbd4",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière J",
+        "topic": "/home/J/Output/bool/Lumières",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 780,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "626d4026.4171a",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "detecteur de movement M",
+        "topic": "/home/M/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 190,
+        "y": 1180,
+        "wires": [
+            [
+                "be19bdc7.b0a92"
+            ]
+        ]
+    },
+    {
+        "id": "fb65a11f.9b219",
+        "type": "inject",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 430,
+        "y": 1220,
+        "wires": [
+            [
+                "e5e2cbb6.7b75e8"
+            ]
+        ]
+    },
+    {
+        "id": "be19bdc7.b0a92",
+        "type": "subflow:94eec742.d077e8",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "x": 420,
+        "y": 1180,
+        "wires": [
+            [
+                "e5e2cbb6.7b75e8"
+            ]
+        ]
+    },
+    {
+        "id": "e5e2cbb6.7b75e8",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière M",
+        "topic": "/home/M/Output/bool/Lumières",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "2596d904.4d3346",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "detecteur de movement L",
+        "topic": "/home/L/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 190,
+        "y": 1280,
+        "wires": [
+            [
+                "33aa6a62.e08e46"
+            ]
+        ]
+    },
+    {
+        "id": "8404aff0.becf",
+        "type": "inject",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 430,
+        "y": 1340,
+        "wires": [
+            [
+                "b8306006.340fb"
+            ]
+        ]
+    },
+    {
+        "id": "33aa6a62.e08e46",
+        "type": "subflow:94eec742.d077e8",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "x": 420,
+        "y": 1280,
+        "wires": [
+            [
+                "b8306006.340fb"
+            ]
+        ]
+    },
+    {
+        "id": "b8306006.340fb",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière L",
+        "topic": "/home/L/Output/bool/Lumières",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 780,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "174ca9fc.e50fc6",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "detecteur de movement K",
+        "topic": "/home/K/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 190,
+        "y": 1420,
+        "wires": [
+            [
+                "e11bdde3.6c0ee"
+            ]
+        ]
+    },
+    {
+        "id": "f845432.df00cc",
+        "type": "inject",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 430,
+        "y": 1480,
+        "wires": [
+            [
+                "e778579.9ccdaa8"
+            ]
+        ]
+    },
+    {
+        "id": "e11bdde3.6c0ee",
+        "type": "subflow:94eec742.d077e8",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "x": 420,
+        "y": 1420,
+        "wires": [
+            [
+                "e778579.9ccdaa8"
+            ]
+        ]
+    },
+    {
+        "id": "e778579.9ccdaa8",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière K",
+        "topic": "/home/K/Output/bool/Lumières",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "16afb8b3.9dff17",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "detecteur de movement N",
+        "topic": "/home/N/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 190,
+        "y": 1540,
+        "wires": [
+            [
+                "3826dd0e.1ee5a2"
+            ]
+        ]
+    },
+    {
+        "id": "d41821a6.696a2",
+        "type": "inject",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 430,
+        "y": 1620,
+        "wires": [
+            [
+                "34313e29.a2ea72",
+                "78c8265e.3cefb8",
+                "eb9c6bd.f4c6298"
+            ]
+        ]
+    },
+    {
+        "id": "3826dd0e.1ee5a2",
+        "type": "subflow:94eec742.d077e8",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "x": 420,
+        "y": 1540,
+        "wires": [
+            [
+                "34313e29.a2ea72",
+                "78c8265e.3cefb8",
+                "eb9c6bd.f4c6298"
+            ]
+        ]
+    },
+    {
+        "id": "34313e29.a2ea72",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière N1",
+        "topic": "/home/N/Output/bool/Lumières_1",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "78c8265e.3cefb8",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière N2",
+        "topic": "/home/N/Output/bool/Lumières_2",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "eb9c6bd.f4c6298",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière N3",
+        "topic": "/home/N/Output/bool/Lumières_3",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "12832d01.3de3a3",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière C",
+        "topic": "/home/C/Output/bool/Lumières",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "f467cdbe.e7fa6",
+        "type": "mqtt in",
+        "z": "e9474b73.28c278",
+        "name": "detecteur de movement O",
+        "topic": "/home/O/Input/bool/Détecteur_de_mouvement",
+        "qos": "2",
+        "broker": "2d9f33d9.7e599c",
+        "x": 170,
+        "y": 1720,
+        "wires": [
+            [
+                "8f02061.b3e11f8"
+            ]
+        ]
+    },
+    {
+        "id": "8f02061.b3e11f8",
+        "type": "subflow:94eec742.d077e8",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "x": 400,
+        "y": 1720,
+        "wires": [
+            [
+                "df741a9b.5ac018"
+            ]
+        ]
+    },
+    {
+        "id": "df741a9b.5ac018",
+        "type": "mqtt out",
+        "z": "e9474b73.28c278",
+        "name": "Lumière O",
+        "topic": "/home/O/Output/float/Entrée_lumière_(Analogique)",
+        "qos": "2",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 790,
+        "y": 1720,
+        "wires": []
+    },
+    {
+        "id": "c4313632.583ae8",
+        "type": "inject",
+        "z": "e9474b73.28c278",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 410,
+        "y": 1780,
+        "wires": [
+            [
+                "df741a9b.5ac018"
+            ]
+        ]
+    },
+    {
+        "id": "e832142a.298c98",
         "type": "function",
-        "z": "e9474b73.28c278",
-        "name": "moveA",
-        "func": "console.log(msg.payload+\"MoveA\");\n\nif(msg.payload==\"False\"){\n    flow.set(\"turnOn\",Date.now());\n    flow.set(\"someHere\",false);\n}else{\n     flow.set(\"someHere\",true);\n}\nreturn msg;\n\n",
+        "z": "b7b0772e.6609a8",
+        "name": "check actionAuto",
+        "func": "var actionAuto = global.get(\"actionAuto\") || false;\nconsole.log(\"Check actionAuto\"+actionAuto)\nif(actionAuto && parseInt(msg.payload)<293){\n    msg.payload=true;\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 350,
-        "y": 260,
+        "x": 450,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "56961099.b264e",
+        "type": "mosca in",
+        "z": "fecacf27.dc262",
+        "mqtt_port": 1883,
+        "mqtt_ws_port": 8080,
+        "name": "",
+        "username": "",
+        "password": "",
+        "dburl": "",
+        "x": 490,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1a7475dc.4b139a",
+        "type": "http in",
+        "z": "fecacf27.dc262",
+        "name": "Temperature http",
+        "url": "/temperature/set",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 240,
+        "y": 880,
         "wires": [
             [
-                "7b2d9e63.d46a1"
+                "b86f57f4.f84128"
             ]
+        ]
+    },
+    {
+        "id": "b86f57f4.f84128",
+        "type": "function",
+        "z": "fecacf27.dc262",
+        "name": "Temperature set",
+        "func": "flow.set('temp',msg.payload.value);\nmsg.payload = \"ok\";\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 510,
+        "y": 880,
+        "wires": [
+            [
+                "ca179bd2.b624b8"
+            ]
+        ]
+    },
+    {
+        "id": "cae35847.b9aa18",
+        "type": "http response",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 680,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "2e3cb70b.b47f88",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo E",
+        "topic": "/home/general/Memory/float/Température_Zone_E_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1080,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "fbe6a411.19ac88"
+            ]
+        ]
+    },
+    {
+        "id": "ce787ac7.1b2108",
+        "type": "link in",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "links": [
+            "69cf9074.8679b",
+            "e5b9a94b.f90708",
+            "5c596f55.2c5c8"
+        ],
+        "x": 495,
+        "y": 840,
+        "wires": [
+            [
+                "cae35847.b9aa18"
+            ]
+        ]
+    },
+    {
+        "id": "ca179bd2.b624b8",
+        "type": "link out",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "links": [],
+        "x": 720,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "c08ac584.009a38",
+        "type": "http request",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "url": "https://galles.io/pns/shb/api/Domotic-items/thermometer/declare",
+        "tls": "",
+        "x": 870,
+        "y": 960,
+        "wires": [
+            [
+                "eae37e24.88753"
+            ]
+        ]
+    },
+    {
+        "id": "eae37e24.88753",
+        "type": "debug",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1050,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "b55fd72f.6918f8",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo A",
+        "topic": "/home/general/Memory/float/Température_Zone_A_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1000,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "ab850794.4a9e58"
+            ]
+        ]
+    },
+    {
+        "id": "5223fed3.8c6be",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo D",
+        "topic": "/home/general/Memory/float/Température_Zone_D_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1040,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "f0a6162e.bfcb08"
+            ]
+        ]
+    },
+    {
+        "id": "c4cbfa13.b260f8",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo G",
+        "topic": "/home/general/Memory/float/Température_Zone_G_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1160,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "1d9beccb.dbad43"
+            ]
+        ]
+    },
+    {
+        "id": "314f9189.70105e",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo H",
+        "topic": "/home/general/Memory/float/Température_Zone_H_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1120,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "60e1151e.897bcc"
+            ]
+        ]
+    },
+    {
+        "id": "771c141d.f064fc",
+        "type": "function",
+        "z": "fecacf27.dc262",
+        "name": "check temp",
+        "func": "if(parseInt(msg.payload) < 293){\n    msg.payload = \"{value:\"+msg.payload+\"}\";\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 510,
+        "y": 960,
+        "wires": [
+            [
+                "4cd46105.52428"
+            ]
+        ]
+    },
+    {
+        "id": "2604d5b9.ebb12a",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo I",
+        "topic": "/home/general/Memory/float/Température_Zone_I_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1200,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "aaadab0b.4e5a68"
+            ]
+        ]
+    },
+    {
+        "id": "f0aeb077.a2541",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo J",
+        "topic": "/home/general/Memory/float/Température_Zone_J_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1240,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "fd77108c.d5671"
+            ]
+        ]
+    },
+    {
+        "id": "ec3c77a9.e63ee8",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo K",
+        "topic": "/home/general/Memory/float/Température_Zone_K_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1280,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "d27d891.5fa6278"
+            ]
+        ]
+    },
+    {
+        "id": "f7b3c9d4.b10af8",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo L",
+        "topic": "/home/general/Memory/float/Température_Zone_L_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1320,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "2671518e.cbaabe"
+            ]
+        ]
+    },
+    {
+        "id": "10a9df94.8e203",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo M",
+        "topic": "/home/general/Memory/float/Température_Zone_M_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1360,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "fb6a818d.c47c2"
+            ]
+        ]
+    },
+    {
+        "id": "8f6d36d1.4de138",
+        "type": "mqtt in",
+        "z": "fecacf27.dc262",
+        "name": "thermo N",
+        "topic": "/home/general/Memory/float/Température_Zone_N_[K]",
+        "qos": "2",
+        "broker": "6778f509.69879c",
+        "x": 160,
+        "y": 1400,
+        "wires": [
+            [
+                "771c141d.f064fc",
+                "f36049c0.715f88"
+            ]
+        ]
+    },
+    {
+        "id": "6515c6bf.2834c8",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur E",
+        "topic": "/home/E/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "4cd46105.52428",
+        "type": "delay",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "1",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "10",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 700,
+        "y": 960,
+        "wires": [
+            [
+                "c08ac584.009a38"
+            ]
+        ]
+    },
+    {
+        "id": "8c09cab9.97a3f8",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur A",
+        "topic": "/home/A/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "f2ef62e4.e0e14",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur D",
+        "topic": "/home/D/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "d395f6f0.c632c8",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur H",
+        "topic": "/home/H/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "1bfd2889.28a127",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur G",
+        "topic": "/home/G/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "378bdda1.bc2002",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur I",
+        "topic": "/home/I/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 840,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "157d51f7.22af5e",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur J",
+        "topic": "/home/J/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "d1410028.078d5",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur K",
+        "topic": "/home/K/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "8e21fba9.c51ae8",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur L",
+        "topic": "/home/L/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "f43c1d77.2c03a",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur M",
+        "topic": "/home/M/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "9f068553.d14cd8",
+        "type": "mqtt out",
+        "z": "fecacf27.dc262",
+        "name": "radiateur N",
+        "topic": "/home/N/Output/bool/Radiateur",
+        "qos": "",
+        "retain": "",
+        "broker": "6778f509.69879c",
+        "x": 850,
+        "y": 1400,
+        "wires": []
+    },
+    {
+        "id": "60e1151e.897bcc",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1120,
+        "wires": [
+            [
+                "d395f6f0.c632c8"
+            ]
+        ]
+    },
+    {
+        "id": "1d9beccb.dbad43",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1160,
+        "wires": [
+            [
+                "1bfd2889.28a127"
+            ]
+        ]
+    },
+    {
+        "id": "aaadab0b.4e5a68",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1200,
+        "wires": [
+            [
+                "378bdda1.bc2002"
+            ]
+        ]
+    },
+    {
+        "id": "fd77108c.d5671",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1240,
+        "wires": [
+            [
+                "157d51f7.22af5e"
+            ]
+        ]
+    },
+    {
+        "id": "d27d891.5fa6278",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1280,
+        "wires": [
+            [
+                "d1410028.078d5"
+            ]
+        ]
+    },
+    {
+        "id": "2671518e.cbaabe",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1320,
+        "wires": [
+            [
+                "8e21fba9.c51ae8"
+            ]
+        ]
+    },
+    {
+        "id": "fb6a818d.c47c2",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1360,
+        "wires": [
+            [
+                "f43c1d77.2c03a"
+            ]
+        ]
+    },
+    {
+        "id": "f36049c0.715f88",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1400,
+        "wires": [
+            [
+                "9f068553.d14cd8"
+            ]
+        ]
+    },
+    {
+        "id": "fbe6a411.19ac88",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1080,
+        "wires": [
+            [
+                "6515c6bf.2834c8"
+            ]
+        ]
+    },
+    {
+        "id": "f0a6162e.bfcb08",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1040,
+        "wires": [
+            [
+                "f2ef62e4.e0e14"
+            ]
+        ]
+    },
+    {
+        "id": "ab850794.4a9e58",
+        "type": "subflow:b7b0772e.6609a8",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "x": 640,
+        "y": 1000,
+        "wires": [
+            [
+                "8c09cab9.97a3f8"
+            ]
+        ]
+    },
+    {
+        "id": "cc80ec2f.74d9b",
+        "type": "http in",
+        "z": "fecacf27.dc262",
+        "name": "Turn Heater",
+        "url": "/TurnHeater",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 390,
+        "y": 1500,
+        "wires": [
+            [
+                "b36a82de.f20b6"
+            ]
+        ]
+    },
+    {
+        "id": "ccc7aee7.44227",
+        "type": "inject",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 410,
+        "y": 1460,
+        "wires": [
+            [
+                "bc80a89c.c51de8",
+                "8c09cab9.97a3f8",
+                "f2ef62e4.e0e14",
+                "6515c6bf.2834c8",
+                "d395f6f0.c632c8",
+                "1bfd2889.28a127",
+                "378bdda1.bc2002",
+                "157d51f7.22af5e",
+                "d1410028.078d5",
+                "8e21fba9.c51ae8",
+                "f43c1d77.2c03a",
+                "9f068553.d14cd8"
+            ]
+        ]
+    },
+    {
+        "id": "b36a82de.f20b6",
+        "type": "function",
+        "z": "fecacf27.dc262",
+        "name": "set true",
+        "func": "console.log(\"passe HERE\");\nglobal.set(\"ationAuto\",true);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 558,
+        "y": 1499,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bc80a89c.c51de8",
+        "type": "function",
+        "z": "fecacf27.dc262",
+        "name": "set false",
+        "func": "global.set(\"actionAuto\",false);",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 1460,
+        "wires": [
+            []
         ]
     }
 ]

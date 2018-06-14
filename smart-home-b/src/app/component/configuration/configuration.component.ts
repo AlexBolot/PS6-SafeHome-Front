@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Domotic} from "../../model/domotic";
-import {DomoticService} from "../../service/domotic/domotic.service";
-import {DomoticItemComponent} from "../domotic-item/domotic-item.component";
+import {Domotic} from '../../model/domotic';
+import {DomoticService} from '../../service/domotic/domotic.service';
 
 @Component({
   selector: 'app-configuration',
@@ -9,23 +8,24 @@ import {DomoticItemComponent} from "../domotic-item/domotic-item.component";
   styleUrls: ['./configuration.component.css']
 })
 export class ConfigurationComponent implements OnInit {
-  domoticItems: Domotic[] = [];
-  lastDomoticIdClicked:number;
-  displayingTemperature = false;
-  clickOnItem = false;
+
+  items: Domotic[] = [];
+  selectedItem: Domotic = null;
+  showTemperature = false;
+
+  btnDefault = 'btn btn-block btn-lg btn-default';
+  btnPrimary = 'btn btn-block btn-lg btn-primary';
 
   constructor(private domoticService: DomoticService) {
   }
 
   ngOnInit() {
-    this.domoticService.getAll().subscribe(value => this.domoticItems = value);
+    this.domoticService.getAll().subscribe(value => this.items = value);
   }
 
   onDomoticItemClick(domoticItem: Domotic) {
-    this.displayingTemperature = domoticItem.id == Domotic.thermostatId;
-    this.clickOnItem = true;
-    this.lastDomoticIdClicked = domoticItem.id;
+    this.showTemperature = domoticItem.id === Domotic.thermostatId;
+    this.selectedItem = (this.selectedItem === domoticItem) ? null : domoticItem;
   }
-
 }
 

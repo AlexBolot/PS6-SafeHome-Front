@@ -1,7 +1,6 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {Schedules} from "../../model/schedules";
-import {SchedulesService} from "../../service/schedules/schedules.service";
-import {DomoticService} from "../../service/domotic/domotic.service";
+import {Component, Input, OnChanges} from '@angular/core';
+import {Schedule} from '../../model/schedule';
+import {DomoticService} from '../../service/domotic/domotic.service';
 
 @Component({
   selector: 'app-data-domotic-list',
@@ -10,27 +9,33 @@ import {DomoticService} from "../../service/domotic/domotic.service";
 })
 export class DataDomoticListComponent implements OnChanges {
   showData = true;
-  @Input() displayingTemperature;
-  @Input() idDomoticItem;
-  schedulesList: Schedules[];
+  @Input() showTemperature;
+  @Input() domoticItemID;
+  schedules: Schedule[];
+
+  addScheduleIcon: String = 'glyphicon glyphicon-menu-down';
+  listSchedulesIcon: String = 'glyphicon glyphicon-menu-down';
+  visibleAddSchedule = true;
+  visibleListSchedules = true;
 
   constructor(private domoticService: DomoticService) {
   }
 
   ngOnChanges() {
-    this.domoticService.getSchedulesByDomoticID(this.idDomoticItem).subscribe(value => {
-      this.schedulesList = value;
+    this.domoticService.getSchedulesByDomoticID(this.domoticItemID).subscribe(value => {
+      this.schedules = value;
     });
+
+    console.log(this.domoticItemID);
   }
 
-  onClickEffect() {
-    this.showData = this.showData == false;
+  showAddSchedule() {
+    this.visibleAddSchedule = !this.visibleAddSchedule;
+    this.addScheduleIcon = this.visibleAddSchedule ? 'glyphicon glyphicon-menu-up' : 'glyphicon glyphicon-menu-down';
   }
 
-  updateList(status: boolean) {
-      console.log("beforeUpdateList");
-      this.domoticService.getSchedulesByDomoticID(this.idDomoticItem).subscribe(value => {
-        this.schedulesList = value;
-      });
+  showListSchedules() {
+    this.visibleListSchedules = !this.visibleListSchedules;
+    this.listSchedulesIcon = this.visibleListSchedules ? 'glyphicon glyphicon-menu-up' : 'glyphicon glyphicon-menu-down';
   }
 }
