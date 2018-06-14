@@ -17,14 +17,14 @@ export class TaskComponent implements OnInit {
 
   @Input() task: Task;
   @Output() updateParent = new EventEmitter<boolean>();
-  author: String;
-  asignee: String;
+  author: string;
+  asignee: string;
   issue: Issue;
   taskList: Task[] = [];
   numberOfTask: number;
   taskIsDone: boolean;
-  btnIcon: String = 'glyphicon glyphicon-ok';
-  btnColor: String = 'btn btn-default';
+  btnIcon = 'glyphicon glyphicon-ok';
+  btnColor = 'btn btn-default';
   userAllowed = false;
   userID: number;
   toggleSwitch: boolean;
@@ -74,14 +74,12 @@ export class TaskComponent implements OnInit {
   }
 
   private updateStatusIssue() {
-    //this.updateParent.emit(true);
-
-    this.taskService.getAllByIssueID(this.task.IDIssue).subscribe(value => {
+    this.issueService.getTasks(this.task.IDIssue).subscribe(value => {
       this.taskList = value;
 
       this.issueService.getByID(this.task.IDIssue).subscribe(value => {
         this.issue = value;
-        this.taskService.getNbByIdIssue(this.task.IDIssue).subscribe(value => {
+        this.taskService.countByIssueID(this.task.IDIssue).subscribe(value => {
             this.numberOfTask = value;
             let numberOfTaskDone = 0;
             for (const task of this.taskList) {

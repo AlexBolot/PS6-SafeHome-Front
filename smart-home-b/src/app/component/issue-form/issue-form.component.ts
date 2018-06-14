@@ -53,9 +53,9 @@ import {log} from 'util';
   ],
 })
 export class IssueFormComponent implements OnInit {
-  public mapUrgency: Map<Number, String> = new Map<Number, String>();
-  public mapCategory: Map<Number, String> = new Map<Number, String>();
-  public mapLocation: Map<Number, String> = new Map<Number, String>();
+  public mapUrgency: Map<number, string> = new  Map<number, string>();
+  public mapCategory: Map<number, string> = new Map<number, string>();
+  public mapLocation: Map<number, string> = new Map<number, string>();
   public mapUrgencyKeys;
   public mapCategoryKeys;
   public mapLocationKeys;
@@ -139,8 +139,8 @@ export class IssueFormComponent implements OnInit {
         this.idAuthor = this.authentificationService.getUser().idUser;
         this.idStatus = 1;
         this.issue = new Issue(undefined, this.title, this.description, this.realDateIncident,
-          this.dateDeclaration, Number(this.idUrgency), Number(this.idCategory), this.mapCategory.get(this.idCategory),
-          this.idAuthor, this.idStatus, 'À Faire', Number(this.idLocation), this.mapLocation.get(this.idLocation), undefined);
+          this.dateDeclaration, this.idUrgency, this.idCategory, this.mapCategory.get(this.idCategory),
+          this.idAuthor, this.idStatus, 'À Faire', this.idLocation, this.mapLocation.get(this.idLocation), undefined);
         console.log(this.issue);
         this.issueService.add(this.issue).subscribe(value => log('added'));
         const dialogRef = this.dialog.open(PopupissueComponent, {});

@@ -6,7 +6,7 @@
     </button>
   </h2>
   <div *ngIf="visibleAddSchedule">
-    <app-data-domotic [showTemperature]="showTemperature" [domoticItemID]="domoticItemID" (updateList)="ngOnChanges()">
+    <app-data-domotic [domoticItemID]="domoticItemID" (updateList)="ngOnChanges()">
     </app-data-domotic>
   </div>
   <h2>

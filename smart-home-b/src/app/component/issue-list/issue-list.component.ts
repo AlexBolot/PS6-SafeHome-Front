@@ -1,10 +1,11 @@
-import {Component, DoCheck, IterableDiffers, OnInit} from '@angular/core';
+import {Component, DoCheck, IterableDiffer, IterableDiffers, OnInit} from '@angular/core';
 import {Issue} from '../../model/issue';
 import {IssueService} from '../../service/issue/issue.service';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
 import {CategoryService} from '../../service/category/category.service';
 import {StatusService} from '../../service/status/status.service';
 import {LocationService} from '../../service/location/location.service';
+import {UrgencyService} from '../../service/urgency/urgency.service';
 
 @Component({
   selector: 'app-issue-list',
@@ -19,21 +20,21 @@ export class IssueListComponent implements OnInit, DoCheck {
 
   loadingAttempt = 0;
 
-  buttonBaseStyle: String = 'btn btn-block btn-';
+  buttonBaseStyle = 'btn btn-block btn-';
   declaredButtonStyle = this.buttonBaseStyle + 'primary';
   assignedButtonStyle = this.buttonBaseStyle + 'info';
-  declaredButtonIsChecked = false;
-  assignedButtonIsChecked = false;
+  showingDeclaredIssues = false;
+  showingAssignedIssues = false;
 
-  progressBaseStyle: String = 'progress-bar progress-bar-';
+  progressBaseStyle = 'progress-bar progress-bar-';
 
   todoWidth;
   doingWidth;
   doneWidth;
 
-  todoProgressStyle: String = this.progressBaseStyle + 'danger';
-  doingProgressStyle: String = this.progressBaseStyle + 'warning';
-  doneProgressStyle: String = this.progressBaseStyle + 'success';
+  todoProgressStyle: string = this.progressBaseStyle + 'danger';
+  doingProgressStyle: string = this.progressBaseStyle + 'warning';
+  doneProgressStyle: string = this.progressBaseStyle + 'success';
 
   sortBy: string;
   inputSearch: string;
@@ -44,7 +45,8 @@ export class IssueListComponent implements OnInit, DoCheck {
   showArchives = false;
 
   constructor(private issueService: IssueService, private authService: AuthenticationService, private statusService: StatusService,
-              private locationService: LocationService, private categoryService: CategoryService, private differs: IterableDiffers) {
+              private locationService: LocationService, private categoryService: CategoryService, private differs: IterableDiffers,
+              private urgencyService: UrgencyService) {
     this.differ = this.differs.find([]).create(null);
   }
 
@@ -73,19 +75,28 @@ export class IssueListComponent implements OnInit, DoCheck {
     }
   }
 
+  refreshCache() {
+    this.locationService.refreshCache();
+    this.categoryService.refreshCache();
+    this.statusService.refreshCache();
+    this.urgencyService.refreshCache();
+  }
+
   declaredButton_OnClickOneTime() {
-    if (!this.declaredButtonIsChecked) {
+    if (!this.showingDeclaredIssues) {
+      this.refreshCache();
       this.declaredButton_OnClick();
       this.sortBy = 'date';
-      this.declaredButtonIsChecked = true;
+      this.showingDeclaredIssues = true;
     }
   }
 
   assignedButton_OnClickOneTime() {
-    if (!this.assignedButtonIsChecked) {
+    if (!this.showingAssignedIssues) {
+      this.refreshCache();
       this.assignedButton_OnClick();
       this.sortBy = 'importance';
-      this.assignedButtonIsChecked = true;
+      this.showingAssignedIssues = true;
     }
   }
 
@@ -96,7 +107,7 @@ export class IssueListComponent implements OnInit, DoCheck {
     });
     this.declaredButtonStyle = this.buttonBaseStyle + 'primary';
     this.assignedButtonStyle = this.buttonBaseStyle + 'info';
-    this.assignedButtonIsChecked = false;
+    this.showingAssignedIssues = false;
   }
 
   assignedButton_OnClick() {
@@ -106,17 +117,27 @@ export class IssueListComponent implements OnInit, DoCheck {
     });
     this.assignedButtonStyle = this.buttonBaseStyle + 'primary';
     this.declaredButtonStyle = this.buttonBaseStyle + 'info';
-    this.declaredButtonIsChecked = false;
+    this.showingDeclaredIssues = false;
+  }
+
+  showArchives_OnClick() {
+    this.showArchives = !this.showArchives;
+
+    if (this.showingAssignedIssues) {
+      this.assignedButton_OnClick();
+    } else {
+      this.declaredButton_OnClick();
+    }
   }
 
   updatePercents(issues: Issue[]) {
 
     let totalUnarchived = 0;
-    issues.forEach(issue => {
+    for (const issue of issues) {
       if (issue.IDStatus !== Issue.ArchivedID) {
         totalUnarchived++;
       }
-    });
+    }
 
     if (totalUnarchived === 0) {
       this.todoWidth = 0;
@@ -131,13 +152,13 @@ export class IssueListComponent implements OnInit, DoCheck {
 
   callType() {
     if (this.inputSearch === undefined || this.inputSearch === '') {
-      if (this.assignedButtonIsChecked) {
+      if (this.showingAssignedIssues) {
         if (this.sortBy === 'importance') {
           this.issues = this.issueService.getSortedByImportance(this.issues);
         } else if (this.sortBy === 'date') {
           this.issues = this.issueService.getSortedByDate(this.issues);
         }
-      } else if (this.declaredButtonIsChecked) {
+      } else if (this.showingDeclaredIssues) {
         if (this.sortBy === 'importance') {
           this.issues = this.issueService.getSortedByImportance(this.issues);
         } else if (this.sortBy === 'date') {
@@ -145,13 +166,13 @@ export class IssueListComponent implements OnInit, DoCheck {
         }
       }
     } else if (this.inputSearch !== '') {
-      if (this.assignedButtonIsChecked) {
+      if (this.showingAssignedIssues) {
         if (this.sortBy === 'importance') {
           this.issues = this.issueService.getSortedByImportance(this.issueService.getFilter(this.fullIssues, this.inputSearch));
         } else if (this.sortBy === 'date') {
           this.issues = this.issueService.getSortedByDate(this.issueService.getFilter(this.fullIssues, this.inputSearch));
         }
-      } else if (this.declaredButtonIsChecked) {
+      } else if (this.showingDeclaredIssues) {
         if (this.sortBy === 'importance') {
           this.issues = this.issueService.getSortedByImportance(this.issueService.getFilter(this.fullIssues, this.inputSearch));
         } else if (this.sortBy === 'date') {
@@ -161,13 +182,14 @@ export class IssueListComponent implements OnInit, DoCheck {
     }
   }
 
-  fullIssuesUpdate(update: boolean) {
-    if (this.assignedButtonIsChecked) {
+  fullIssuesUpdate() {
+    if (this.showingAssignedIssues) {
       this.issueService.getAssignee(this.authService.getUser().idUser, this.showArchives).subscribe(value => {
+        console.log('bob = ' + value);
         this.fullIssues = value;
         this.changeProgressOpacity(0.5);
       });
-    } else if (this.declaredButtonIsChecked) {
+    } else if (this.showingDeclaredIssues) {
       this.issueService.getDeclared(this.authService.getUser().idUser, this.showArchives).subscribe(value => {
         this.fullIssues = value;
         this.changeProgressOpacity(0.5);
@@ -177,15 +199,5 @@ export class IssueListComponent implements OnInit, DoCheck {
 
   changeProgressOpacity(amount: number) {
     this.opacityProgress = amount;
-  }
-
-  showArchives_OnClick() {
-    this.showArchives = !this.showArchives;
-
-    if (this.assignedButtonIsChecked) {
-      this.assignedButton_OnClick();
-    } else {
-      this.declaredButton_OnClick();
-    }
   }
 }

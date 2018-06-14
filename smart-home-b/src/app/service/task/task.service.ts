@@ -5,6 +5,7 @@ import {Task} from '../../model/task';
 import {AppSettings} from '../../model/app-settings';
 import {User} from '../../model/user';
 import {AuthInterceptor} from '../authentication/auth-interceptor';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class TaskService {
@@ -26,11 +27,7 @@ export class TaskService {
     return this.httpClient.get<User>(this.API_url + '/' + id + '/asignee');
   }
 
-  getAllByIssueID(id: number): Observable<Task[]> {
-    return this.httpClient.get<Task[]>(this.API_url).map(tasks => tasks.filter(task => task.IDIssue === id));
-  }
-
-  getNbByIdIssue(id: number): Observable<number> {
+  countByIssueID(id: number): Observable<number> {
     return this.httpClient.get<number>(this.API_url + '/count?[where][IDIssue]=' + id);
   }
 

@@ -8,8 +8,6 @@ import {DomoticService} from '../../service/domotic/domotic.service';
   styleUrls: ['./data-domotic-list.component.css']
 })
 export class DataDomoticListComponent implements OnChanges {
-  showData = true;
-  @Input() showTemperature;
   @Input() domoticItemID;
   schedules: Schedule[];
 
@@ -22,11 +20,7 @@ export class DataDomoticListComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    this.domoticService.getSchedules(this.domoticItemID).subscribe(value => {
-      this.schedules = value;
-    });
-
-    console.log(this.domoticItemID);
+    this.domoticService.getSchedules(this.domoticItemID).subscribe(value => this.schedules = value);
   }
 
   showAddSchedule() {

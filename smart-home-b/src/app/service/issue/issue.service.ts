@@ -5,10 +5,10 @@ import {HttpClient} from '@angular/common/http';
 import {AppSettings} from '../../model/app-settings';
 import {TaskService} from '../task/task.service';
 import {CategoryService} from '../category/category.service';
-import {Task} from '../../model/task';
-import {StatusService} from '../status/status.service';
-import {LocationService} from '../location/location.service';
+import 'rxjs/add/operator/map';
 import {log} from 'util';
+import {Task} from '../../model/task';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class IssueService {
@@ -26,6 +26,10 @@ export class IssueService {
 
   getByID(id: number): Observable<Issue> {
     return this.httpClient.get<Issue>(this.API_url + '/' + id);
+  }
+
+  getTasks(id: number): Observable<Task[]> {
+    return this.httpClient.get<Task[]>(this.API_url + '/' + id + '/tasks');
   }
 
   add(issue: Issue) {
@@ -55,20 +59,40 @@ export class IssueService {
   }
 
   getAssignee(id: number, archivedToo: boolean = false): Observable<Issue[]> {
-    return this.httpClient.get<Issue[]>(this.API_url).map(issues => {
 
-      this.checkArchive(issues);
+    const tasksRoute = this.taskService.API_url + '/?filter[where][IDAssignee]=' + id;
 
-      const map: Issue[] = [];
-      issues.forEach(issue => this.taskService.getAllByIssueID(issue.id).subscribe(tasks => {
-        if (tasks.filter(task => task.IDAssignee === id).length > 0) {
+    const result: BehaviorSubject<Issue[]> = new BehaviorSubject<Issue[]>([]);
+
+    this.httpClient.get<Task[]>(tasksRoute).subscribe((tasks: Task[]) => {
+
+      const issueIDList: number[] = [];
+
+      for (const task of tasks) {
+        if (!(task.IDIssue in issueIDList)) {
+          issueIDList.push(task.IDIssue);
+        }
+      }
+
+      let issueRoute = this.API_url + '/?filter={"where":{"or":[';
+      issueIDList.forEach(id => issueRoute += '{\"id\":' + id + '},');
+      issueRoute = issueRoute.slice(0, -1);
+      issueRoute += ']}}';
+
+      this.httpClient.get<Issue[]>(issueRoute).subscribe((issues: Issue[]) => {
+        const localResult: Issue[] = [];
+
+        for (const issue of issues) {
           if (archivedToo || issue.IDStatus !== Issue.ArchivedID) {
-            map.push(issue);
+            localResult.push(issue);
           }
         }
-      }));
-      return map;
+
+        result.next(localResult);
+      });
     });
+
+    return result;
   }
 
   getSortedByDate(issues: Issue[]): Issue[] {
@@ -84,6 +108,8 @@ export class IssueService {
   }
 
   getSortedByImportance(issues: Issue[]): Issue[] {
+    if (issues === null) { return issues; }
+
     return issues.sort((issue1, issue2): number => {
       if (issue1.IDUrgency < issue2.IDUrgency) {
         return 1;

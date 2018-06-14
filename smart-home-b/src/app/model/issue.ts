@@ -11,19 +11,20 @@ export class Issue {
   Date: Date;
   DeclarationDate: Date;
   IDUrgency: number;
-  category: String;
+  category: string;
   categoryId: number;
   IDAuthor: number;
   IDStatus: number;
   IDLocation: number;
   Picture: string;
   homesId: number;
-  locationName: String;
-  statusName: String;
+  locationName: string;
+  statusName: string;
+
   DateDone: Date = null;
 
   constructor(idIssue: number, title: string, description: string, dateIncident: Date, dateDeclaration: Date, idUrgency: number,
-              idCat: number, categorie: String, idAuthor: number, idStatus: number, status: String, idLocation: number, location: String,
+              idCat: number, categorie: string, idAuthor: number, idStatus: number, status: string, idLocation: number, location: string,
               image: string, idHome: number = -1, DateDone: Date = null) {
     this.id = idIssue;
     this.Title = title;
