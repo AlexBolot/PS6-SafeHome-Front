@@ -41,7 +41,7 @@ module.exports = function (Schedule) {
               },
               function (err, schedule) {
                 setTimeout(() => activate(true, types[type].name, schedule.end), schedule.start.getTime() - Date.now());
-                setTimeout(() => activate(false, types[type].name, null), schedule.end.getTime() - Date.end());
+                setTimeout(() => activate(false, types[type].name, null), schedule.end.getTime() - Date.now());
               }
             )
           });
