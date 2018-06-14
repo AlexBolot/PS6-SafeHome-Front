@@ -21,21 +21,23 @@ export class ScheduleService {
   }
 
   add(schedules: Schedule) {
-    this.jsonObject = JSON.parse('{\n' +
-      '  "start": "' + schedules.start.toString() + '",\n' +
-      '  "end": "' + schedules.end.toString() + '",\n' +
-      '  "domotic-itemId":' + schedules.domoticitemId + '\n' +
-      '}');
+    this.jsonObject = JSON.parse("{\n" +
+      "  \"start\": \""+schedules.start+"\",\n" +
+      "  \"end\": \""+schedules.end+"\",\n" +
+      "  \"auto\": "+schedules.auto+",\n" +
+      "  \"domotic-itemId\": "+schedules.domoticitemId+"\n" +
+      "}");
     return this.httpClient.post<JSON>(this.API_url, this.jsonObject);
   }
 
   put(schedules: Schedule) {
-    this.jsonObject = JSON.parse('{\n' +
-      '  "start": "' + schedules.start + '",\n' +
-      '  "end": "' + schedules.end + '",\n' +
-      '  "id": ' + schedules.id + ',\n' +
-      '  "domotic-itemId": ' + schedules.domoticitemId + '\n' +
-      '}');
+    this.jsonObject = JSON.parse("{\n" +
+      "  \"start\": \""+schedules.start+"\",\n" +
+      "  \"end\": \""+schedules.end+"\",\n" +
+      "  \"auto\": "+schedules.auto+",\n" +
+      "  \"id\": "+schedules.id+",\n" +
+      "  \"domotic-itemId\": "+schedules.domoticitemId+"\n" +
+      "}");
     return this.httpClient.put<JSON>(this.API_url, this.jsonObject);
   }
 

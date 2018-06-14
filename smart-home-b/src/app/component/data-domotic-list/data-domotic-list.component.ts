@@ -29,14 +29,6 @@ export class DataDomoticListComponent implements OnChanges {
     console.log(this.domoticItemID);
   }
 
-  onClickEffect() {
-    this.showData = this.showData === false;
-  }
-
-  updateList(status: boolean) {
-    this.ngOnChanges();
-  }
-
   showAddSchedule() {
     this.visibleAddSchedule = !this.visibleAddSchedule;
     this.addScheduleIcon = this.visibleAddSchedule ? 'glyphicon glyphicon-menu-up' : 'glyphicon glyphicon-menu-down';
