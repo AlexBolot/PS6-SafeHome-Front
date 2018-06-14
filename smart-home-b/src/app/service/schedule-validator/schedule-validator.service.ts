@@ -23,16 +23,19 @@ export class ScheduleValidatorService {
         const compareItemEnd = new Date(compareItem.end);
 
         if (scheduleStart.getUTCDay() === compareItemStart.getUTCDay()) {
-
+          //  console.log(scheduleStart.getTime());
+          //   console.log(scheduleEnd.getTime());
+          //  console.log(compareItemEnd.getTime());
+          //  console.log(compareItemStart.getTime());
           const startInSpan = scheduleStart.getTime() >= compareItemStart.getTime() && scheduleStart.getTime() < compareItemEnd.getTime();
           const endInSpan = scheduleEnd.getTime() > compareItemStart.getTime() && scheduleEnd.getTime() <= compareItemEnd.getTime();
           const containsSpan = scheduleStart.getTime() <= compareItemStart.getTime() && scheduleEnd.getTime() >= compareItemEnd.getTime();
 
           if (startInSpan || endInSpan || containsSpan) {
-            if (compareItem.id !== schedule.id) {
+            if (compareItem.id != schedule.id) {
               isValid.next(false);
+              return;
             }
-            return;
           }
         }
       }
