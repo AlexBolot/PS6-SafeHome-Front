@@ -28,13 +28,6 @@
         "info": ""
     },
     {
-        "id": "8e47916a.42192",
-        "type": "tab",
-        "label": "Flow 1",
-        "disabled": false,
-        "info": ""
-    },
-    {
         "id": "94eec742.d077e8",
         "type": "subflow",
         "name": "CheckingMove",
@@ -1545,7 +1538,7 @@
         "type": "function",
         "z": "b7b0772e.6609a8",
         "name": "check actionAuto",
-        "func": "var actionAuto = global.get(\"actionAuto\") || false;\nconsole.log(\"Check actionAuto\"+actionAuto)\nif(actionAuto && parseInt(msg.payload)<293){\n    msg.payload=true;\n    return msg;\n}\n",
+        "func": "var actionAuto = global.get(\"actionAuto\") || false;\n\nif(actionAuto && parseInt(msg.payload)<global.get(\"temp\")){\n    msg.payload=true;\n    return msg;\n}else if(actionAuto && parseInt(msg.payload)>global.get(\"temp\")){\n    msg.payload=false;\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 550,
@@ -1592,7 +1585,7 @@
         "type": "function",
         "z": "fecacf27.dc262",
         "name": "Temperature set",
-        "func": "flow.set('temp',msg.payload.value);\nmsg.payload = \"ok\";\nreturn msg",
+        "func": "global.set('temp',parseInt(msg.payload)+273);\nmsg.payload = \"ok\";\nreturn msg",
         "outputs": 1,
         "noerr": 0,
         "x": 510,
@@ -1765,7 +1758,7 @@
         "type": "function",
         "z": "fecacf27.dc262",
         "name": "check temp",
-        "func": "if(parseInt(msg.payload) < 293){\n    msg.payload = \"{value:\"+msg.payload+\"}\";\n    return msg;\n}\n",
+        "func": "if(parseInt(msg.payload) < global.get(\"temp\")){\n    msg.payload = \"{value:\"+msg.payload+\"}\";\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 510,
@@ -2254,7 +2247,7 @@
         "type": "function",
         "z": "fecacf27.dc262",
         "name": "set false",
-        "func": "global.set(\"actionAuto\",false);",
+        "func": "global.set(\"actionAuto\",true);",
         "outputs": 1,
         "noerr": 0,
         "x": 560,
@@ -2336,6 +2329,26 @@
         "y": 180,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "488800a3.1eaef",
+        "type": "inject",
+        "z": "fecacf27.dc262",
+        "name": "",
+        "topic": "",
+        "payload": "15",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 230,
+        "y": 840,
+        "wires": [
+            [
+                "b86f57f4.f84128"
+            ]
         ]
     }
 ]
