@@ -55,6 +55,9 @@ export class DataDomoticComponent implements OnInit {
       this.automaticToggle = this.currentSchedule.auto;
       this.startDate = new Date(this.currentSchedule.start);
       this.endDate = new Date(this.currentSchedule.end);
+      this.compensateGMT(this.startDate);
+      this.compensateGMT(this.endDate);
+
       this.startHour = this.startDate.getHours();
       this.startMinutes = this.startDate.getMinutes();
       this.endMinutes = this.endDate.getMinutes();
@@ -104,10 +107,16 @@ export class DataDomoticComponent implements OnInit {
   addSchedule() {
 
     this.chooseDay();
-    const schedule = new Schedule(undefined, this.startDate, this.endDate, this.domoticItemID, this.automaticToggle);
+    let gmtStartDate = new Date(this.startDate);
+    let gmtEndDate = new Date(this.endDate);
+    this.setToGMT(gmtStartDate);
+    this.setToGMT(gmtEndDate);
+    const schedule = new Schedule(undefined, gmtStartDate, gmtEndDate, this.domoticItemID, this.automaticToggle);
     if (this.domoticItemID === Domotic.alarmId) {
       schedule.auto = true;
     }
+
+
     this.scheduleValidatorService.isScheduleValid(schedule, this.domoticItemID).subscribe(answer => {
       if (answer) {
         this.scheduleService.add(schedule).subscribe(value => {
@@ -128,7 +137,11 @@ export class DataDomoticComponent implements OnInit {
 
   updateSchedule() {
     this.chooseDay();
-    const schedule = new Schedule(this.currentSchedule.id, this.startDate, this.endDate, this.domoticItemID, this.automaticToggle);
+    let gmtStartDate = new Date(this.startDate);
+    let gmtEndDate = new Date(this.endDate);
+    this.setToGMT(gmtStartDate);
+    this.setToGMT(gmtEndDate);
+    const schedule = new Schedule(this.currentSchedule.id, gmtStartDate, gmtEndDate, this.domoticItemID, this.automaticToggle);
 
     this.scheduleValidatorService.isScheduleValid(schedule, this.domoticItemID).subscribe(answer => {
       if (answer) {
@@ -186,4 +199,13 @@ export class DataDomoticComponent implements OnInit {
       this.updateList.emit();
     });
   }
+
+  setToGMT(date: Date) {
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+  }
+
+  compensateGMT(date: Date) {
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+  }
+
 }

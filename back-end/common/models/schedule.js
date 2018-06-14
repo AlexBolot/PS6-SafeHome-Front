@@ -50,7 +50,7 @@ module.exports = function (Schedule) {
               {
                 "order": "start ASC",
                 include: "temperature",
-                "where": {"itemId": item.id},
+                "where": {"domotic-itemId": item.id},
               },
               function (err, schedule) {
                 setTimeout(() => {
