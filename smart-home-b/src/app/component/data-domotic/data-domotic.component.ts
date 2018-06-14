@@ -105,7 +105,7 @@ export class DataDomoticComponent implements OnInit {
 
     this.chooseDay();
     const schedule = new Schedule(undefined, this.startDate, this.endDate, this.domoticItemID, this.automaticToggle);
-
+    if (this.domoticItemID == Domotic.alarmId) schedule.auto = true;
     this.scheduleValidatorService.isScheduleValid(schedule, this.domoticItemID).subscribe(answer => {
       if (answer) {
         this.scheduleService.add(schedule).subscribe(value => {
