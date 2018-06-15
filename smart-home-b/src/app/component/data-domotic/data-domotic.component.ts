@@ -18,7 +18,7 @@ export class DataDomoticComponent implements OnInit {
   domoticThermostatId = Domotic.thermostatId;
   @Input() currentSchedule: Schedule;
   @Input() domoticItemID;
-  @Output() updateList = new EventEmitter<void>();
+  @Output() updateList = new EventEmitter<Schedule>();
 
   minHours = 0;
   maxHours = 23;
@@ -36,6 +36,7 @@ export class DataDomoticComponent implements OnInit {
   endDate: Date;
 
   automaticToggle = false;
+  @Output() deleteElementFromList = new EventEmitter<Schedule>();
 
   constructor(private scheduleService: ScheduleService,
               private domoticTemperatureService: DomoticTemperatureService,
@@ -124,7 +125,7 @@ export class DataDomoticComponent implements OnInit {
             this.temperature = new DomoticTemperature(undefined, this.minTemperature, value['id']);
             this.domoticTemperatureService.add(this.temperature).subscribe();
           }
-          this.updateList.emit();
+          this.updateList.emit(schedule);
           console.log('added schedule');
         });
       } else if (answer === null) {
@@ -151,7 +152,6 @@ export class DataDomoticComponent implements OnInit {
             this.domoticTemperatureService.put(this.temperature).subscribe(() => console.log('valueTempUpdated'));
           }
           console.log('updated schedule');
-          this.updateList.emit();
         });
       } else if (answer === null) {
         console.log('no reply yet');
@@ -196,7 +196,7 @@ export class DataDomoticComponent implements OnInit {
   deleteSchedule() {
     this.scheduleService.delete(this.currentSchedule.id).subscribe(() => {
       console.log('deleted');
-      this.updateList.emit();
+      this.deleteElementFromList.emit(this.currentSchedule);
     });
   }
 

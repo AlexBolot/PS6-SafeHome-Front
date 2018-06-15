@@ -32,4 +32,8 @@ export class DataDomoticListComponent implements OnChanges {
     this.visibleListSchedules = !this.visibleListSchedules;
     this.listSchedulesIcon = this.visibleListSchedules ? 'glyphicon glyphicon-menu-up' : 'glyphicon glyphicon-menu-down';
   }
+
+  addToList(schedule: Schedule) {
+    this.schedules.push(schedule);
+  }
 }

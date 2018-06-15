@@ -17,7 +17,8 @@
   </h2>
   <div *ngIf="visibleListSchedules" class="row panel-heading">
     <div *ngFor="let schedule of schedules">
-      <app-data-domotic [domoticItemID]="domoticItemID" [currentSchedule]="schedule" (updateList)="ngOnChanges()">
+      <app-data-domotic [domoticItemID]="domoticItemID" [currentSchedule]="schedule" (updateList)="addToList(schedule)"
+                        (deleteElementFromList)="ngOnChanges()">
       </app-data-domotic>
     </div>
   </div>
