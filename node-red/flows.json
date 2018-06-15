@@ -28,6 +28,13 @@
         "info": ""
     },
     {
+        "id": "d5e0c135.406e1",
+        "type": "tab",
+        "label": "interrupteur Luminos",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "94eec742.d077e8",
         "type": "subflow",
         "name": "CheckingMove",
@@ -91,6 +98,28 @@
         "z": "",
         "name": "MQTT Broquer",
         "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "c0717e03.4d126",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "localhost:1883",
         "port": "1883",
         "clientid": "",
         "usetls": false,
@@ -1495,7 +1524,7 @@
         "password": "",
         "dburl": "",
         "x": 490,
-        "y": 740,
+        "y": 160,
         "wires": [
             []
         ]
@@ -1510,7 +1539,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 240,
-        "y": 880,
+        "y": 300,
         "wires": [
             [
                 "b86f57f4.f84128"
@@ -1526,7 +1555,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 510,
-        "y": 880,
+        "y": 300,
         "wires": [
             [
                 "ca179bd2.b624b8"
@@ -1541,7 +1570,7 @@
         "statusCode": "200",
         "headers": {},
         "x": 680,
-        "y": 840,
+        "y": 260,
         "wires": []
     },
     {
@@ -1553,7 +1582,7 @@
         "qos": "2",
         "broker": "de6f5fa4.d6bae",
         "x": 160,
-        "y": 1080,
+        "y": 500,
         "wires": [
             [
                 "771c141d.f064fc",
@@ -1572,7 +1601,7 @@
             "9ee2d4f8.46f3c8"
         ],
         "x": 495,
-        "y": 840,
+        "y": 260,
         "wires": [
             [
                 "cae35847.b9aa18"
@@ -1588,7 +1617,7 @@
             "ce787ac7.1b2108"
         ],
         "x": 720,
-        "y": 880,
+        "y": 300,
         "wires": []
     },
     {
@@ -1601,7 +1630,7 @@
         "url": "https://galles.io/pns/shb/api/Domotic-items/thermometer/declare",
         "tls": "",
         "x": 870,
-        "y": 960,
+        "y": 380,
         "wires": [
             [
                 "eae37e24.88753"
@@ -1619,7 +1648,7 @@
         "tostatus": false,
         "complete": "payload",
         "x": 1050,
-        "y": 960,
+        "y": 380,
         "wires": []
     },
     {
@@ -1631,7 +1660,7 @@
         "qos": "2",
         "broker": "de6f5fa4.d6bae",
         "x": 160,
-        "y": 1000,
+        "y": 420,
         "wires": [
             [
                 "771c141d.f064fc",
@@ -1648,7 +1677,7 @@
         "qos": "2",
         "broker": "de6f5fa4.d6bae",
         "x": 160,
-        "y": 1040,
+        "y": 460,
         "wires": [
             [
                 "771c141d.f064fc",
@@ -1665,7 +1694,7 @@
         "qos": "2",
         "broker": "de6f5fa4.d6bae",
         "x": 160,
-        "y": 1160,
+        "y": 580,
         "wires": [
             [
                 "771c141d.f064fc",
@@ -1682,7 +1711,7 @@
         "qos": "2",
         "broker": "de6f5fa4.d6bae",
         "x": 160,
-        "y": 1120,
+        "y": 540,
         "wires": [
             [
                 "771c141d.f064fc",
@@ -1699,7 +1728,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 510,
-        "y": 960,
+        "y": 380,
         "wires": [
             [
                 "4cd46105.52428"
@@ -1715,7 +1744,7 @@
         "qos": "2",
         "broker": "de6f5fa4.d6bae",
         "x": 160,
-        "y": 1200,
+        "y": 620,
         "wires": [
             [
                 "771c141d.f064fc",
@@ -1732,7 +1761,7 @@
         "qos": "2",
         "broker": "de6f5fa4.d6bae",
         "x": 160,
-        "y": 1240,
+        "y": 660,
         "wires": [
             [
                 "771c141d.f064fc",
@@ -1749,7 +1778,7 @@
         "qos": "2",
         "broker": "de6f5fa4.d6bae",
         "x": 160,
-        "y": 1280,
+        "y": 700,
         "wires": [
             [
                 "771c141d.f064fc",
@@ -1766,7 +1795,7 @@
         "qos": "2",
         "broker": "de6f5fa4.d6bae",
         "x": 160,
-        "y": 1320,
+        "y": 740,
         "wires": [
             [
                 "771c141d.f064fc",
@@ -1783,7 +1812,7 @@
         "qos": "2",
         "broker": "de6f5fa4.d6bae",
         "x": 160,
-        "y": 1360,
+        "y": 780,
         "wires": [
             [
                 "771c141d.f064fc",
@@ -1800,7 +1829,7 @@
         "qos": "2",
         "broker": "de6f5fa4.d6bae",
         "x": 160,
-        "y": 1400,
+        "y": 820,
         "wires": [
             [
                 "771c141d.f064fc",
@@ -1818,7 +1847,7 @@
         "retain": "",
         "broker": "de6f5fa4.d6bae",
         "x": 850,
-        "y": 1080,
+        "y": 500,
         "wires": []
     },
     {
@@ -1835,9 +1864,9 @@
         "randomFirst": "1",
         "randomLast": "5",
         "randomUnits": "seconds",
-        "drop": false,
+        "drop": true,
         "x": 700,
-        "y": 960,
+        "y": 380,
         "wires": [
             [
                 "c08ac584.009a38"
@@ -1854,7 +1883,7 @@
         "retain": "",
         "broker": "de6f5fa4.d6bae",
         "x": 850,
-        "y": 1000,
+        "y": 420,
         "wires": []
     },
     {
@@ -1867,7 +1896,7 @@
         "retain": "",
         "broker": "de6f5fa4.d6bae",
         "x": 850,
-        "y": 1040,
+        "y": 460,
         "wires": []
     },
     {
@@ -1880,7 +1909,7 @@
         "retain": "",
         "broker": "de6f5fa4.d6bae",
         "x": 850,
-        "y": 1120,
+        "y": 540,
         "wires": []
     },
     {
@@ -1893,7 +1922,7 @@
         "retain": "",
         "broker": "de6f5fa4.d6bae",
         "x": 850,
-        "y": 1160,
+        "y": 580,
         "wires": []
     },
     {
@@ -1906,7 +1935,7 @@
         "retain": "",
         "broker": "de6f5fa4.d6bae",
         "x": 840,
-        "y": 1200,
+        "y": 620,
         "wires": []
     },
     {
@@ -1919,7 +1948,7 @@
         "retain": "",
         "broker": "de6f5fa4.d6bae",
         "x": 850,
-        "y": 1240,
+        "y": 660,
         "wires": []
     },
     {
@@ -1932,7 +1961,7 @@
         "retain": "",
         "broker": "de6f5fa4.d6bae",
         "x": 850,
-        "y": 1280,
+        "y": 700,
         "wires": []
     },
     {
@@ -1945,7 +1974,7 @@
         "retain": "",
         "broker": "de6f5fa4.d6bae",
         "x": 850,
-        "y": 1320,
+        "y": 740,
         "wires": []
     },
     {
@@ -1958,7 +1987,7 @@
         "retain": "",
         "broker": "de6f5fa4.d6bae",
         "x": 850,
-        "y": 1360,
+        "y": 780,
         "wires": []
     },
     {
@@ -1971,7 +2000,7 @@
         "retain": "",
         "broker": "de6f5fa4.d6bae",
         "x": 850,
-        "y": 1400,
+        "y": 820,
         "wires": []
     },
     {
@@ -1980,7 +2009,7 @@
         "z": "fecacf27.dc262",
         "name": "",
         "x": 640,
-        "y": 1120,
+        "y": 540,
         "wires": [
             [
                 "d395f6f0.c632c8"
@@ -1993,7 +2022,7 @@
         "z": "fecacf27.dc262",
         "name": "",
         "x": 640,
-        "y": 1160,
+        "y": 580,
         "wires": [
             [
                 "1bfd2889.28a127"
@@ -2006,7 +2035,7 @@
         "z": "fecacf27.dc262",
         "name": "",
         "x": 640,
-        "y": 1200,
+        "y": 620,
         "wires": [
             [
                 "378bdda1.bc2002"
@@ -2019,7 +2048,7 @@
         "z": "fecacf27.dc262",
         "name": "",
         "x": 640,
-        "y": 1240,
+        "y": 660,
         "wires": [
             [
                 "157d51f7.22af5e"
@@ -2032,7 +2061,7 @@
         "z": "fecacf27.dc262",
         "name": "",
         "x": 640,
-        "y": 1280,
+        "y": 700,
         "wires": [
             [
                 "d1410028.078d5"
@@ -2045,7 +2074,7 @@
         "z": "fecacf27.dc262",
         "name": "",
         "x": 640,
-        "y": 1320,
+        "y": 740,
         "wires": [
             [
                 "8e21fba9.c51ae8"
@@ -2058,7 +2087,7 @@
         "z": "fecacf27.dc262",
         "name": "",
         "x": 640,
-        "y": 1360,
+        "y": 780,
         "wires": [
             [
                 "f43c1d77.2c03a"
@@ -2071,7 +2100,7 @@
         "z": "fecacf27.dc262",
         "name": "",
         "x": 640,
-        "y": 1400,
+        "y": 820,
         "wires": [
             [
                 "9f068553.d14cd8"
@@ -2084,7 +2113,7 @@
         "z": "fecacf27.dc262",
         "name": "",
         "x": 640,
-        "y": 1080,
+        "y": 500,
         "wires": [
             [
                 "6515c6bf.2834c8"
@@ -2097,7 +2126,7 @@
         "z": "fecacf27.dc262",
         "name": "",
         "x": 640,
-        "y": 1040,
+        "y": 460,
         "wires": [
             [
                 "f2ef62e4.e0e14"
@@ -2110,7 +2139,7 @@
         "z": "fecacf27.dc262",
         "name": "",
         "x": 640,
-        "y": 1000,
+        "y": 420,
         "wires": [
             [
                 "8c09cab9.97a3f8"
@@ -2127,7 +2156,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 390,
-        "y": 1500,
+        "y": 920,
         "wires": [
             [
                 "b36a82de.f20b6"
@@ -2147,7 +2176,7 @@
         "once": false,
         "onceDelay": 0.1,
         "x": 410,
-        "y": 1460,
+        "y": 880,
         "wires": [
             [
                 "bc80a89c.c51de8",
@@ -2174,7 +2203,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 558,
-        "y": 1499,
+        "y": 919,
         "wires": [
             []
         ]
@@ -2188,7 +2217,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 560,
-        "y": 1460,
+        "y": 880,
         "wires": [
             []
         ]
@@ -2202,7 +2231,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 580,
-        "y": 620,
+        "y": 40,
         "wires": [
             [
                 "ce55ba2a.4629d8",
@@ -2220,7 +2249,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 310,
-        "y": 620,
+        "y": 40,
         "wires": [
             [
                 "c64a9d3a.df7dc"
@@ -2236,7 +2265,7 @@
             "ce787ac7.1b2108"
         ],
         "x": 875,
-        "y": 620,
+        "y": 40,
         "wires": []
     },
     {
@@ -2260,13 +2289,15 @@
         "type": "function",
         "z": "adbd2cd3.b4f08",
         "name": "alarmOnByDigicode",
-        "func": "flow.set('alarm',msg.payload);\nreturn msg;\n",
+        "func": "if(flow.get(alarm))\n    flow.set('alarm',false);\nelse\n    flow.set('alarm',true);\n    \nmsg.payload=false;\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "x": 520,
         "y": 180,
         "wires": [
-            []
+            [
+                "1b9c91f5.48741e"
+            ]
         ]
     },
     {
@@ -2282,7 +2313,7 @@
         "once": false,
         "onceDelay": 0.1,
         "x": 230,
-        "y": 840,
+        "y": 260,
         "wires": [
             [
                 "b86f57f4.f84128"
@@ -2365,7 +2396,317 @@
         "tostatus": false,
         "complete": "false",
         "x": 792.1666717529297,
-        "y": 667.9999847412109,
+        "y": 87.99998474121094,
         "wires": []
+    },
+    {
+        "id": "8c1f303d.01871",
+        "type": "mqtt in",
+        "z": "d5e0c135.406e1",
+        "name": "interrup A1",
+        "topic": "/home/A/Input/bool/Interrupteur_Lumière_1",
+        "qos": "2",
+        "broker": "de6f5fa4.d6bae",
+        "x": 300,
+        "y": 20,
+        "wires": [
+            [
+                "aa7090c8.58841"
+            ]
+        ]
+    },
+    {
+        "id": "8a0aaa7b.e4dc98",
+        "type": "mqtt in",
+        "z": "d5e0c135.406e1",
+        "name": "interrup A2",
+        "topic": "/home/A/Input/bool/Interrupteur_Lumière_2",
+        "qos": "2",
+        "broker": "de6f5fa4.d6bae",
+        "x": 300,
+        "y": 60,
+        "wires": [
+            [
+                "aa7090c8.58841"
+            ]
+        ]
+    },
+    {
+        "id": "55bbef72.9848a",
+        "type": "mqtt in",
+        "z": "d5e0c135.406e1",
+        "name": "interrup A3",
+        "topic": "/home/A/Input/bool/Interrupteur_Lumière_3",
+        "qos": "2",
+        "broker": "de6f5fa4.d6bae",
+        "x": 300,
+        "y": 100,
+        "wires": [
+            [
+                "aa7090c8.58841"
+            ]
+        ]
+    },
+    {
+        "id": "aa7090c8.58841",
+        "type": "mqtt out",
+        "z": "d5e0c135.406e1",
+        "name": "lumiere A",
+        "topic": "/home/A/Output/bool/Lumières",
+        "qos": "",
+        "retain": "",
+        "broker": "c0717e03.4d126",
+        "x": 660,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "40b6efe5.5dd34",
+        "type": "mqtt in",
+        "z": "d5e0c135.406e1",
+        "name": "interrup B1",
+        "topic": "/home/B/Input/bool/Interrupteur_Lumière_1",
+        "qos": "2",
+        "broker": "de6f5fa4.d6bae",
+        "x": 300,
+        "y": 200,
+        "wires": [
+            [
+                "3b32188.84a74e8"
+            ]
+        ]
+    },
+    {
+        "id": "8f3e5fed.e7a5c",
+        "type": "mqtt in",
+        "z": "d5e0c135.406e1",
+        "name": "interrup B2",
+        "topic": "/home/B/Input/bool/Interrupteur_Lumière_2",
+        "qos": "2",
+        "broker": "de6f5fa4.d6bae",
+        "x": 300,
+        "y": 240,
+        "wires": [
+            [
+                "c8305d83.e9db7"
+            ]
+        ]
+    },
+    {
+        "id": "e612e74d.ca65b8",
+        "type": "mqtt out",
+        "z": "d5e0c135.406e1",
+        "name": "lumiere B1",
+        "topic": "/home/B/Output/bool/Lumières_1",
+        "qos": "",
+        "retain": "",
+        "broker": "c0717e03.4d126",
+        "x": 690,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "acaa12d7.e3d14",
+        "type": "mqtt out",
+        "z": "d5e0c135.406e1",
+        "name": "lumiere B2",
+        "topic": "/home/B/Output/bool/Lumières_2",
+        "qos": "",
+        "retain": "",
+        "broker": "c0717e03.4d126",
+        "x": 690,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "ab13c8c0.b9ef08",
+        "type": "mqtt in",
+        "z": "d5e0c135.406e1",
+        "name": "interrup C",
+        "topic": "/home/C/Input/bool/Interrupteur_Lumière",
+        "qos": "2",
+        "broker": "de6f5fa4.d6bae",
+        "x": 300,
+        "y": 340,
+        "wires": [
+            [
+                "c613f883.4e0988"
+            ]
+        ]
+    },
+    {
+        "id": "c613f883.4e0988",
+        "type": "mqtt out",
+        "z": "d5e0c135.406e1",
+        "name": "lumiere C",
+        "topic": "/home/C/Output/bool/Lumières",
+        "qos": "",
+        "retain": "",
+        "broker": "c0717e03.4d126",
+        "x": 640,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "935500ec.0f87e",
+        "type": "mqtt in",
+        "z": "d5e0c135.406e1",
+        "name": "interrup D1",
+        "topic": "/home/D/Input/bool/Interrupteur_Lumière_1",
+        "qos": "2",
+        "broker": "de6f5fa4.d6bae",
+        "x": 300,
+        "y": 440,
+        "wires": [
+            [
+                "65039e53.56c9d"
+            ]
+        ]
+    },
+    {
+        "id": "b3e35d93.47942",
+        "type": "mqtt in",
+        "z": "d5e0c135.406e1",
+        "name": "interrup D2",
+        "topic": "/home/D/Input/bool/Interrupteur_Lumière_2",
+        "qos": "2",
+        "broker": "de6f5fa4.d6bae",
+        "x": 300,
+        "y": 480,
+        "wires": [
+            [
+                "b45f440d.4a0868"
+            ]
+        ]
+    },
+    {
+        "id": "65039e53.56c9d",
+        "type": "mqtt out",
+        "z": "d5e0c135.406e1",
+        "name": "lumiere D1",
+        "topic": "/home/D/Output/bool/Lumières_1",
+        "qos": "",
+        "retain": "",
+        "broker": "c0717e03.4d126",
+        "x": 650,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "b45f440d.4a0868",
+        "type": "mqtt out",
+        "z": "d5e0c135.406e1",
+        "name": "lumiere D2",
+        "topic": "/home/D/Output/bool/Lumières_2",
+        "qos": "",
+        "retain": "",
+        "broker": "c0717e03.4d126",
+        "x": 650,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "f2d1d885.7fbfd8",
+        "type": "mqtt in",
+        "z": "d5e0c135.406e1",
+        "name": "interrup E",
+        "topic": "/home/E/Input/bool/Interrupteur_Lumière",
+        "qos": "2",
+        "broker": "de6f5fa4.d6bae",
+        "x": 300,
+        "y": 580,
+        "wires": [
+            [
+                "8914a94d.215b58"
+            ]
+        ]
+    },
+    {
+        "id": "8914a94d.215b58",
+        "type": "mqtt out",
+        "z": "d5e0c135.406e1",
+        "name": "lumiere E",
+        "topic": "/home/E/Output/bool/Lumières",
+        "qos": "",
+        "retain": "",
+        "broker": "c0717e03.4d126",
+        "x": 640,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "35cfa0ca.9cdfd",
+        "type": "mqtt in",
+        "z": "d5e0c135.406e1",
+        "name": "interrup G",
+        "topic": "/home/E/Input/bool/Interrupteur_Lumière",
+        "qos": "2",
+        "broker": "de6f5fa4.d6bae",
+        "x": 300,
+        "y": 680,
+        "wires": [
+            [
+                "20b9ad1c.62fdf2"
+            ]
+        ]
+    },
+    {
+        "id": "20b9ad1c.62fdf2",
+        "type": "mqtt out",
+        "z": "d5e0c135.406e1",
+        "name": "lumiere G",
+        "topic": "/home/E/Output/bool/Lumières",
+        "qos": "",
+        "retain": "",
+        "broker": "c0717e03.4d126",
+        "x": 640,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "3b32188.84a74e8",
+        "type": "delay",
+        "z": "d5e0c135.406e1",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "3",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 480,
+        "y": 200,
+        "wires": [
+            [
+                "e612e74d.ca65b8"
+            ]
+        ]
+    },
+    {
+        "id": "c8305d83.e9db7",
+        "type": "delay",
+        "z": "d5e0c135.406e1",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "3",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 480,
+        "y": 240,
+        "wires": [
+            [
+                "acaa12d7.e3d14"
+            ]
+        ]
     }
 ]
